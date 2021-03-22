@@ -1,18 +1,16 @@
-package dev.pitlor.rider_service_fabric_support.scaffold;
+package dev.pitlor.rider_service_fabric_support;
 
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import dev.pitlor.rider_service_fabric_support.models.PublishProfile;
-import dev.pitlor.rider_service_fabric_support.models.SFProject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ServiceFabricRunConfiguration extends RunConfigurationBase {
-	public SFProject sfProjFolder;
-	public PublishProfile publishProfile;
+public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfileState> {
+	public String sfProjFolder;
+	public String publishProfile;
 
 	protected ServiceFabricRunConfiguration(Project project, ConfigurationFactory factory, String name) {
 		super(project, factory, name);
@@ -32,9 +30,6 @@ public class ServiceFabricRunConfiguration extends RunConfigurationBase {
 	@Nullable
 	@Override
 	public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) {
-		return (_executor, programRunner) -> {
-			programRunner.execute(executionEnvironment);
-			return null;
-		};
+		return null;
 	}
 }

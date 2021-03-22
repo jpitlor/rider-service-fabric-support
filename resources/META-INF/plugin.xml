@@ -21,7 +21,7 @@
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="dev.pitlor.rider_service_fabric_support.scaffold.ServiceFabricRunConfigurationType" />
+    <configurationType implementation="dev.pitlor.rider_service_fabric_support.ServiceFabricRunConfigurationType" />
   </extensions>
 
   <actions>

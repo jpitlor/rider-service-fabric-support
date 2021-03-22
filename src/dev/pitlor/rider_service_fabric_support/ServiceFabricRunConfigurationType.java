@@ -1,4 +1,4 @@
-package dev.pitlor.rider_service_fabric_support.scaffold;
+package dev.pitlor.rider_service_fabric_support;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
