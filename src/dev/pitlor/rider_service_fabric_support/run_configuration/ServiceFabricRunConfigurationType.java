@@ -1,11 +1,11 @@
-package dev.pitlor.rider_service_fabric_support;
+package dev.pitlor.rider_service_fabric_support.run_configuration;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
+import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.net.URL;
 
 public class ServiceFabricRunConfigurationType implements ConfigurationType {
 	@NotNull
@@ -21,8 +21,7 @@ public class ServiceFabricRunConfigurationType implements ConfigurationType {
 
 	@Override
 	public Icon getIcon() {
-		URL url = getClass().getResource("/azure-service-fabric-logo.png");
-		return new ImageIcon(url);
+		return PluginIcons.ServiceFabricLogo;
 	}
 
 	@NotNull

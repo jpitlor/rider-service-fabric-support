@@ -14,14 +14,14 @@
   </change-notes>
 
   <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="173.0"/>
+  <idea-version since-build="203.3645.34" />
 
   <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="dev.pitlor.rider_service_fabric_support.ServiceFabricRunConfigurationType" />
+    <configurationType implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType" />
   </extensions>
 
   <actions>
