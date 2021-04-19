@@ -7,17 +7,17 @@ import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import dev.pitlor.rider_service_fabric_support.Bundle;
 import dev.pitlor.rider_service_fabric_support.settings.ServiceFabricSettingsEditor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfileState> {
-
 	public String sfProjFolder;
 	public String publishProfile;
 
-	protected ServiceFabricRunConfiguration(Project project, ConfigurationFactory factory, String name) {
-		super(project, factory, name);
+	protected ServiceFabricRunConfiguration(Project project, ConfigurationFactory factory) {
+		super(project, factory, Bundle.string("run_config.display_name"));
 	}
 
 	@NotNull

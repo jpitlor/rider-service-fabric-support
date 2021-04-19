@@ -12,6 +12,7 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.SwingHelper;
 import com.intellij.webcore.ui.PathShortener;
+import dev.pitlor.rider_service_fabric_support.Bundle;
 import dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfiguration;
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
 import org.jetbrains.annotations.NotNull;
@@ -30,8 +31,8 @@ public class ServiceFabricSettingsEditor extends SettingsEditor<ServiceFabricRun
 		publishProfile = makePublishProfileComboBox();
 		rootPanel = new FormBuilder()
 			.setAlignLabelOnRight(false)
-			.addLabeledComponent("Service Fabric project folder", sfprojFolder)
-			.addLabeledComponent("Publish profile", publishProfile)
+			.addLabeledComponent(Bundle.string("run_config.sf_project_folder.label"), sfprojFolder)
+			.addLabeledComponent(Bundle.string("run_config.publish_profile.label"), publishProfile)
 			.getPanel();
 	}
 
@@ -57,7 +58,7 @@ public class ServiceFabricSettingsEditor extends SettingsEditor<ServiceFabricRun
 		SwingHelper.installFileCompletionAndBrowseDialog(
 			project,
 			sfprojFolder,
-			"Service Fabric Project Folder",
+			Bundle.string("run_config.sf_project_folder.dialog_title"),
 			FileChooserDescriptorFactory.createSingleFolderDescriptor()
 		);
 

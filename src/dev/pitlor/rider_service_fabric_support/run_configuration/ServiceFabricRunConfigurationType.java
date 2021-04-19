@@ -2,6 +2,7 @@ package dev.pitlor.rider_service_fabric_support.run_configuration;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
+import dev.pitlor.rider_service_fabric_support.Bundle;
 import icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,12 +12,12 @@ public class ServiceFabricRunConfigurationType implements ConfigurationType {
 	@NotNull
 	@Override
 	public String getDisplayName() {
-		return "Service Fabric";
+		return Bundle.string("run_config.display_name");
 	}
 
 	@Override
 	public String getConfigurationTypeDescription() {
-		return "Deploy/Debug to a local Service Fabric cluster";
+		return Bundle.string("run_config.description");
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class ServiceFabricRunConfigurationType implements ConfigurationType {
 	@NotNull
 	@Override
 	public String getId() {
-		return "dev.pitlor.ServiceFabric";
+		return Bundle.string("run_config.id");
 	}
 
 	@Override
