@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class SfFileType extends LanguageFileType {
-	protected SfFileType() {
+public class ServiceFabricFileType extends LanguageFileType {
+	protected ServiceFabricFileType() {
 		super(XMLLanguage.INSTANCE);
 	}
 
