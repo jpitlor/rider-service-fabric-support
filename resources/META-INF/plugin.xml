@@ -21,7 +21,14 @@
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType" />
+    <configurationType
+        implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
+    />
+    <fileType
+        name="SfProj"
+        patterns="*.sfproj"
+        implementationClass="dev.pitlor.rider_service_fabric_support.file_types.SfFileType"
+    />
   </extensions>
 
   <actions>
