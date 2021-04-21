@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class ServiceFabricFileType extends LanguageFileType {
-	protected ServiceFabricFileType() {
+	public ServiceFabricFileType() {
 		super(XMLLanguage.INSTANCE);
 	}
 

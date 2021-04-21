@@ -8,7 +8,6 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import dev.pitlor.rider_service_fabric_support.Bundle;
-import dev.pitlor.rider_service_fabric_support.settings.ServiceFabricSettingsEditor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +22,7 @@ public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfi
 	@NotNull
 	@Override
 	public SettingsEditor<ServiceFabricRunConfiguration> getConfigurationEditor() {
-		return new ServiceFabricSettingsEditor(getProject());
+		return new ServiceFabricRunConfigurationEditor(getProject());
 	}
 
 	@Override
