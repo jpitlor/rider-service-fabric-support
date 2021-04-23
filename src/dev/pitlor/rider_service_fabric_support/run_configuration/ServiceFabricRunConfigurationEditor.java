@@ -30,7 +30,7 @@ public class ServiceFabricRunConfigurationEditor extends SettingsEditor<ServiceF
 
 	public ServiceFabricRunConfigurationEditor(Project project) {
 		sfprojFolder = new SfProjFolderTextField(project);
-		publishProfile = new PublishProfileComboBox(sfprojFolder);
+		publishProfile = new PublishProfileComboBox(sfprojFolder, project);
 		rootPanel = new FormBuilder()
 			.setAlignLabelOnRight(false)
 			.addLabeledComponent(Bundle.string("run_config.sf_project_folder.label"), sfprojFolder)
