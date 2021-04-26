@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfileState> {
-	public String sfProjFolder;
-	public String publishProfile;
+	public String sfProjFolder = "";
+	public String publishProfile = "";
 
 	protected ServiceFabricRunConfiguration(Project project, ConfigurationFactory factory) {
 		super(project, factory, Bundle.string("run_config.display_name"));

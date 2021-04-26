@@ -21,6 +21,9 @@
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
+    <runConfigurationProducer
+        implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"
+    />
     <configurationType
         implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
     />

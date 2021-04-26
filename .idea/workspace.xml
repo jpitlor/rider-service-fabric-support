@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="get rid of gradle again?">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rider-service-fabric-support.iml" afterDir="false" />
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="got the plugin runnable again">
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +306,8 @@
       <workItem from="1619010541035" duration="8049000" />
       <workItem from="1619117335114" duration="3402000" />
       <workItem from="1619183551241" duration="3937000" />
-      <workItem from="1619441822550" duration="5232000" />
+      <workItem from="1619441822550" duration="6141000" />
+      <workItem from="1619455548956" duration="1743000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -351,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619185934192</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="got the plugin runnable again">
+      <created>1619450107951</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619450107951</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,6 +393,7 @@
     <MESSAGE value="run config selecting projects works" />
     <MESSAGE value="working towards populating publish profiles" />
     <MESSAGE value="get rid of gradle again?" />
-    <option name="LAST_COMMIT_MESSAGE" value="get rid of gradle again?" />
+    <MESSAGE value="got the plugin runnable again" />
+    <option name="LAST_COMMIT_MESSAGE" value="got the plugin runnable again" />
   </component>
 </project>

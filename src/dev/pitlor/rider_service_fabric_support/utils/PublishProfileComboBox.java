@@ -2,6 +2,7 @@ package dev.pitlor.rider_service_fabric_support.utils;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 
 import javax.swing.*;
@@ -31,10 +32,12 @@ public class PublishProfileComboBox extends ComboBox<String> {
 			String selectedProject = textBox.getText(0, textBox.getLength());
 			VirtualFile selectedProjectFile = sfProjects
 				.stream()
-				.filter((VirtualFile p) -> p.getName().equals(selectedProject))
+				.filter((VirtualFile p) -> FileUtil.getLocationRelativeToUserHome(p.getPath(), false).equals(selectedProject))
 				.findFirst()
 				.orElseThrow();
-			this.setModel(new DefaultComboBoxModel<>(SFUtil.getPublishProfiles(selectedProjectFile)));
+			String[] publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile);
+			this.setModel(new DefaultComboBoxModel<>(publishProfiles));
+			this.setSelectedIndex(Utils.findIndex(publishProfiles, s -> s.contains("Local")));
 		} catch (Exception e) {
 			this.setModel(new DefaultComboBoxModel<>(new String[] {}));
 		}
