@@ -4,31 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="working towards populating publish profiles">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries-with-intellij-classes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/dev/pitlor/rider_service_fabric_support/Bundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/Bundle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/icons/PluginIcons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/icons/PluginIcons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/pluginIcon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/pluginIcon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sf-logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sf-logo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="get rid of gradle again?">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rider-service-fabric-support.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +99,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -246,7 +229,6 @@
       <module name="rider-service-fabric-support" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -ea" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <alternative-path path="Rider RD-211.6693.127" alternative-path-enabled="true" />
       <predefined_log_file enabled="true" id="idea.log" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -324,7 +306,8 @@
       <workItem from="1618942673497" duration="6472000" />
       <workItem from="1619010541035" duration="8049000" />
       <workItem from="1619117335114" duration="3402000" />
-      <workItem from="1619183551241" duration="690000" />
+      <workItem from="1619183551241" duration="3937000" />
+      <workItem from="1619441822550" duration="5232000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -361,11 +344,28 @@
       <option name="project" value="LOCAL" />
       <updated>1619183353786</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="get rid of gradle again?">
+      <created>1619185934192</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619185934192</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -385,17 +385,7 @@
     <MESSAGE value="add some settings classes" />
     <MESSAGE value="run config selecting projects works" />
     <MESSAGE value="working towards populating publish profiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="working towards populating publish profiles" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="get rid of gradle again?" />
+    <option name="LAST_COMMIT_MESSAGE" value="get rid of gradle again?" />
   </component>
 </project>
