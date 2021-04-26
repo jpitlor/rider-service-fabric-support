@@ -30,7 +30,7 @@ public class SFUtil {
 		}
 
 		return Arrays.stream(publishProfilesFolder.getChildren())
-			.map(VirtualFile::getName)
+			.map(VirtualFile::getNameWithoutExtension)
 			.toArray(String[]::new);
 	}
 }
