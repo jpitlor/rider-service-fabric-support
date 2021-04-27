@@ -4,15 +4,12 @@ import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.actions.RunConfigurationProducer;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import dev.pitlor.rider_service_fabric_support.Bundle;
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 public class ServiceFabricRunConfigurationProducer extends RunConfigurationProducer<ServiceFabricRunConfiguration> {
 	protected ServiceFabricRunConfigurationProducer() {
@@ -32,7 +29,7 @@ public class ServiceFabricRunConfigurationProducer extends RunConfigurationProdu
 
 		String[] publishProfiles = SFUtil.getPublishProfiles(folder);
 		runConfiguration.publishProfile = Arrays.stream(publishProfiles)
-			.filter(s -> s.toLowerCase().contains("local"))
+			.filter(s -> s.contains("Local"))
 			.findFirst()
 			.orElse(publishProfiles[0]);
 		return true;

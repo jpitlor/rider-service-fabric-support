@@ -3,7 +3,6 @@ package dev.pitlor.rider_service_fabric_support.run_configuration;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.RunConfigurationBase;
-import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
@@ -11,7 +10,7 @@ import dev.pitlor.rider_service_fabric_support.Bundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfileState> {
+public class ServiceFabricRunConfiguration extends RunConfigurationBase<ServiceFabricRunProfileState> {
 	public String sfProjFolder = "";
 	public String publishProfile = "";
 
@@ -25,14 +24,9 @@ public class ServiceFabricRunConfiguration extends RunConfigurationBase<RunProfi
 		return new ServiceFabricRunConfigurationEditor(getProject());
 	}
 
-	@Override
-	public void checkConfiguration() {
-
-	}
-
 	@Nullable
 	@Override
-	public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) {
-		return null;
+	public ServiceFabricRunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) {
+		return new ServiceFabricRunProfileState(executor, this);
 	}
 }
