@@ -10,21 +10,21 @@ import com.intellij.execution.process.KillableColoredProcessHandler;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessTerminatedListener;
 import com.intellij.execution.runners.ProgramRunner;
+import com.intellij.terminal.TerminalExecutionConsole;
 import dev.pitlor.rider_service_fabric_support.utils.ExecutionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ServiceFabricRunProfileState implements RunProfileState {
-	private final ExecutionType executionType;
 	private final ServiceFabricRunConfiguration configuration;
 
-	public ServiceFabricRunProfileState(Executor executor, ServiceFabricRunConfiguration configuration) {
-		this.executionType = ExecutionType.from(executor);
+	public ServiceFabricRunProfileState(ServiceFabricRunConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
 	@Override
 	public @Nullable ExecutionResult execute(Executor executor, @NotNull ProgramRunner<?> programRunner) throws ExecutionException {
+		ExecutionType executionType = ExecutionType.from(executor);
 		switch (executionType) {
 			case RUN:
 				return run();
@@ -36,18 +36,22 @@ public class ServiceFabricRunProfileState implements RunProfileState {
 	}
 
 	private ExecutionResult run() throws ExecutionException {
-		GeneralCommandLine commandLine = new GeneralCommandLine("cmd", "/c", "echo run");
+		GeneralCommandLine commandLine = new GeneralCommandLine("cmd", "/c", "echo run " + configuration.publishProfile);
 		OSProcessHandler processHandler = new KillableColoredProcessHandler.Silent(commandLine);
 		ProcessTerminatedListener.attach(processHandler);
 
-		return new DefaultExecutionResult(null, processHandler);
+		TerminalExecutionConsole consoleView = new TerminalExecutionConsole(configuration.getProject(), processHandler);
+
+		return new DefaultExecutionResult(consoleView, processHandler);
 	}
 
 	private ExecutionResult debug() throws ExecutionException {
-		GeneralCommandLine commandLine = new GeneralCommandLine("cmd", "/c", "echo debug");
+		GeneralCommandLine commandLine = new GeneralCommandLine("cmd", "/c", "echo debug " + configuration.publishProfile);
 		OSProcessHandler processHandler = new KillableColoredProcessHandler.Silent(commandLine);
 		ProcessTerminatedListener.attach(processHandler);
 
-		return new DefaultExecutionResult(null, processHandler);
+		TerminalExecutionConsole consoleView = new TerminalExecutionConsole(configuration.getProject(), processHandler);
+
+		return new DefaultExecutionResult(consoleView, processHandler);
 	}
 }

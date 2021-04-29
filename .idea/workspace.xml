@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="progress on breaking out into debug/run">
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramDebugger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramRunner.java" afterDir="false" />
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="add a debug config">
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricConsoleView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramDebugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramDebugger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,7 +325,9 @@
       <workItem from="1619527048894" duration="2755000" />
       <workItem from="1619546360463" duration="66000" />
       <workItem from="1619546463651" duration="623000" />
-      <workItem from="1619549006675" duration="2311000" />
+      <workItem from="1619549006675" duration="2325000" />
+      <workItem from="1619629213529" duration="1195000" />
+      <workItem from="1619639779770" duration="3944000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -396,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619553285581</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add a debug config">
+      <created>1619553775342</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619553775342</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,6 +445,7 @@
     <MESSAGE value="selecting a project now populates publish profiles" />
     <MESSAGE value="remove xml from publish profiles" />
     <MESSAGE value="progress on breaking out into debug/run" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress on breaking out into debug/run" />
+    <MESSAGE value="add a debug config" />
+    <option name="LAST_COMMIT_MESSAGE" value="add a debug config" />
   </component>
 </project>
