@@ -32,8 +32,4 @@ public class ServiceFabricRunConfiguration extends RunConfigurationBase<ServiceF
 	public ServiceFabricRunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) {
 		return new ServiceFabricRunProfileState(this);
 	}
-
-	public SMTRunnerConsoleProperties createConsoleProperties(Executor executor) {
-		return new SMTRunnerConsoleProperties(this, Bundle.string("program_runner.debug.id"), executor);
-	}
 }

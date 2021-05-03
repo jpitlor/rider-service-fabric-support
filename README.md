@@ -1,6 +1,6 @@
 TODO:
 
 - [ ] make it run
-- [ ] maybe remove .xml from profiles
-- [ ] how to prompt for administrator
+- [x] maybe remove .xml from profiles
+- [x] how to prompt for administrator
 - [ ] debugging
