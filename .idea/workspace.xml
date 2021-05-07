@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="got a console to show up">
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="prompts for restart with admin now">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Xml.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricConsoleView.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +111,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="openjdk-16" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -113,7 +120,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -121,6 +128,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jordan.pitlor\Code\rider-service-fabric-support\src\main" />
       <recent name="C:\Users\jordan.pitlor\Code\rider-service-fabric-support\src\main\resources" />
+    </key>
+    <key name="CreateBuilderDialog.RecentsKey">
+      <recent name="dev.pitlor.rider_service_fabric_support.run_configuration" />
     </key>
   </component>
   <component name="RunManager">
@@ -299,7 +309,12 @@
       <workItem from="1619786573592" duration="729000" />
       <workItem from="1619806041265" duration="1088000" />
       <workItem from="1620046101504" duration="34000" />
-      <workItem from="1620046176454" duration="370000" />
+      <workItem from="1620046176454" duration="1939000" />
+      <workItem from="1620052466557" duration="4068000" />
+      <workItem from="1620067812567" duration="1295000" />
+      <workItem from="1620241497879" duration="3729000" />
+      <workItem from="1620391258196" duration="809000" />
+      <workItem from="1620392113417" duration="2655000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -385,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619720809430</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="prompts for restart with admin now">
+      <created>1620046714788</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620046714789</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,6 +448,7 @@
     <MESSAGE value="progress on breaking out into debug/run" />
     <MESSAGE value="add a debug config" />
     <MESSAGE value="got a console to show up" />
-    <option name="LAST_COMMIT_MESSAGE" value="got a console to show up" />
+    <MESSAGE value="prompts for restart with admin now" />
+    <option name="LAST_COMMIT_MESSAGE" value="prompts for restart with admin now" />
   </component>
 </project>

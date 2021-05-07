@@ -2,8 +2,6 @@ package dev.pitlor.rider_service_fabric_support.utils;
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.TextFieldWithHistory;
 import com.intellij.ui.TextFieldWithHistoryWithBrowseButton;
 import com.intellij.util.containers.ContainerUtil;
@@ -26,11 +24,7 @@ public class SfProjFolderTextField extends TextFieldWithHistoryWithBrowseButton 
 
 		SwingHelper.addHistoryOnExpansion(textFieldWithHistory, () -> {
 			textFieldWithHistory.setHistory(Collections.emptyList());
-			List<VirtualFile> sfFolders = SFUtil.getSFFolders(project);
-			List<String> newFilePaths = ContainerUtil.map(sfFolders, folder -> {
-				String path = FileUtil.toSystemDependentName(folder.getPath());
-				return FileUtil.getLocationRelativeToUserHome(path, false);
-			});
+			List<String> newFilePaths = ContainerUtil.map(SFUtil.getSFFolders(project), Utils::getTildePath);
 			Collections.sort(newFilePaths);
 			return newFilePaths;
 		});

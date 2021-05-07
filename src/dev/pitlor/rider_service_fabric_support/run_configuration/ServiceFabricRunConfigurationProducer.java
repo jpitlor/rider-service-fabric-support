@@ -25,11 +25,11 @@ public class ServiceFabricRunConfigurationProducer extends RunConfigurationProdu
 		}
 
 		VirtualFile folder = ref.get().getContainingFile().getParent().getVirtualFile();
-		runConfiguration.sfProjFolder = folder.getPath();
+		runConfiguration.settings.sfProjFolder = folder;
 
-		String[] publishProfiles = SFUtil.getPublishProfiles(folder);
-		runConfiguration.publishProfile = Arrays.stream(publishProfiles)
-			.filter(s -> s.contains("Local"))
+		VirtualFile[] publishProfiles = SFUtil.getPublishProfiles(folder);
+		runConfiguration.settings.publishProfile = Arrays.stream(publishProfiles)
+			.filter(s -> s.getName().contains("Local"))
 			.findFirst()
 			.orElse(publishProfiles[0]);
 		return true;

@@ -7,7 +7,6 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +22,12 @@ public class SFUtil {
 			.collect(Collectors.toList());
 	}
 
-	public static String[] getPublishProfiles(VirtualFile sfFolder) {
+	public static VirtualFile[] getPublishProfiles(VirtualFile sfFolder) {
 		VirtualFile publishProfilesFolder = sfFolder.findChild("PublishProfiles");
 		if (publishProfilesFolder == null) {
-			return new String[] {};
+			return new VirtualFile[] {};
 		}
 
-		return Arrays.stream(publishProfilesFolder.getChildren())
-			.map(VirtualFile::getNameWithoutExtension)
-			.toArray(String[]::new);
+		return publishProfilesFolder.getChildren();
 	}
 }

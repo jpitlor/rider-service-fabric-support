@@ -7,10 +7,12 @@ import com.intellij.openapi.vfs.VirtualFile;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.text.Document;
+import java.awt.*;
 import java.util.List;
 
-public class PublishProfileComboBox extends ComboBox<String> {
+public class PublishProfileComboBox extends ComboBox<VirtualFile> {
 	private final List<VirtualFile> sfProjects;
 
 	public PublishProfileComboBox(SfProjFolderTextField sfProjFolderTextField, Project project) {
@@ -18,6 +20,7 @@ public class PublishProfileComboBox extends ComboBox<String> {
 		sfProjects = SFUtil.getSFFolders(project);
 
 		setMinimumAndPreferredWidth(1000);
+		setRenderer(new PublishProfileComboBoxRenderer());
 
 		sfProjFolderTextField
 			.getChildComponent()
@@ -35,11 +38,25 @@ public class PublishProfileComboBox extends ComboBox<String> {
 				.filter((VirtualFile p) -> FileUtil.getLocationRelativeToUserHome(p.getPath(), false).equals(selectedProject))
 				.findFirst()
 				.orElseThrow();
-			String[] publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile);
+			VirtualFile[] publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile);
 			this.setModel(new DefaultComboBoxModel<>(publishProfiles));
-			this.setSelectedIndex(Utils.findIndex(publishProfiles, s -> s.contains("Local")));
+			this.setSelectedIndex(Utils.findIndex(publishProfiles, s -> s.getName().contains("Local")));
 		} catch (Exception e) {
-			this.setModel(new DefaultComboBoxModel<>(new String[] {}));
+			this.setModel(new DefaultComboBoxModel<>(new VirtualFile[] {}));
+		}
+	}
+
+	private static final class PublishProfileComboBoxRenderer extends DefaultListCellRenderer {
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+			if (value instanceof VirtualFile) {
+				VirtualFile item = (VirtualFile) value;
+				setText(item.getNameWithoutExtension());
+			}
+
+			return this;
 		}
 	}
 }

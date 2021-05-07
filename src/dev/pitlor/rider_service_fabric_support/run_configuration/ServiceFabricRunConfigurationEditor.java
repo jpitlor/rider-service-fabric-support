@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.TextFieldWithHistory;
 import com.intellij.ui.TextFieldWithHistoryWithBrowseButton;
 import com.intellij.util.containers.ContainerUtil;
@@ -17,6 +18,7 @@ import dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRu
 import dev.pitlor.rider_service_fabric_support.utils.PublishProfileComboBox;
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
 import dev.pitlor.rider_service_fabric_support.utils.SfProjFolderTextField;
+import dev.pitlor.rider_service_fabric_support.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -40,14 +42,14 @@ public class ServiceFabricRunConfigurationEditor extends SettingsEditor<ServiceF
 
 	@Override
 	protected void resetEditorFrom(@NotNull ServiceFabricRunConfiguration runConfiguration) {
-		sfprojFolder.setText(runConfiguration.sfProjFolder);
-		publishProfile.setItem(runConfiguration.publishProfile);
+		sfprojFolder.setText(Utils.getTildePath(runConfiguration.settings.sfProjFolder));
+		publishProfile.setItem(runConfiguration.settings.publishProfile);
 	}
 
 	@Override
 	protected void applyEditorTo(@NotNull ServiceFabricRunConfiguration runConfiguration) {
-		runConfiguration.sfProjFolder = sfprojFolder.getText();
-		runConfiguration.publishProfile = publishProfile.getItem();
+		runConfiguration.settings.sfProjFolder = Utils.getFile(sfprojFolder.getText());
+		runConfiguration.settings.publishProfile = publishProfile.getItem();
 	}
 
 	@NotNull
