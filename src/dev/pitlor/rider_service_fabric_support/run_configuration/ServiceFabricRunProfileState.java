@@ -15,13 +15,20 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.terminal.TerminalExecutionConsole;
 import com.intellij.util.io.SuperUserStatus;
+import com.jetbrains.rd.ide.model.Solution;
+import com.jetbrains.rider.diagnostics.LogTraceScenarios;
+import com.jetbrains.rider.projectView.SolutionManager;
+import com.jetbrains.rider.projectView.views.solutionExplorer.rootProviders.SolutionRootProvider;
 import dev.pitlor.rider_service_fabric_support.Bundle;
 import dev.pitlor.rider_service_fabric_support.utils.ExecutionType;
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
 import dev.pitlor.rider_service_fabric_support.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class ServiceFabricRunProfileState implements RunProfileState {
 	private final ServiceFabricRunConfiguration configuration;
@@ -69,11 +76,27 @@ public class ServiceFabricRunProfileState implements RunProfileState {
 	private OSProcessHandler getProcess() throws ExecutionException {
 		VirtualFile scriptsFolder = Utils.getFile(configuration.settings.sfProjFolder, "Scripts");
 		String deployScriptPath = Utils.getFile(scriptsFolder, "Deploy-FabricApplication.ps1").getPath();
-
 		String publishProfilePath = configuration.settings.publishProfile.getPath();
+		String applicationPackagePath = Utils.getFile(Utils.getFile(configuration.settings.sfProjFolder, "pkg"), "debug").getPath();
 
-		String command = String.format("& { %s -PublishProfileFile %s }", deployScriptPath, publishProfilePath);
-		GeneralCommandLine commandLine = new GeneralCommandLine("powershell", "-Command", command);
+		String command = new StringJoiner(" ")
+			.add(String.format("'%s'", deployScriptPath))
+			.add(String.format("-PublishProfileFile '%s'", publishProfilePath))
+			.add(String.format("-ApplicationPackagePath '%s'", applicationPackagePath))
+			.add("-DeployOnly:$false")
+			.add("-UnregisterUnusedApplicationVersionsAfterUpgrade $false")
+			.add("-OverrideUpgradeBehavior 'None'")
+			.add("-OverwriteBehavior 'Always'")
+			.add("-SkipPackageValidation:$true")
+			.add("-ErrorAction Stop")
+			.toString();
+		GeneralCommandLine commandLine = new GeneralCommandLine(
+			"powershell",
+			"-NonInteractive",
+			"-NoProfile",
+			"-WindowStyle", "Hidden",
+			"-ExecutionPolicy", "Bypass",
+			"-Command", String.format(". %s", command));
 		OSProcessHandler processHandler = new KillableColoredProcessHandler.Silent(commandLine);
 		ProcessTerminatedListener.attach(processHandler);
 

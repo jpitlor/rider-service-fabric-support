@@ -5,6 +5,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
+import com.jetbrains.rider.ideaInterop.fileTypes.sln.SolutionFileType;
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType;
 
 import java.util.List;

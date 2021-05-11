@@ -1,12 +1,17 @@
 package dev.pitlor.rider_service_fabric_support.run_configuration;
 
+import com.intellij.execution.BeforeRunTask;
+import com.intellij.execution.RunManagerEx;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.project.Project;
+import com.jetbrains.rider.build.tasks.BuildSolutionBeforeRunTask;
 import dev.pitlor.rider_service_fabric_support.Bundle;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class ServiceFabricConfigurationFactory extends ConfigurationFactory {
 	protected ServiceFabricConfigurationFactory(ConfigurationType type) {
