@@ -1,98 +1,88 @@
-package dev.pitlor.rider_service_fabric_support.run_configuration;
+package dev.pitlor.rider_service_fabric_support.run_configuration
 
-import com.intellij.execution.DefaultExecutionResult;
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.ExecutionResult;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.configurations.RunProfileState;
-import com.intellij.execution.process.KillableColoredProcessHandler;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessTerminatedListener;
-import com.intellij.execution.runners.ProgramRunner;
-import com.intellij.openapi.application.ex.ApplicationManagerEx;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.terminal.TerminalExecutionConsole;
-import com.intellij.util.io.SuperUserStatus;
-import dev.pitlor.rider_service_fabric_support.Bundle;
-import dev.pitlor.rider_service_fabric_support.utils.ExecutionType;
-import dev.pitlor.rider_service_fabric_support.utils.Utils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.intellij.execution.DefaultExecutionResult
+import com.intellij.execution.ExecutionException
+import com.intellij.execution.ExecutionResult
+import com.intellij.execution.Executor
+import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.process.KillableColoredProcessHandler
+import com.intellij.execution.process.OSProcessHandler
+import com.intellij.execution.process.ProcessTerminatedListener
+import com.intellij.execution.runners.ProgramRunner
+import com.intellij.openapi.application.ex.ApplicationManagerEx
+import com.intellij.openapi.ui.Messages
+import com.intellij.terminal.TerminalExecutionConsole
+import com.intellij.util.io.SuperUserStatus.isSuperUser
+import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.utils.ExecutionType
+import dev.pitlor.rider_service_fabric_support.utils.Utils
+import java.util.*
 
-import java.util.StringJoiner;
+class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunConfiguration) : RunProfileState {
+    override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
+        if (!isSuperUser) {
+            val shouldRestart = Messages.showYesNoDialog(
+                Bundle.string("dialog.needs_sudo.content"),
+                Bundle.string("dialog.needs_sudo.title"),
+                null
+            )
+            if (shouldRestart == Messages.YES) {
+                ApplicationManagerEx.getApplicationEx().restart(false, true)
+            }
+            return null
+        }
 
-public class ServiceFabricRunProfileState implements RunProfileState {
-	private final ServiceFabricRunConfiguration configuration;
+        return when (ExecutionType.from(executor)) {
+            ExecutionType.RUN -> run()
+            ExecutionType.DEBUG -> debug()
+        }
+    }
 
-	public ServiceFabricRunProfileState(ServiceFabricRunConfiguration configuration) {
-		this.configuration = configuration;
-	}
+    private fun run(): ExecutionResult {
+        val processHandler = process
+        val consoleView = TerminalExecutionConsole(configuration.project, processHandler)
+        return DefaultExecutionResult(consoleView, processHandler)
+    }
 
-	@Override
-	public @Nullable ExecutionResult execute(Executor executor, @NotNull ProgramRunner<?> programRunner) throws ExecutionException {
-		if (!SuperUserStatus.isSuperUser()) {
-			int shouldRestart = Messages.showYesNoDialog(Bundle.string("dialog.needs_sudo.content"), Bundle.string("dialog.needs_sudo.title"), null);
-			if (shouldRestart == Messages.YES) {
-				ApplicationManagerEx.getApplicationEx().restart(false, true);
-			}
+    private fun debug(): ExecutionResult {
+        val processHandler = process
+        val consoleView = TerminalExecutionConsole(configuration.project, processHandler)
+        return DefaultExecutionResult(consoleView, processHandler)
+    }
 
-			return null;
-		}
-
-		ExecutionType executionType = ExecutionType.from(executor);
-		switch (executionType) {
-			case RUN:
-				return run();
-			case DEBUG:
-				return debug();
-			default:
-				return null;
-		}
-	}
-
-	private ExecutionResult run() throws ExecutionException {
-		OSProcessHandler processHandler = getProcess();
-		TerminalExecutionConsole consoleView = new TerminalExecutionConsole(configuration.getProject(), processHandler);
-
-		return new DefaultExecutionResult(consoleView, processHandler);
-	}
-
-	private ExecutionResult debug() throws ExecutionException {
-		OSProcessHandler processHandler = getProcess();
-		TerminalExecutionConsole consoleView = new TerminalExecutionConsole(configuration.getProject(), processHandler);
-
-		return new DefaultExecutionResult(consoleView, processHandler);
-	}
-
-	private OSProcessHandler getProcess() throws ExecutionException {
-		VirtualFile scriptsFolder = Utils.getFile(configuration.settings.sfProjFolder, "Scripts");
-		String deployScriptPath = Utils.getFile(scriptsFolder, "Deploy-FabricApplication.ps1").getPath();
-		String publishProfilePath = configuration.settings.publishProfile.getPath();
-		String applicationPackagePath = Utils.getFile(Utils.getFile(configuration.settings.sfProjFolder, "pkg"), "debug").getPath();
-
-		String command = new StringJoiner(" ")
-			.add(String.format("'%s'", deployScriptPath))
-			.add(String.format("-PublishProfileFile '%s'", publishProfilePath))
-			.add(String.format("-ApplicationPackagePath '%s'", applicationPackagePath))
-			.add("-DeployOnly:$false")
-			.add("-UnregisterUnusedApplicationVersionsAfterUpgrade $false")
-			.add("-OverrideUpgradeBehavior 'None'")
-			.add("-OverwriteBehavior 'Always'")
-			.add("-SkipPackageValidation:$true")
-			.add("-ErrorAction Stop")
-			.toString();
-		GeneralCommandLine commandLine = new GeneralCommandLine(
-			"powershell",
-			"-NonInteractive",
-			"-NoProfile",
-			"-WindowStyle", "Hidden",
-			"-ExecutionPolicy", "Bypass",
-			"-Command", String.format(". %s", command));
-		OSProcessHandler processHandler = new KillableColoredProcessHandler.Silent(commandLine);
-		ProcessTerminatedListener.attach(processHandler);
-
-		return processHandler;
-	}
+    private val process: OSProcessHandler
+        get() {
+            val scriptsFolder = Utils.getFile(configuration.settings!!.sfProjFolder, "Scripts")
+            val deployScriptPath = Utils.getFile(scriptsFolder, "Deploy-FabricApplication.ps1")!!
+                .path
+            val publishProfilePath = configuration.settings!!.publishProfile!!.path
+            val applicationPackagePath = Utils.getFile(
+                Utils.getFile(
+                    configuration.settings!!.sfProjFolder, "pkg"
+                ), "debug"
+            )!!.path
+            val command = StringJoiner(" ")
+                .add(String.format("'%s'", deployScriptPath))
+                .add(String.format("-PublishProfileFile '%s'", publishProfilePath))
+                .add(String.format("-ApplicationPackagePath '%s'", applicationPackagePath))
+                .add("-DeployOnly:\$false")
+                .add("-UnregisterUnusedApplicationVersionsAfterUpgrade \$false")
+                .add("-OverrideUpgradeBehavior 'None'")
+                .add("-OverwriteBehavior 'Always'")
+                .add("-SkipPackageValidation:\$true")
+                .add("-ErrorAction Stop")
+                .toString()
+            val commandLine = GeneralCommandLine(
+                "powershell",
+                "-NonInteractive",
+                "-NoProfile",
+                "-WindowStyle", "Hidden",
+                "-ExecutionPolicy", "Bypass",
+                "-Command", String.format(". %s", command)
+            )
+            val processHandler: OSProcessHandler = KillableColoredProcessHandler.Silent(commandLine)
+            ProcessTerminatedListener.attach(processHandler)
+            return processHandler
+        }
 }

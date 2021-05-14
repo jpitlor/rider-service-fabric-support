@@ -1,38 +1,29 @@
-package dev.pitlor.rider_service_fabric_support.run_configuration;
+package dev.pitlor.rider_service_fabric_support.run_configuration
 
-import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.ConfigurationType;
-import dev.pitlor.rider_service_fabric_support.Bundle;
-import icons.PluginIcons;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.ConfigurationType
+import dev.pitlor.rider_service_fabric_support.Bundle
+import icons.PluginIcons
+import javax.swing.Icon
 
-import javax.swing.*;
+class ServiceFabricRunConfigurationType : ConfigurationType {
+    override fun getDisplayName(): String {
+        return Bundle.string("run_config.display_name")
+    }
 
-public class ServiceFabricRunConfigurationType implements ConfigurationType {
-	@NotNull
-	@Override
-	public String getDisplayName() {
-		return Bundle.string("run_config.display_name");
-	}
+    override fun getConfigurationTypeDescription(): String {
+        return Bundle.string("run_config.description")
+    }
 
-	@Override
-	public String getConfigurationTypeDescription() {
-		return Bundle.string("run_config.description");
-	}
+    override fun getIcon(): Icon {
+        return PluginIcons.Companion.ServiceFabricLogo
+    }
 
-	@Override
-	public Icon getIcon() {
-		return PluginIcons.ServiceFabricLogo;
-	}
+    override fun getId(): String {
+        return Bundle.string("run_config.id")
+    }
 
-	@NotNull
-	@Override
-	public String getId() {
-		return Bundle.string("run_config.id");
-	}
-
-	@Override
-	public ConfigurationFactory[] getConfigurationFactories() {
-		return new ConfigurationFactory[]{new ServiceFabricConfigurationFactory(this)};
-	}
+    override fun getConfigurationFactories(): Array<ConfigurationFactory> {
+        return arrayOf(ServiceFabricConfigurationFactory(this))
+    }
 }

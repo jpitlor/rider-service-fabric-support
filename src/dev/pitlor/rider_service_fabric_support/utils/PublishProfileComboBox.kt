@@ -1,62 +1,73 @@
-package dev.pitlor.rider_service_fabric_support.utils;
+package dev.pitlor.rider_service_fabric_support.utils
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.util.io.FileUtil
+import com.intellij.openapi.vfs.VirtualFile
+import java.awt.Component
+import javax.swing.DefaultComboBoxModel
+import javax.swing.DefaultListCellRenderer
+import javax.swing.JList
+import javax.swing.event.DocumentEvent
+import javax.swing.event.DocumentListener
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
-import javax.swing.text.Document;
-import java.awt.*;
-import java.util.List;
+@FunctionalInterface
+class TextFieldChangeListener(private val onChange: (DocumentEvent) -> Unit) : DocumentListener {
+    override fun insertUpdate(e: DocumentEvent) {
+        onChange(e)
+    }
 
-public class PublishProfileComboBox extends ComboBox<VirtualFile> {
-	private final List<VirtualFile> sfProjects;
+    override fun removeUpdate(e: DocumentEvent) {
+        onChange(e)
+    }
 
-	public PublishProfileComboBox(SfProjFolderTextField sfProjFolderTextField, Project project) {
-		super();
-		sfProjects = SFUtil.getSFFolders(project);
+    override fun changedUpdate(e: DocumentEvent) {
+        onChange(e)
+    }
+}
 
-		setMinimumAndPreferredWidth(1000);
-		setRenderer(new PublishProfileComboBoxRenderer());
+class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, project: Project) : ComboBox<VirtualFile?>() {
+    private val sfProjects: List<VirtualFile> = SFUtil.getSFFolders(project)
 
-		sfProjFolderTextField
-			.getChildComponent()
-			.getTextEditor()
-			.getDocument()
-			.addDocumentListener((TextFieldChangeListener) this::onServiceFabricProjectSelected);
-	}
+    private fun onServiceFabricProjectSelected(event: DocumentEvent) {
+        try {
+            val textBox = event.document
+            val selectedProject = textBox.getText(0, textBox.length)
+            val selectedProjectFile = sfProjects
+                .toList()
+                .first { FileUtil.getLocationRelativeToUserHome(it.path, false) == selectedProject }
+            val publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile)
 
-	private void onServiceFabricProjectSelected(DocumentEvent event) {
-		try {
-			Document textBox = event.getDocument();
-			String selectedProject = textBox.getText(0, textBox.getLength());
-			VirtualFile selectedProjectFile = sfProjects
-				.stream()
-				.filter((VirtualFile p) -> FileUtil.getLocationRelativeToUserHome(p.getPath(), false).equals(selectedProject))
-				.findFirst()
-				.orElseThrow();
-			VirtualFile[] publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile);
-			this.setModel(new DefaultComboBoxModel<>(publishProfiles));
-			this.setSelectedIndex(Utils.findIndex(publishProfiles, s -> s.getName().contains("Local")));
-		} catch (Exception e) {
-			this.setModel(new DefaultComboBoxModel<>(new VirtualFile[] {}));
-		}
-	}
+            this.model = DefaultComboBoxModel(publishProfiles)
+            this.selectedIndex = Utils.findIndex(publishProfiles) { name.contains("Local") }
+        } catch (e: Exception) {
+            this.model = DefaultComboBoxModel(arrayOf())
+        }
+    }
 
-	private static final class PublishProfileComboBoxRenderer extends DefaultListCellRenderer {
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    private class PublishProfileComboBoxRenderer : DefaultListCellRenderer() {
+        override fun getListCellRendererComponent(
+            list: JList<*>?,
+            value: Any,
+            index: Int,
+            isSelected: Boolean,
+            cellHasFocus: Boolean
+        ): Component {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus)
+            if (value is VirtualFile) {
+                text = value.nameWithoutExtension
+            }
+            return this
+        }
+    }
 
-			if (value instanceof VirtualFile) {
-				VirtualFile item = (VirtualFile) value;
-				setText(item.getNameWithoutExtension());
-			}
-
-			return this;
-		}
-	}
+    init {
+        setMinimumAndPreferredWidth(1000)
+        setRenderer(PublishProfileComboBoxRenderer())
+        sfProjFolderTextField
+            .childComponent
+            .textEditor
+            .document
+            .addDocumentListener(TextFieldChangeListener(this::onServiceFabricProjectSelected))
+    }
 }

@@ -1,9 +1,9 @@
-package icons;
+package icons
 
-import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.util.IconLoader
 
-import javax.swing.*;
-
-public interface PluginIcons {
-	Icon ServiceFabricLogo = IconLoader.getIcon("/sf-logo.svg", PluginIcons.class);
+interface PluginIcons {
+    companion object {
+        val ServiceFabricLogo = IconLoader.getIcon("/sf-logo.svg", PluginIcons::class.java)
+    }
 }

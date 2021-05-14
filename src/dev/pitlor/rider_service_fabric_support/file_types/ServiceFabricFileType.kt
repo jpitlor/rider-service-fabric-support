@@ -1,38 +1,25 @@
-package dev.pitlor.rider_service_fabric_support.file_types;
+package dev.pitlor.rider_service_fabric_support.file_types
 
-import com.intellij.lang.xml.XMLLanguage;
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import dev.pitlor.rider_service_fabric_support.Bundle;
-import icons.PluginIcons;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.lang.xml.XMLLanguage
+import com.intellij.openapi.fileTypes.LanguageFileType
+import dev.pitlor.rider_service_fabric_support.Bundle
+import icons.PluginIcons
+import javax.swing.Icon
 
-import javax.swing.*;
+class ServiceFabricFileType : LanguageFileType(XMLLanguage.INSTANCE) {
+    override fun getName(): String {
+        return Bundle.string("file_type.name")
+    }
 
-public class ServiceFabricFileType extends LanguageFileType {
-	public ServiceFabricFileType() {
-		super(XMLLanguage.INSTANCE);
-	}
+    override fun getDescription(): String {
+        return Bundle.string("file_type.description")
+    }
 
-	@NotNull
-	@Override
-	public String getName() {
-		return Bundle.string("file_type.name");
-	}
+    override fun getDefaultExtension(): String {
+        return Bundle.string("file_type.extension")
+    }
 
-	@NotNull
-	@Override
-	public String getDescription() {
-		return Bundle.string("file_type.description");
-	}
-
-	@NotNull
-	@Override
-	public String getDefaultExtension() {
-		return Bundle.string("file_type.extension");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return PluginIcons.ServiceFabricLogo;
-	}
+    override fun getIcon(): Icon {
+        return PluginIcons.ServiceFabricLogo
+    }
 }

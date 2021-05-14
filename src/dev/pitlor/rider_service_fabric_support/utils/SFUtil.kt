@@ -1,33 +1,24 @@
-package dev.pitlor.rider_service_fabric_support.utils;
+package dev.pitlor.rider_service_fabric_support.utils
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.search.FileTypeIndex;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.ProjectScope;
-import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType;
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.search.FileTypeIndex
+import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.search.ProjectScope
+import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType
 
-import java.util.List;
-import java.util.stream.Collectors;
+object SFUtil {
+    fun getSFFolders(project: Project?): List<VirtualFile> {
+        val scope = ProjectScope
+            .getContentScope(project!!)
+            .intersectWith(GlobalSearchScope.notScope(ProjectScope.getLibrariesScope(project)))
+        return FileTypeIndex.getFiles(ServiceFabricFileType(), scope)
+            .toList()
+            .filter { file: VirtualFile? -> file != null && file.isValid }
+            .map { obj: VirtualFile -> obj.parent }
+    }
 
-public class SFUtil {
-	public static List<VirtualFile> getSFFolders(Project project) {
-		GlobalSearchScope scope = ProjectScope
-			.getContentScope(project)
-			.intersectWith(GlobalSearchScope.notScope(ProjectScope.getLibrariesScope(project)));
-		return FileTypeIndex.getFiles(new ServiceFabricFileType(), scope)
-			.stream()
-			.filter((file) -> file != null && file.isValid())
-			.map(VirtualFile::getParent)
-			.collect(Collectors.toList());
-	}
-
-	public static VirtualFile[] getPublishProfiles(VirtualFile sfFolder) {
-		VirtualFile publishProfilesFolder = sfFolder.findChild("PublishProfiles");
-		if (publishProfilesFolder == null) {
-			return new VirtualFile[] {};
-		}
-
-		return publishProfilesFolder.getChildren();
-	}
+    fun getPublishProfiles(sfFolder: VirtualFile): Array<VirtualFile> {
+        return sfFolder.findChild("PublishProfiles")?.children ?: arrayOf()
+    }
 }

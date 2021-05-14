@@ -1,42 +1,41 @@
-package dev.pitlor.rider_service_fabric_support.run_configuration;
+package dev.pitlor.rider_service_fabric_support.run_configuration
 
-import com.intellij.execution.actions.ConfigurationContext;
-import com.intellij.execution.actions.RunConfigurationProducer;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import dev.pitlor.rider_service_fabric_support.Bundle;
-import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.execution.actions.ConfigurationContext
+import com.intellij.execution.actions.RunConfigurationProducer
+import com.intellij.openapi.util.Ref
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
+import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 
-import java.util.Arrays;
+class ServiceFabricRunConfigurationProducer protected constructor() :
+    RunConfigurationProducer<ServiceFabricRunConfiguration>(false) {
+    override fun setupConfigurationFromContext(
+        runConfiguration: ServiceFabricRunConfiguration,
+        configurationContext: ConfigurationContext,
+        ref: Ref<PsiElement>
+    ): Boolean {
+        if (ref.isNull
+            || ref.get().containingFile.fileType.name != Bundle.string("file_type.name")
+            || ref.get().containingFile.parent == null
+        ) {
+            return false
+        }
 
-public class ServiceFabricRunConfigurationProducer extends RunConfigurationProducer<ServiceFabricRunConfiguration> {
-	protected ServiceFabricRunConfigurationProducer() {
-		super(false);
-	}
+        val folder = ref.get().containingFile.parent!!.virtualFile
+        runConfiguration.settings.sfProjFolder = folder
 
-	@Override
-	protected boolean setupConfigurationFromContext(@NotNull ServiceFabricRunConfiguration runConfiguration, @NotNull ConfigurationContext configurationContext, @NotNull Ref<PsiElement> ref) {
-		if (ref.isNull()
-			|| !ref.get().getContainingFile().getFileType().getName().equals(Bundle.string("file_type.name"))
-			|| ref.get().getContainingFile().getParent() == null) {
-			return false;
-		}
+        val publishProfiles = SFUtil.getPublishProfiles(folder).toList()
+        runConfiguration.settings.publishProfile =
+            publishProfiles.firstOrNull { s: VirtualFile -> s.name.contains("Local") }
+            ?: publishProfiles[0]
+        return true
+    }
 
-		VirtualFile folder = ref.get().getContainingFile().getParent().getVirtualFile();
-		runConfiguration.settings.sfProjFolder = folder;
-
-		VirtualFile[] publishProfiles = SFUtil.getPublishProfiles(folder);
-		runConfiguration.settings.publishProfile = Arrays.stream(publishProfiles)
-			.filter(s -> s.getName().contains("Local"))
-			.findFirst()
-			.orElse(publishProfiles[0]);
-		return true;
-	}
-
-	@Override
-	public boolean isConfigurationFromContext(@NotNull ServiceFabricRunConfiguration runConfiguration, @NotNull ConfigurationContext configurationContext) {
-		return false;
-	}
+    override fun isConfigurationFromContext(
+        runConfiguration: ServiceFabricRunConfiguration,
+        configurationContext: ConfigurationContext
+    ): Boolean {
+        return false
+    }
 }

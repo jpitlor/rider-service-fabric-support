@@ -1,52 +1,42 @@
-package dev.pitlor.rider_service_fabric_support.run_configuration;
+package dev.pitlor.rider_service_fabric_support.run_configuration
 
-import com.intellij.execution.BeforeRunTask;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.RunConfigurationBase;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.options.SettingsEditor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.InvalidDataException;
-import com.jetbrains.rider.build.tasks.BuildSolutionBeforeRunTask;
-import dev.pitlor.rider_service_fabric_support.Bundle;
-import dev.pitlor.rider_service_fabric_support.utils.Xml;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.intellij.execution.BeforeRunTask
+import com.intellij.execution.Executor
+import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.RunConfigurationBase
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.openapi.options.SettingsEditor
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.InvalidDataException
+import com.jetbrains.rider.build.tasks.BuildSolutionBeforeRunTask
+import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.utils.Xml
+import org.jdom.Element
 
-import java.util.Collections;
+class ServiceFabricRunConfiguration(project: Project, factory: ConfigurationFactory) :
+    RunConfigurationBase<ServiceFabricRunProfileState?>(project, factory, Bundle.string("run_config.display_name"))
+{
+    var settings: ServiceFabricRunConfigurationSettings = ServiceFabricRunConfigurationSettings()
 
-public class ServiceFabricRunConfiguration extends RunConfigurationBase<ServiceFabricRunProfileState> {
-	public ServiceFabricRunConfigurationSettings settings = new ServiceFabricRunConfigurationSettings();
+    override fun getConfigurationEditor(): SettingsEditor<ServiceFabricRunConfiguration> {
+        return ServiceFabricRunConfigurationEditor(project)
+    }
 
-	protected ServiceFabricRunConfiguration(Project project, ConfigurationFactory factory) {
-		super(project, factory, Bundle.string("run_config.display_name"));
+    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): ServiceFabricRunProfileState {
+        return ServiceFabricRunProfileState(this)
+    }
 
-		BeforeRunTask<BuildSolutionBeforeRunTask> buildFirstTask = new BuildSolutionBeforeRunTask();
-		buildFirstTask.setEnabled(true);
-		setBeforeRunTasks(Collections.singletonList(buildFirstTask));
-	}
+    override fun readExternal(element: Element) {
+        settings = Xml.read(element)
+    }
 
-	@NotNull
-	@Override
-	public SettingsEditor<ServiceFabricRunConfiguration> getConfigurationEditor() {
-		return new ServiceFabricRunConfigurationEditor(getProject());
-	}
+    override fun writeExternal(element: Element) {
+        Xml.write(element, settings)
+    }
 
-	@Nullable
-	@Override
-	public ServiceFabricRunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) {
-		return new ServiceFabricRunProfileState(this);
-	}
-
-	@Override
-	public void readExternal(@NotNull Element element) throws InvalidDataException {
-		this.settings = Xml.read(element);
-	}
-
-	@Override
-	public void writeExternal(@NotNull Element element) {
-		Xml.write(element, settings);
-	}
+    init {
+        val buildFirstTask: BeforeRunTask<BuildSolutionBeforeRunTask> = BuildSolutionBeforeRunTask()
+        buildFirstTask.isEnabled = true
+        beforeRunTasks = listOf(buildFirstTask)
+    }
 }
