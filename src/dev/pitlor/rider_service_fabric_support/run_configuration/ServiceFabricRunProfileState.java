@@ -15,19 +15,12 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.terminal.TerminalExecutionConsole;
 import com.intellij.util.io.SuperUserStatus;
-import com.jetbrains.rd.ide.model.Solution;
-import com.jetbrains.rider.diagnostics.LogTraceScenarios;
-import com.jetbrains.rider.projectView.SolutionManager;
-import com.jetbrains.rider.projectView.views.solutionExplorer.rootProviders.SolutionRootProvider;
 import dev.pitlor.rider_service_fabric_support.Bundle;
 import dev.pitlor.rider_service_fabric_support.utils.ExecutionType;
-import dev.pitlor.rider_service_fabric_support.utils.SFUtil;
 import dev.pitlor.rider_service_fabric_support.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.StringJoiner;
 
 public class ServiceFabricRunProfileState implements RunProfileState {

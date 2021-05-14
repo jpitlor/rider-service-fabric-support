@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="things can execute! they dont work, but the paths are all right">
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="deploying works!">
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ManageCluster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/RemoveCluster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ResetCluster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/SetClusterNodes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ToggleClusterState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ViewLogs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" afterDir="false" />
     </list>
@@ -113,7 +118,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="openjdk-16" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Panabas-Deployment" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ConfigureAwaitChecker" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -355,7 +360,15 @@
       <workItem from="1620400973592" duration="605000" />
       <workItem from="1620657367896" duration="9502000" />
       <workItem from="1620741006638" duration="3073000" />
-      <workItem from="1620744144913" duration="358000" />
+      <workItem from="1620744144913" duration="540000" />
+      <workItem from="1620825942831" duration="1091000" />
+      <workItem from="1620829086019" duration="1143000" />
+      <workItem from="1620908667327" duration="2464000" />
+      <workItem from="1620914537485" duration="600000" />
+      <workItem from="1620924327913" duration="37000" />
+      <workItem from="1620924389856" duration="4208000" />
+      <workItem from="1620997463448" duration="605000" />
+      <workItem from="1621004115406" duration="895000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -455,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620395978819</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="deploying works!">
+      <created>1620744684534</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620744684534</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,6 +518,7 @@
     <MESSAGE value="got a console to show up" />
     <MESSAGE value="prompts for restart with admin now" />
     <MESSAGE value="things can execute! they dont work, but the paths are all right" />
-    <option name="LAST_COMMIT_MESSAGE" value="things can execute! they dont work, but the paths are all right" />
+    <MESSAGE value="deploying works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="deploying works!" />
   </component>
 </project>

@@ -33,6 +33,47 @@
     />
   </extensions>
 
-  <actions />
+<!--  <actions>-->
+<!--	  <group-->
+<!--		  id="dev.pitlor.rider_service_fabric_support.actions"-->
+<!--		  text="Service Fabric"-->
+<!--		  popup="true"-->
+<!--		  icon="PluginIcons.ServiceFabricLogo"-->
+<!--	  >-->
+<!--		  <add-to-group group-id="ToolsMenu" />-->
+<!--		  <action-->
+<!--			  id="dev.pitlor.rider_service_fabric_support.actions.ManageCluster"-->
+<!--			  class="dev.pitlor.rider_service_fabric_support.actions.ManageCluster"-->
+<!--			  text="Manage Cluster"-->
+<!--			  description="See the various applications on your local cluster"-->
+<!--		  />-->
+<!--		  <action-->
+<!--			  id="dev.pitlor.rider_service_fabric_support.actions.SetClusterNodes"-->
+<!--			  class="dev.pitlor.rider_service_fabric_support.actions.SetClusterNodes"-->
+<!--			  text="Set Cluster Node Count"-->
+<!--			  description="Change the number of nodes in your local cluster"-->
+<!--		  />-->
+<!--		  <separator />-->
+<!--		  <action-->
+<!--			  id="dev.pitlor.rider_service_fabric_support.actions.ResetCluster"-->
+<!--			  class="dev.pitlor.rider_service_fabric_support.actions.ResetCluster"-->
+<!--			  text="Reset Cluster"-->
+<!--			  description="Reset the local Service Fabric cluster"-->
+<!--		  />-->
+<!--		  <action-->
+<!--			  id="dev.pitlor.rider_service_fabric_support.actions.RemoveCluster"-->
+<!--			  class="dev.pitlor.rider_service_fabric_support.actions.RemoveCluster"-->
+<!--			  text="Remove Cluster"-->
+<!--			  description="Completely remove your local Service Fabric cluster"-->
+<!--		  />-->
+<!--		  <separator />-->
+<!--		  <action-->
+<!--			  id="dev.pitlor.rider_service_fabric_support.actions.ViewLogs"-->
+<!--			  class="dev.pitlor.rider_service_fabric_support.actions.ViewLogs"-->
+<!--			  text="View Logs"-->
+<!--			  description="View the logs for your local cluster"-->
+<!--		  />-->
+<!--	  </group>-->
+<!--  </actions>-->
 
 </idea-plugin>
