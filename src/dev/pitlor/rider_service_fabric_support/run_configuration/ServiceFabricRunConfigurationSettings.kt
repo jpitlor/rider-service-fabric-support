@@ -11,12 +11,12 @@ class ServiceFabricRunConfigurationSettings {
         var sfProjFolder: VirtualFile? = null
         var publishProfile: VirtualFile? = null
         fun withSfProjFolder(sfProjFolder: String?): Builder {
-            if (sfProjFolder != null) this.sfProjFolder = Utils.getFile(sfProjFolder)
+            if (sfProjFolder != null) this.sfProjFolder = Utils.findFile(sfProjFolder)
             return this
         }
 
         fun withPublishProfile(publishProfile: String?): Builder {
-            if (publishProfile != null) this.publishProfile = Utils.getFile(publishProfile)
+            if (publishProfile != null) this.publishProfile = Utils.findFile(publishProfile)
             return this
         }
 

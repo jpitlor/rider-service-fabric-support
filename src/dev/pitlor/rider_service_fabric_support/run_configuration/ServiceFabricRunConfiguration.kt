@@ -7,14 +7,13 @@ import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.InvalidDataException
 import com.jetbrains.rider.build.tasks.BuildSolutionBeforeRunTask
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.Xml
 import org.jdom.Element
 
 class ServiceFabricRunConfiguration(project: Project, factory: ConfigurationFactory) :
-    RunConfigurationBase<ServiceFabricRunProfileState?>(project, factory, Bundle.string("run_config.display_name"))
+    RunConfigurationBase<ServiceFabricRunProfileState>(project, factory, Bundle.string("run_config.display_name"))
 {
     var settings: ServiceFabricRunConfigurationSettings = ServiceFabricRunConfigurationSettings()
 

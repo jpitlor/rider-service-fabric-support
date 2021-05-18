@@ -7,6 +7,7 @@ import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.PublishProfileComboBox
 import dev.pitlor.rider_service_fabric_support.utils.SfProjFolderTextField
 import dev.pitlor.rider_service_fabric_support.utils.Utils
+import dev.pitlor.rider_service_fabric_support.utils.Utils.getTildePath
 import javax.swing.JComponent
 import javax.swing.JPanel
 
@@ -20,12 +21,12 @@ class ServiceFabricRunConfigurationEditor(project: Project) : SettingsEditor<Ser
         .panel
 
     override fun resetEditorFrom(runConfiguration: ServiceFabricRunConfiguration) {
-        sfprojFolder.text = Utils.getTildePath(runConfiguration.settings.sfProjFolder)
+        sfprojFolder.text = runConfiguration.settings.sfProjFolder.getTildePath()
         publishProfile.item = runConfiguration.settings.publishProfile
     }
 
     override fun applyEditorTo(runConfiguration: ServiceFabricRunConfiguration) {
-        runConfiguration.settings.sfProjFolder = Utils.getFile(sfprojFolder.text)
+        runConfiguration.settings.sfProjFolder = Utils.findFile(sfprojFolder.text)
         runConfiguration.settings.publishProfile = publishProfile.item
     }
 

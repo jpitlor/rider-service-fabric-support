@@ -4,58 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="add a bunch of actions for the future">
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/Bundle.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ManageCluster.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/RemoveCluster.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ResetCluster.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/SetClusterNodes.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ToggleClusterState.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ViewLogs.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/file_types/ServiceFabricFileType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramDebugger.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramRunner.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationSettings.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/ExecutionType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Xml.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/icons/PluginIcons.kt" afterDir="false" />
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="converted everything to kotlin!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/Bundle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ManageCluster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/RemoveCluster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ResetCluster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/SetClusterNodes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ToggleClusterState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/actions/ViewLogs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/file_types/ServiceFabricFileType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramDebugger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/program_runners/ServiceFabricProgramRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricConfigurationFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationSettings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/ExecutionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/TextFieldChangeListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Xml.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icons/PluginIcons.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfiguration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationProducer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationSettings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationSettings.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunProfileState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/Utils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -408,7 +368,11 @@
       <workItem from="1620924327913" duration="37000" />
       <workItem from="1620924389856" duration="4208000" />
       <workItem from="1620997463448" duration="605000" />
-      <workItem from="1621004115406" duration="4230000" />
+      <workItem from="1621004115406" duration="4404000" />
+      <workItem from="1621253631415" duration="19000" />
+      <workItem from="1621253681775" duration="374000" />
+      <workItem from="1621344369965" duration="39000" />
+      <workItem from="1621344446799" duration="1553000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -522,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621015072258</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="converted everything to kotlin!">
+      <created>1621022768474</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1621022768474</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,6 +538,7 @@
     <MESSAGE value="things can execute! they dont work, but the paths are all right" />
     <MESSAGE value="deploying works!" />
     <MESSAGE value="add a bunch of actions for the future" />
-    <option name="LAST_COMMIT_MESSAGE" value="add a bunch of actions for the future" />
+    <MESSAGE value="converted everything to kotlin!" />
+    <option name="LAST_COMMIT_MESSAGE" value="converted everything to kotlin!" />
   </component>
 </project>

@@ -3,10 +3,11 @@ package dev.pitlor.rider_service_fabric_support.utils
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.ui.TextFieldWithHistoryWithBrowseButton
-import com.intellij.util.containers.ContainerUtil
 import com.intellij.util.ui.SwingHelper
 import com.intellij.webcore.ui.PathShortener
 import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getSFFolders
+import dev.pitlor.rider_service_fabric_support.utils.Utils.getTildePath
 
 class SfProjFolderTextField(project: Project) : TextFieldWithHistoryWithBrowseButton() {
     init {
@@ -16,9 +17,10 @@ class SfProjFolderTextField(project: Project) : TextFieldWithHistoryWithBrowseBu
         PathShortener.enablePathShortening(childComponent.textEditor, null)
         SwingHelper.addHistoryOnExpansion(childComponent) {
             childComponent.history = emptyList()
-            val newFilePaths = ContainerUtil.map(SFUtil.getSFFolders(project), Utils::getTildePath)
-            newFilePaths.sort()
-            return@addHistoryOnExpansion newFilePaths
+            return@addHistoryOnExpansion project
+                .getSFFolders()
+                .map { it.getTildePath() }
+                .sorted()
         }
         SwingHelper.installFileCompletionAndBrowseDialog(
             project,

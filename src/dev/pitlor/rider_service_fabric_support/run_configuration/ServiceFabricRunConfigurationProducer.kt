@@ -8,8 +8,7 @@ import com.intellij.psi.PsiElement
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 
-class ServiceFabricRunConfigurationProducer protected constructor() :
-    RunConfigurationProducer<ServiceFabricRunConfiguration>(false) {
+class ServiceFabricRunConfigurationProducer : RunConfigurationProducer<ServiceFabricRunConfiguration>(false) {
     override fun setupConfigurationFromContext(
         runConfiguration: ServiceFabricRunConfiguration,
         configurationContext: ConfigurationContext,

@@ -4,6 +4,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getSFFolders
+import dev.pitlor.rider_service_fabric_support.utils.Utils.findIndex
 import java.awt.Component
 import javax.swing.DefaultComboBoxModel
 import javax.swing.DefaultListCellRenderer
@@ -27,7 +29,7 @@ class TextFieldChangeListener(private val onChange: (DocumentEvent) -> Unit) : D
 }
 
 class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, project: Project) : ComboBox<VirtualFile?>() {
-    private val sfProjects: List<VirtualFile> = SFUtil.getSFFolders(project)
+    private val sfProjects: List<VirtualFile> = project.getSFFolders()
 
     private fun onServiceFabricProjectSelected(event: DocumentEvent) {
         try {
@@ -39,7 +41,7 @@ class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, proje
             val publishProfiles = SFUtil.getPublishProfiles(selectedProjectFile)
 
             this.model = DefaultComboBoxModel(publishProfiles)
-            this.selectedIndex = Utils.findIndex(publishProfiles) { name.contains("Local") }
+            this.selectedIndex = publishProfiles.findIndex { it.name.contains("Local") }
         } catch (e: Exception) {
             this.model = DefaultComboBoxModel(arrayOf())
         }

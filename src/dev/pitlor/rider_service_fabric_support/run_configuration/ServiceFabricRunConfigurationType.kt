@@ -16,7 +16,7 @@ class ServiceFabricRunConfigurationType : ConfigurationType {
     }
 
     override fun getIcon(): Icon {
-        return PluginIcons.Companion.ServiceFabricLogo
+        return PluginIcons.ServiceFabricLogo
     }
 
     override fun getId(): String {
