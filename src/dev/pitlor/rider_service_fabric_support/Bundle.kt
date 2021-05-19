@@ -6,8 +6,12 @@ import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
 
 private const val BUNDLE: @NonNls String = "strings"
-object Bundle : DynamicBundle(BUNDLE) {
-    fun string(key: @PropertyKey(resourceBundle = BUNDLE) String, vararg params: Any?): @Nls String {
-        return INSTANCE.getMessage(key, *params)
+class Bundle : DynamicBundle(BUNDLE) {
+    companion object {
+        private val instance = Bundle()
+
+        fun string(key: @PropertyKey(resourceBundle = BUNDLE) String, vararg params: Any?): @Nls String {
+            return instance.getMessage(key, *params)
+        }
     }
 }

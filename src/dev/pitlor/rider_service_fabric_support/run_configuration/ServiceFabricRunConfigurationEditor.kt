@@ -4,8 +4,8 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.utils.PublishProfileComboBox
-import dev.pitlor.rider_service_fabric_support.utils.SfProjFolderTextField
+import dev.pitlor.rider_service_fabric_support.swing_components.PublishProfileComboBox
+import dev.pitlor.rider_service_fabric_support.swing_components.SfProjFolderTextField
 import dev.pitlor.rider_service_fabric_support.utils.Utils
 import dev.pitlor.rider_service_fabric_support.utils.Utils.getTildePath
 import javax.swing.JComponent

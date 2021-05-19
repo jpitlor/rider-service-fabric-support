@@ -1,9 +1,10 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.swing_components
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getSFFolders
 import dev.pitlor.rider_service_fabric_support.utils.Utils.findIndex
 import java.awt.Component
