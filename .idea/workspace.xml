@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="clean up some code">
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFPSUtil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sf-logo-grey.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerToolWindowFactory.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerTreeView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/Bundle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/Bundle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/run_configuration/ServiceFabricRunConfigurationEditor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PublishProfileComboBox.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/swing_components/PublishProfileComboBox.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SfProjFolderTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/swing_components/SfProjFolderTextField.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/icons/PluginIcons.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/icons/PluginIcons.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +116,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="openjdk-16" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ConfigureAwaitChecker" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -126,11 +126,14 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.postfix.templates" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jordan.pitlor\Code\rider-service-fabric-support\resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jordan.pitlor\Code\rider-service-fabric-support\src\dev\pitlor\rider_service_fabric_support\swing_components" />
       <recent name="C:\Users\jordan.pitlor\Code\rider-service-fabric-support\src\main" />
@@ -373,6 +376,8 @@
       <workItem from="1621344369965" duration="39000" />
       <workItem from="1621344446799" duration="4136000" />
       <workItem from="1621367452534" duration="3000" />
+      <workItem from="1621453321276" duration="752000" />
+      <workItem from="1621599909206" duration="13106000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -500,7 +505,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621346027988</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="clean up some code">
+      <created>1621453375155</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1621453375155</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
