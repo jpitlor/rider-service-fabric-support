@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.7.3'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+}
+
+group 'dev.pitlor'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2021.1.1'
+    type 'RD'
+}
+patchPluginXml {
+    changeNotes """
+      Initial release"""
+}
+test {
+    useJUnitPlatform()
+}
