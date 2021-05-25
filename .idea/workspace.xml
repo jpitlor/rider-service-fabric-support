@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="clean up some code">
-      <change afterPath="$PROJECT_DIR$/resources/sf-logo-grey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerToolWindowFactory.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerTreeView.kt" afterDir="false" />
+    <list default="true" id="05707d75-d755-4b0f-a7e3-e2003271e376" name="Default Changelist" comment="add some tree support for a tool panel">
+      <change afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/PSXml.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/strings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/strings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerToolWindowFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerToolWindowFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerTreeView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/tool_windows/ServiceFabricClusterManagerTreeView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFPSUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFPSUtil.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icons/PluginIcons.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/icons/PluginIcons.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +54,7 @@
         <option value="Enum" />
         <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -116,7 +115,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="openjdk-16" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/gs-spring-boot/complete" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -166,13 +165,6 @@
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,33 +172,6 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="main" />
       <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -377,7 +342,12 @@
       <workItem from="1621344446799" duration="4136000" />
       <workItem from="1621367452534" duration="3000" />
       <workItem from="1621453321276" duration="752000" />
-      <workItem from="1621599909206" duration="13106000" />
+      <workItem from="1621599909206" duration="15073000" />
+      <workItem from="1621858794864" duration="41000" />
+      <workItem from="1621858872411" duration="5480000" />
+      <workItem from="1621881418578" duration="4336000" />
+      <workItem from="1621945918343" duration="1334000" />
+      <workItem from="1621950029722" duration="426000" />
     </task>
     <task id="LOCAL-00001" summary="move to gradle project">
       <created>1618862381372</created>
@@ -512,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621453375155</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="add some tree support for a tool panel">
+      <created>1621616945774</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1621616945774</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,6 +536,18 @@
     <MESSAGE value="add a bunch of actions for the future" />
     <MESSAGE value="converted everything to kotlin!" />
     <MESSAGE value="clean up some code" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean up some code" />
+    <MESSAGE value="add some tree support for a tool panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="add some tree support for a tool panel" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/dev/pitlor/rider_service_fabric_support/utils/SFUtil.kt</url>
+          <line>40</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -6,11 +6,13 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.ProjectScope
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType
+import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.execute
+import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.toPsCli
 import java.util.*
 
-sealed class TreeNode
-data class ServiceFabricClusterTreeLeaf(val name: String) : TreeNode()
-data class ServiceFabricClusterTreeNode(val name: String, val children: List<TreeNode>) : TreeNode()
+sealed class TreeNode(val name: String)
+class ServiceFabricClusterTreeLeaf(name: String) : TreeNode(name)
+class ServiceFabricClusterTreeNode(name: String, val children: List<TreeNode>) : TreeNode(name)
 
 object SFUtil {
     fun Project.getSFFolders(): List<VirtualFile> {
@@ -31,20 +33,15 @@ object SFUtil {
         TODO()
     }
 
-    fun getApplicationsOnCluster(): TreeNode {
-        fun makeChildren(levels: Int): List<TreeNode> {
-            return (1..(3..8).random())
-                .map {
-                    if (levels <= 0) ServiceFabricClusterTreeLeaf(UUID.randomUUID().toString())
-                    else ServiceFabricClusterTreeNode(UUID.randomUUID().toString(), makeChildren(levels - 1))
-                }
-                .toList()
-        }
-
-        return ServiceFabricClusterTreeNode("root", makeChildren(4))
+    fun getApplicationsOnCluster(): ServiceFabricClusterTreeNode {
+        val cluster = String
+            .format("%s; %s", SFPSUtil.connectToCluster(), SFPSUtil.getApplicationTypes())
+            .toPsCli()
+            .execute()
+        return ServiceFabricClusterTreeNode("", listOf())
     }
 
-    fun getServicesOnCluster(applicationName: String): TreeNode {
+    fun getServicesOnCluster(applicationName: String): ServiceFabricClusterTreeNode {
         TODO()
     }
 }

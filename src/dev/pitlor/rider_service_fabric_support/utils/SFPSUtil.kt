@@ -1,6 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.utils
 
 import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.execution.util.ExecUtil
 import com.intellij.openapi.vfs.VirtualFile
 import java.util.*
 
@@ -12,8 +13,16 @@ object SFPSUtil {
             "-NoProfile",
             "-WindowStyle", "Hidden",
             "-ExecutionPolicy", "Bypass",
-            "-Command", String.format(". %s", this)
+            "-Command", String.format(". {%s}", this)
         )
+    }
+
+    fun GeneralCommandLine.execute(): List<Pair<String, String>> {
+        return ExecUtil
+            .execAndGetOutput(this)
+            .stdout
+            .split("\n")
+            .map { Pair(it.substringBefore(":").trim(), it.substringAfter(":").trim()) }
     }
 
     fun publishApplication(deployScript: VirtualFile, publishProfile: VirtualFile, applicationPackage: VirtualFile): String {
@@ -28,5 +37,13 @@ object SFPSUtil {
             .add("-SkipPackageValidation:\$true")
             .add("-ErrorAction Stop")
             .toString()
+    }
+
+    fun connectToCluster(): String {
+        return "Connect-ServiceFabricCluster"
+    }
+
+    fun getApplicationTypes(): String {
+        return "Get-ServiceFabricApplicationType"
     }
 }

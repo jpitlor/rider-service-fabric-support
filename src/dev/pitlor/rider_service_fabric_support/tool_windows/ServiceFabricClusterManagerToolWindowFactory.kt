@@ -11,7 +11,7 @@ class ServiceFabricClusterManagerToolWindowFactory : ToolWindowFactory {
         val content = ContentFactory.SERVICE
             .getInstance()
             .createContent(
-                ServiceFabricClusterManagerTreeView.Global(),
+                ServiceFabricClusterManagerSplitDetails.Global(),
                 Bundle.string("tool_window.title"),
                 false
             )
