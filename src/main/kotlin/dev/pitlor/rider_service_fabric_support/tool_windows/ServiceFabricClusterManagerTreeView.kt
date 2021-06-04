@@ -16,6 +16,10 @@ import javax.swing.event.TreeModelListener
 import javax.swing.tree.TreeModel
 import javax.swing.tree.TreePath
 
+sealed class TreeNode(val name: String)
+class ServiceFabricClusterTreeLeaf(name: String) : TreeNode(name)
+class ServiceFabricClusterTreeNode(name: String, val children: List<TreeNode>) : TreeNode(name)
+
 class ServiceFabricNodeDetailPane(node: ServiceFabricClusterTreeLeaf) : JTextField(node.name)
 
 class ServiceFabricClusterManagerSplitDetails(data: List<TreeNode>) : JBSplitter() {
@@ -38,12 +42,12 @@ class ServiceFabricClusterManagerSplitDetails(data: List<TreeNode>) : JBSplitter
     companion object {
         fun Global(): ServiceFabricClusterManagerSplitDetails {
             val cluster = SFUtil.getApplicationsOnCluster()
-            return ServiceFabricClusterManagerSplitDetails(cluster.children)
+            return ServiceFabricClusterManagerSplitDetails(cluster.map { ServiceFabricClusterTreeLeaf(it) })
         }
 
         fun Local(project: Project): ServiceFabricClusterManagerSplitDetails {
             val cluster = SFUtil.getServicesOnCluster(project.getApplicationName())
-            return ServiceFabricClusterManagerSplitDetails(cluster.children)
+            return ServiceFabricClusterManagerSplitDetails(listOf())
         }
     }
 }

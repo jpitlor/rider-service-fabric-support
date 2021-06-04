@@ -11,18 +11,20 @@ import java.util.*
 
 data class PSApi(val command: String, val resultName: String)
 
-fun ArrayList<PowershellElement>.getObject(command: PSApi): Any? {
-    return this.find {
-        when(it) {
-            is PSObject -> it.name == command.resultName || it.asString == command.resultName
-            is Primitive<*> -> it.name == command.resultName
-            is PSObjects -> false
-        }
-    }
+@Suppress("UNCHECKED_CAST")
+fun PSObjects.getResult(command: PSApi): PSObject? {
+    val result = objects.find { it is PSObject && it.asString == command.resultName }
+    return result as PSObject?
 }
 
-inline fun <reified T> ArrayList<Primitive<*>>.get(command: PSApi): T? {
-    val result = find { it.name == command.resultName }?.value
+@Suppress("UNCHECKED_CAST")
+fun PSObjects.getResults(command: PSApi): List<PSObject> {
+    val result = objects.filter { it is PSObject && it.asString == command.resultName }
+    return result as List<PSObject>
+}
+
+inline fun <reified T> List<Primitive<*>>.get(property: String): T? {
+    val result = find { it.name == property }?.value
     return if (result is T) result else null
 }
 
@@ -39,7 +41,7 @@ object SFPSUtil {
         )
     }
 
-    fun GeneralCommandLine.execute(): PowershellElement {
+    fun GeneralCommandLine.execute(): PSObjects {
         try {
             var output = ""
             ProgressManager
@@ -55,10 +57,10 @@ object SFPSUtil {
                 .createContext(xmlTypes, mapOf<Any, Any>())
                 .createUnmarshaller()
             unmarshaller.setProperty(MarshallerProperties.NAMESPACE_PREFIX_MAPPER, SFNamespacePrefixMapper())
-            return unmarshaller.unmarshal(StringReader(output)) as PowershellElement
+            return unmarshaller.unmarshal(StringReader(output)) as PSObjects
         } catch (e: Exception) {
             e.printStackTrace()
-            return PSEmpty()
+            return PSObjects()
         }
     }
 
@@ -81,10 +83,16 @@ object SFPSUtil {
     }
 
     fun connectToCluster(): PSApi {
-        return PSApi("Connect-ServiceFabricCluster -TimeoutSec 1", "")
+        return PSApi(
+            "Connect-ServiceFabricCluster -TimeoutSec 1",
+            "Microsoft.ServiceFabric.Powershell.ClusterConnection"
+        )
     }
 
     fun getApplicationTypes(): PSApi {
-        return PSApi("Get-ServiceFabricApplicationType", "")
+        return PSApi(
+            "Get-ServiceFabricApplicationType",
+            "System.Fabric.Query.ApplicationType"
+        )
     }
 }

@@ -10,10 +10,6 @@ import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.execute
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.toPsCli
 import java.util.*
 
-sealed class TreeNode(val name: String)
-class ServiceFabricClusterTreeLeaf(name: String) : TreeNode(name)
-class ServiceFabricClusterTreeNode(name: String, val children: List<TreeNode>) : TreeNode(name)
-
 object SFUtil {
     fun Project.getSFFolders(): List<VirtualFile> {
         val scope = ProjectScope
@@ -33,15 +29,18 @@ object SFUtil {
         TODO()
     }
 
-    fun getApplicationsOnCluster(): ServiceFabricClusterTreeNode {
+    fun getApplicationsOnCluster(): List<String> {
+        val connectToCluster = SFPSUtil.connectToCluster()
+        val getApplicationTypes = SFPSUtil.getApplicationTypes()
         val cluster = String
-            .format("%s; %s", SFPSUtil.connectToCluster(), SFPSUtil.getApplicationTypes())
+            .format("%s; %s", connectToCluster.command, getApplicationTypes.command)
             .toPsCli()
             .execute()
-        return ServiceFabricClusterTreeNode("", listOf())
+        val applicationTypes = cluster.getResults(getApplicationTypes)
+        return SFPSParse.applicationTypes(applicationTypes)
     }
 
-    fun getServicesOnCluster(applicationName: String): ServiceFabricClusterTreeNode {
+    fun getServicesOnCluster(applicationName: String): List<String> {
         TODO()
     }
 }

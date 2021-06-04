@@ -71,10 +71,10 @@ data class PSBoolean(
     @field:XmlValueExtension
     override var value: Boolean? = null
 ) : Primitive<Boolean>() {
-    override var name: String?
-        @get:XmlTransient
+    @Suppress("SuspiciousVarProperty")
+    @field:XmlAttribute(name = "thisAttributeDoesntExist")
+    override var name: String? = ""
         get() = innerName ?: outerName
-        set(value) {}
 }
 
 @XmlRootElement(name = "I64", namespace = "http://schemas.microsoft.com/powershell/2004/04")
