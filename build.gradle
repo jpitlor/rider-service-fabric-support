@@ -12,8 +12,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation'org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
