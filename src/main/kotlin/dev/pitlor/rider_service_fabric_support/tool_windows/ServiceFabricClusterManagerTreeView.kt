@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.JBSplitter
 import com.intellij.ui.components.JBList
 import com.intellij.ui.treeStructure.Tree
+import com.jetbrains.rd.ui.bedsl.dsl.toolbar
 import dev.pitlor.rider_service_fabric_support.utils.*
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getApplicationName
 import org.jdesktop.swingx.calendar.DateSelectionModel

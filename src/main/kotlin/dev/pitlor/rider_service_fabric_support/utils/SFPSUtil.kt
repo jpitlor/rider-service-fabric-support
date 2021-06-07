@@ -5,22 +5,27 @@ import com.intellij.execution.util.ExecUtil
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.eclipse.persistence.jaxb.JAXBContextFactory
-import org.eclipse.persistence.jaxb.MarshallerProperties
+import org.eclipse.persistence.jaxb.MarshallerProperties.NAMESPACE_PREFIX_MAPPER
 import java.io.StringReader
 import java.util.*
+import javax.xml.bind.Unmarshaller
 
-data class PSApi(val command: String, val resultName: String)
-
-@Suppress("UNCHECKED_CAST")
-fun PSObjects.getResult(command: PSApi): PSObject? {
-    val result = objects.find { it is PSObject && it.asString == command.resultName }
-    return result as PSObject?
+data class PSApi(val command: String, val resultName: String) {
+    override fun toString(): String {
+        return command
+    }
 }
 
-@Suppress("UNCHECKED_CAST")
+fun PSObjects.getResult(command: PSApi): PSObject? {
+    return objects
+        .filterIsInstance<PSObject>()
+        .find { it.asString == command.resultName }
+}
+
 fun PSObjects.getResults(command: PSApi): List<PSObject> {
-    val result = objects.filter { it is PSObject && it.asString == command.resultName }
-    return result as List<PSObject>
+    return objects
+        .filterIsInstance<PSObject>()
+        .filter { it.asString == command.resultName }
 }
 
 inline fun <reified T> List<Primitive<*>>.get(property: String): T? {
@@ -29,6 +34,14 @@ inline fun <reified T> List<Primitive<*>>.get(property: String): T? {
 }
 
 object SFPSUtil {
+    private val unmarshaller: Unmarshaller = JAXBContextFactory
+        .createContext(arrayOf(PSObjects::class.java), mapOf<Any, Any>())
+        .createUnmarshaller()
+
+    init {
+        unmarshaller.setProperty(NAMESPACE_PREFIX_MAPPER, SFNamespacePrefixMapper())
+    }
+
     fun String.toPsCli(): GeneralCommandLine {
         return GeneralCommandLine(
             "powershell",
@@ -53,10 +66,6 @@ object SFPSUtil {
                     // some sort of prologue on the first line - let's throw it out
                     output = out.substringAfter("\n")
                 }, "", false, null)
-            val unmarshaller = JAXBContextFactory
-                .createContext(xmlTypes, mapOf<Any, Any>())
-                .createUnmarshaller()
-            unmarshaller.setProperty(MarshallerProperties.NAMESPACE_PREFIX_MAPPER, SFNamespacePrefixMapper())
             return unmarshaller.unmarshal(StringReader(output)) as PSObjects
         } catch (e: Exception) {
             e.printStackTrace()

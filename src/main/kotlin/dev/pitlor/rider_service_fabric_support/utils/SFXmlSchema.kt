@@ -4,42 +4,41 @@ import org.eclipse.persistence.oxm.NamespacePrefixMapper
 import org.eclipse.persistence.oxm.annotations.XmlValueExtension
 import javax.xml.bind.annotation.*
 
+const val namespace = "http://schemas.microsoft.com/powershell/2004/04"
 
 @XmlTransient
 sealed class PowershellElement
 
-@XmlRootElement(name = "Objs", namespace = "http://schemas.microsoft.com/powershell/2004/04")
+@XmlRootElement(name = "Objs", namespace = namespace)
 data class PSObjects(
     @field:XmlElements(
-        XmlElement(type = PSObjects::class, name = "Objs", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSObject::class, name = "Obj", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSEmpty::class, name = "Nil", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSBoolean::class, name = "B", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSInteger::class, name = "I64", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSString::class, name = "S", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSTString::class, name = "TS", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSUri::class, name = "URI", namespace = "http://schemas.microsoft.com/powershell/2004/04")
+        XmlElement(type = PSObjects::class, name = "Objs", namespace = namespace),
+        XmlElement(type = PSObject::class, name = "Obj", namespace = namespace),
+        XmlElement(type = PSEmpty::class, name = "Nil", namespace = namespace),
+        XmlElement(type = PSBoolean::class, name = "B", namespace = namespace),
+        XmlElement(type = PSInteger::class, name = "I64", namespace = namespace),
+        XmlElement(type = PSString::class, name = "S", namespace = namespace),
+        XmlElement(type = PSTString::class, name = "TS", namespace = namespace),
+        XmlElement(type = PSUri::class, name = "URI", namespace = namespace)
     )
     var objects: ArrayList<PowershellElement> = arrayListOf()
 ) : PowershellElement()
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Obj", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSObject(
     @field:XmlAttribute(name = "N")
     var name: String? = null,
 
-    @field:XmlElement(name = "ToString", namespace = "http://schemas.microsoft.com/powershell/2004/04")
+    @field:XmlElement(name = "ToString", namespace = namespace)
     var asString: String? = null,
 
-    @field:XmlElementWrapper(name = "Props", namespace = "http://schemas.microsoft.com/powershell/2004/04")
+    @field:XmlElementWrapper(name = "Props", namespace = namespace)
     @field:XmlElements(
-        XmlElement(type = PSEmpty::class, name = "Nil", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSBoolean::class, name = "B", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSInteger::class, name = "I64", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSString::class, name = "S", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSTString::class, name = "TS", namespace = "http://schemas.microsoft.com/powershell/2004/04"),
-        XmlElement(type = PSUri::class, name = "URI", namespace = "http://schemas.microsoft.com/powershell/2004/04")
+        XmlElement(type = PSEmpty::class, name = "Nil", namespace = namespace),
+        XmlElement(type = PSBoolean::class, name = "B", namespace = namespace),
+        XmlElement(type = PSInteger::class, name = "I64", namespace = namespace),
+        XmlElement(type = PSString::class, name = "S", namespace = namespace),
+        XmlElement(type = PSTString::class, name = "TS", namespace = namespace),
+        XmlElement(type = PSUri::class, name = "URI", namespace = namespace)
     )
     var properties: ArrayList<Primitive<Any>> = arrayListOf()
 ) : PowershellElement()
@@ -50,7 +49,6 @@ sealed class Primitive<T> : PowershellElement() {
     abstract var value: T?
 }
 
-@XmlRootElement(name = "Nil", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSEmpty(
     @field:XmlAttribute(name = "N")
     override var name: String? = null
@@ -59,7 +57,6 @@ data class PSEmpty(
     override var value = null
 }
 
-@XmlRootElement(name = "B", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSBoolean(
     @field:XmlAttribute(name = "N")
     var innerName: String? = null,
@@ -77,7 +74,6 @@ data class PSBoolean(
         get() = innerName ?: outerName
 }
 
-@XmlRootElement(name = "I64", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSInteger(
     @field:XmlAttribute(name = "N")
     override var name: String? = null,
@@ -87,7 +83,6 @@ data class PSInteger(
     override var value: Int? = null
 ) : Primitive<Int>()
 
-@XmlRootElement(name = "S", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSString(
     @field:XmlAttribute(name = "N")
     override var name: String? = null,
@@ -97,7 +92,6 @@ data class PSString(
     override var value: String? = null
 ) : Primitive<String>()
 
-@XmlRootElement(name = "TS", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSTString(
     @field:XmlAttribute(name = "N")
     override var name: String? = null,
@@ -107,7 +101,6 @@ data class PSTString(
     override var value: String? = null
 ) : Primitive<String>()
 
-@XmlRootElement(name = "URI", namespace = "http://schemas.microsoft.com/powershell/2004/04")
 data class PSUri(
     @field:XmlAttribute(name = "N")
     override var name: String? = null,
@@ -117,21 +110,8 @@ data class PSUri(
     override var value: String? = null
 ) : Primitive<String>()
 
-val xmlTypes = arrayOf(
-    PowershellElement::class.java,
-    Primitive::class.java,
-    PSObjects::class.java,
-    PSObject::class.java,
-    PSEmpty::class.java,
-    PSBoolean::class.java,
-    PSInteger::class.java,
-    PSString::class.java,
-    PSTString::class.java,
-    PSUri::class.java
-)
-
 class SFNamespacePrefixMapper : NamespacePrefixMapper() {
-    override fun getPreferredPrefix(namespaceUri: String?, suggestion: String?, requirePrefix: Boolean): String {
+    override fun getPreferredPrefix(a: String?, b: String?, c: Boolean): String {
         return ""
     }
 }

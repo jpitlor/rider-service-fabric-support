@@ -33,7 +33,7 @@ object SFUtil {
         val connectToCluster = SFPSUtil.connectToCluster()
         val getApplicationTypes = SFPSUtil.getApplicationTypes()
         val cluster = String
-            .format("%s; %s", connectToCluster.command, getApplicationTypes.command)
+            .format("%s; %s", connectToCluster, getApplicationTypes)
             .toPsCli()
             .execute()
         val applicationTypes = cluster.getResults(getApplicationTypes)

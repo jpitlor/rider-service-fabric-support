@@ -41,43 +41,55 @@
 
   <actions>
 	  <group
-		  id="dev.pitlor.rider_service_fabric_support.actions"
+		  id="dev.pitlor.rider_service_fabric_support.ui_actions"
 		  text="Service Fabric"
 		  popup="true"
 		  icon="PluginIcons.ServiceFabricLogo"
 	  >
 		  <add-to-group group-id="ToolsMenu" />
 		  <action
-			  id="dev.pitlor.rider_service_fabric_support.actions.ManageCluster"
-			  class="dev.pitlor.rider_service_fabric_support.actions.ManageCluster"
+			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
+			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
 			  text="Manage Cluster"
 			  description="See the various applications on your local cluster"
 		  />
 		  <action
-			  id="dev.pitlor.rider_service_fabric_support.actions.SetClusterNodes"
-			  class="dev.pitlor.rider_service_fabric_support.actions.SetClusterNodes"
+			  id="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
+			  class="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
 			  text="Set Cluster Node Count"
 			  description="Change the number of nodes in your local cluster"
 		  />
 		  <separator />
 		  <action
-			  id="dev.pitlor.rider_service_fabric_support.actions.ResetCluster"
-			  class="dev.pitlor.rider_service_fabric_support.actions.ResetCluster"
+			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
+			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
 			  text="Reset Cluster"
 			  description="Reset the local Service Fabric cluster"
 		  />
 		  <action
-			  id="dev.pitlor.rider_service_fabric_support.actions.RemoveCluster"
-			  class="dev.pitlor.rider_service_fabric_support.actions.RemoveCluster"
+			  id="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
+			  class="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
 			  text="Remove Cluster"
 			  description="Completely remove your local Service Fabric cluster"
 		  />
 		  <separator />
 		  <action
-			  id="dev.pitlor.rider_service_fabric_support.actions.ViewLogs"
-			  class="dev.pitlor.rider_service_fabric_support.actions.ViewLogs"
+			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
+			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
 			  text="View Logs"
 			  description="View the logs for your local cluster"
+		  />
+	  </group>
+	  <group id="dev.pitlor.rider_service_fabric_support.toolbar_actions">
+		  <action
+			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
+			  class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
+			  icon="AllIcons.Process.ProgressPause"
+		  />
+		  <action
+			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
+			  class="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
+			  icon="AllIcons.Actions.Refresh"
 		  />
 	  </group>
   </actions>
