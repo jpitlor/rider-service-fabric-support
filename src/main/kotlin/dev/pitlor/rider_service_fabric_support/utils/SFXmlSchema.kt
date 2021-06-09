@@ -33,6 +33,7 @@ data class PSObject(
 
     @field:XmlElementWrapper(name = "Props", namespace = namespace)
     @field:XmlElements(
+        XmlElement(type = PSObject::class, name = "Obj", namespace = namespace),
         XmlElement(type = PSEmpty::class, name = "Nil", namespace = namespace),
         XmlElement(type = PSBoolean::class, name = "B", namespace = namespace),
         XmlElement(type = PSInteger::class, name = "I64", namespace = namespace),
@@ -40,7 +41,7 @@ data class PSObject(
         XmlElement(type = PSTString::class, name = "TS", namespace = namespace),
         XmlElement(type = PSUri::class, name = "URI", namespace = namespace)
     )
-    var properties: ArrayList<Primitive<Any>> = arrayListOf()
+    var properties: ArrayList<PowershellElement> = arrayListOf()
 ) : PowershellElement()
 
 @XmlTransient

@@ -5,13 +5,14 @@ import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
 import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerToolWindowPanel
 
-class ServiceFabricClusterManagerToolWindowFactory : ToolWindowFactory {
+class ClusterManagerToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val content = ContentFactory.SERVICE
             .getInstance()
             .createContent(
-                ServiceFabricClusterManagerToolWindowPanel(),
+                ClusterManagerToolWindowPanel(project),
                 Bundle.string("tool_window.title"),
                 false
             )

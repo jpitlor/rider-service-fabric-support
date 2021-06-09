@@ -6,9 +6,11 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.ProjectScope
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType
+import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeLeaf
+import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeNode
+import dev.pitlor.rider_service_fabric_support.swing_components.TreeNode
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.execute
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.toPsCli
-import java.util.*
 
 object SFUtil {
     fun Project.getSFFolders(): List<VirtualFile> {
@@ -25,22 +27,53 @@ object SFUtil {
         return sfFolder.findChild("PublishProfiles")?.children ?: arrayOf()
     }
 
-    fun Project.getApplicationName(): String {
-        TODO()
-    }
-
-    fun getApplicationsOnCluster(): List<String> {
-        val connectToCluster = SFPSUtil.connectToCluster()
-        val getApplicationTypes = SFPSUtil.getApplicationTypes()
+    fun getCluster(): Cluster {
         val cluster = String
-            .format("%s; %s", connectToCluster, getApplicationTypes)
+            .format("%s; %s", SFPSUtil.connectToCluster(), SFPSUtil.getApplicationTypes())
             .toPsCli()
             .execute()
-        val applicationTypes = cluster.getResults(getApplicationTypes)
-        return SFPSParse.applicationTypes(applicationTypes)
+        return SFPSParse.cluster(cluster)
     }
 
-    fun getServicesOnCluster(applicationName: String): List<String> {
-        TODO()
+    fun getInfrastructure(cluster: Cluster): List<TreeNode> {
+        return listOf()
+    }
+
+    fun getApplications(cluster: Cluster): List<TreeNode> {
+        return cluster.applicationsTypes.map { t ->
+            val applications = t.applications.map { a ->
+                val services = a.services.map { s ->
+                    val partitions = s.partitions.map { p ->
+                        val nodes = p.nodes.map { n ->
+                            ClusterTreeLeaf("${n.name} (${n.type})")
+                        }
+                        ClusterTreeNode(p.name, nodes)
+                    }
+                    ClusterTreeNode(s.name, partitions)
+                }
+                ClusterTreeNode(a.name, services)
+            }
+            ClusterTreeNode(t.name, applications)
+        }
+    }
+
+    fun getServices(project: Project): (Cluster) -> List<TreeNode> {
+        return {
+            val services = it
+                .applicationsTypes
+                .firstOrNull() { at -> at.name.contains(project.name) }
+                ?.applications
+                ?.firstOrNull()
+                ?.services
+            services?.map { s ->
+                val partitions = s.partitions.map { p ->
+                    val nodes = p.nodes.map { n ->
+                        ClusterTreeLeaf("${n.name} (${n.type})")
+                    }
+                    ClusterTreeNode(p.name, nodes)
+                }
+                ClusterTreeNode(s.name, partitions)
+            } ?: listOf()
+        }
     }
 }

@@ -32,10 +32,14 @@
         implementationClass="dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType"
     />
     <toolWindow
-	    factoryClass="dev.pitlor.rider_service_fabric_support.tool_windows.ServiceFabricClusterManagerToolWindowFactory"
+	    factoryClass="dev.pitlor.rider_service_fabric_support.tool_windows.ClusterManagerToolWindowFactory"
 	    id="Service Fabric"
 	    icon="PluginIcons.GreyServiceFabricLogo"
 	    anchor="bottom"
+    />
+    <projectService
+	    serviceInterface="dev.pitlor.rider_service_fabric_support.utils.ClusterRefreshTimer"
+	    serviceImplementation="dev.pitlor.rider_service_fabric_support.utils.ClusterRefreshTimerImpl"
     />
   </extensions>
 
@@ -84,7 +88,7 @@
 		  <action
 			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
 			  class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
-			  icon="AllIcons.Process.ProgressPause"
+			  icon="AllIcons.Actions.Pause"
 		  />
 		  <action
 			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"

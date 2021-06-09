@@ -2,6 +2,8 @@ package dev.pitlor.rider_service_fabric_support.utils
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.util.ExecUtil
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.eclipse.persistence.jaxb.JAXBContextFactory
@@ -9,6 +11,7 @@ import org.eclipse.persistence.jaxb.MarshallerProperties.NAMESPACE_PREFIX_MAPPER
 import java.io.StringReader
 import java.util.*
 import javax.xml.bind.Unmarshaller
+
 
 data class PSApi(val command: String, val resultName: String) {
     override fun toString(): String {
@@ -28,9 +31,15 @@ fun PSObjects.getResults(command: PSApi): List<PSObject> {
         .filter { it.asString == command.resultName }
 }
 
-inline fun <reified T> List<Primitive<*>>.get(property: String): T? {
-    val result = find { it.name == property }?.value
-    return if (result is T) result else null
+inline fun <reified T> List<PowershellElement>.get(property: String): T? {
+    val primitiveResult = filterIsInstance<Primitive<T>>()
+        .find { it.name == property }
+        ?.value
+    if (primitiveResult != null) return primitiveResult
+
+    // I'm trusting that anyone using the code (me) knows when what they want
+    // is a primitive or an object
+    return null
 }
 
 object SFPSUtil {
@@ -55,21 +64,19 @@ object SFPSUtil {
     }
 
     fun GeneralCommandLine.execute(): PSObjects {
-        try {
+        return try {
             var output = ""
-            ProgressManager
-                .getInstance()
-                .runProcessWithProgressSynchronously({
-                    val out = ExecUtil.execAndGetOutput(this).stdout
+            ProgressManager.getInstance().runProcessWithProgressSynchronously({
+                val out = ExecUtil.execAndGetOutput(this).stdout
 
-                    // For some reason when computing PS results this way, there is
-                    // some sort of prologue on the first line - let's throw it out
-                    output = out.substringAfter("\n")
-                }, "", false, null)
-            return unmarshaller.unmarshal(StringReader(output)) as PSObjects
+                // For some reason when computing PS results this way, there is
+                // some sort of prologue on the first line - let's throw it out
+                output = out.substringAfter("\n")
+            }, "Refreshing cluster", false, null)
+            unmarshaller.unmarshal(StringReader(output)) as PSObjects
         } catch (e: Exception) {
             e.printStackTrace()
-            return PSObjects()
+            PSObjects()
         }
     }
 
