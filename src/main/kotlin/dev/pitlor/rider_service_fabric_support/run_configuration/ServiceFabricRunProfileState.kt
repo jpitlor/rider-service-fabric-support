@@ -15,7 +15,7 @@ import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.ExecutionType
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil
-import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.toPsCli
+import dev.pitlor.rider_service_fabric_support.utils.toPsCli
 
 class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunConfiguration) : RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
@@ -59,7 +59,21 @@ class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunCo
             val applicationPackage = sfProjFolder.findFileByRelativePath("pkg/debug")
             require(deployScript != null && applicationPackage != null) { "Build scripts are missing"}
 
-            val commandLine = SFPSUtil.publishApplication(deployScript, publishProfile, applicationPackage).toPsCli()
+            val manifestContents = sfProjFolder
+                .findFileByRelativePath("ApplicationPackageRoot/ApplicationManifest.xml")
+                ?.contentsToByteArray()
+                ?.decodeToString()
+                ?: ""
+            val applicationType = Regex("ApplicationTypeName=\"(.*)\"")
+                .find(manifestContents)
+                ?.groupValues
+                ?.firstOrNull()
+                ?: ""
+            
+            val commandLine = listOf(
+                SFPSUtil.publishApplication(deployScript, publishProfile, applicationPackage),
+                SFPSUtil.getApplicationStatus(applicationType)
+            ).toPsCli()
             val processHandler = KillableColoredProcessHandler.Silent(commandLine)
             ProcessTerminatedListener.attach(processHandler)
             return processHandler

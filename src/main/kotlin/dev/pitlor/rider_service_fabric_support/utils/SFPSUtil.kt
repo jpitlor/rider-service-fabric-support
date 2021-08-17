@@ -2,8 +2,6 @@ package dev.pitlor.rider_service_fabric_support.utils
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.util.ExecUtil
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.eclipse.persistence.jaxb.JAXBContextFactory
@@ -12,11 +10,31 @@ import java.io.StringReader
 import java.util.*
 import javax.xml.bind.Unmarshaller
 
-
 data class PSApi(val command: String, val resultName: String) {
     override fun toString(): String {
         return command
     }
+}
+
+fun StringJoiner.add(strings: List<String>) {
+    strings.forEach { add(it) }
+}
+
+fun List<PSApi>.toPsCli(): GeneralCommandLine {
+    val command = StringJoiner("; ")
+        .add(SFPSUtil.connectToCluster().command)
+        .add(SFPSUtil.importStdLib())
+        .add(map { it.command })
+        .toString()
+    return GeneralCommandLine(
+        "powershell",
+        "-NonInteractive",
+        "-NoProfile",
+        "-WindowStyle", "Hidden",
+        "-ExecutionPolicy", "Bypass",
+        "-OutputFormat", "Xml",
+        "-Command", String.format(". {%s}", command)
+    )
 }
 
 fun PSObjects.getResult(command: PSApi): PSObject? {
@@ -51,18 +69,6 @@ object SFPSUtil {
         unmarshaller.setProperty(NAMESPACE_PREFIX_MAPPER, SFNamespacePrefixMapper())
     }
 
-    fun String.toPsCli(): GeneralCommandLine {
-        return GeneralCommandLine(
-            "powershell",
-            "-NonInteractive",
-            "-NoProfile",
-            "-WindowStyle", "Hidden",
-            "-ExecutionPolicy", "Bypass",
-            "-OutputFormat", "Xml",
-            "-Command", String.format(". {%s}", this)
-        )
-    }
-
     fun GeneralCommandLine.execute(): PSObjects {
         return try {
             var output = ""
@@ -84,31 +90,53 @@ object SFPSUtil {
         deployScript: VirtualFile,
         publishProfile: VirtualFile,
         applicationPackage: VirtualFile
-    ): String {
-        return StringJoiner(" ")
-            .add(String.format("'%s'", deployScript.path))
-            .add(String.format("-PublishProfileFile '%s'", publishProfile.path))
-            .add(String.format("-ApplicationPackagePath '%s'", applicationPackage.path))
-            .add("-DeployOnly:\$false")
-            .add("-UnregisterUnusedApplicationVersionsAfterUpgrade \$false")
-            .add("-OverrideUpgradeBehavior 'None'")
-            .add("-OverwriteBehavior 'Always'")
-            .add("-SkipPackageValidation:\$true")
-            .add("-ErrorAction Stop")
-            .toString()
+    ): PSApi {
+        return PSApi(
+            StringJoiner(" ")
+                .add(String.format("'%s'", deployScript.path))
+                .add(String.format("-PublishProfileFile '%s'", publishProfile.path))
+                .add(String.format("-ApplicationPackagePath '%s'", applicationPackage.path))
+                .add("-DeployOnly:\$false")
+                .add("-UnregisterUnusedApplicationVersionsAfterUpgrade \$false")
+                .add("-OverrideUpgradeBehavior 'None'")
+                .add("-OverwriteBehavior 'Always'")
+                .add("-SkipPackageValidation:\$true")
+                .add("-ErrorAction Stop")
+                .toString(),
+            ""
+        )
     }
 
     fun connectToCluster(): PSApi {
         return PSApi(
-            "Connect-ServiceFabricCluster -TimeoutSec 1",
+            StringJoiner(" ")
+                .add("Connect-ServiceFabricCluster")
+                .add("-TimeoutSec 5")
+                .add("-WarningAction:'SilentlyContinue'")
+                .toString(),
             "Microsoft.ServiceFabric.Powershell.ClusterConnection"
         )
+    }
+
+    fun importStdLib(): String {
+        return "Import-Module 'C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\PSModule\\ServiceFabricSDK\\ServiceFabricSDK.psm1'"
     }
 
     fun getApplicationTypes(): PSApi {
         return PSApi(
             "Get-ServiceFabricApplicationType",
             "System.Fabric.Query.ApplicationType"
+        )
+    }
+
+    fun getApplicationStatus(applicationType: String): PSApi {
+        return PSApi(
+            StringJoiner(" ")
+                .add("Get-ServiceFabricApplicationStatus")
+                .add("-ApplicationName 'fabric:/$applicationType'")
+                .add("-ErrorAction Stop")
+                .toString(),
+            ""
         )
     }
 }
