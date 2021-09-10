@@ -6,6 +6,7 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.ProjectScope
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType
+import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeLeaf
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeNode
 import dev.pitlor.rider_service_fabric_support.swing_components.TreeNode

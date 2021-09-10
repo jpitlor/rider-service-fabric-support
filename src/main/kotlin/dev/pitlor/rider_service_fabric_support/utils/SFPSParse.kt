@@ -1,5 +1,10 @@
 package dev.pitlor.rider_service_fabric_support.utils
 
+import dev.pitlor.rider_service_fabric_support.models.ApplicationType
+import dev.pitlor.rider_service_fabric_support.models.Cluster
+import dev.pitlor.rider_service_fabric_support.models.PSObject
+import dev.pitlor.rider_service_fabric_support.models.PSObjects
+
 object SFPSParse {
     fun applicationTypes(input: List<PSObject>): List<String> {
         return input.map {

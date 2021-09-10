@@ -1,101 +1,115 @@
 <idea-plugin>
-  <id>dev.pitlor.rider-service-fabric-support</id>
-  <name>Service Fabric for Rider</name>
-  <version>1.0</version>
-  <vendor email="jordan@pitlor.dev" url="https://www.pitlor.dev">Jordan Pitlor</vendor>
+	<id>dev.pitlor.rider-service-fabric-support</id>
+	<name>Service Fabric for Rider</name>
+	<version>1.0</version>
+	<vendor email="jordan@pitlor.dev" url="https://www.pitlor.dev">Jordan Pitlor</vendor>
 
-  <description><![CDATA[
+	<description><![CDATA[
       Adds support for deploying, removing, and debugging Azure Service Fabric applications to a local cluster
     ]]></description>
 
-  <change-notes><![CDATA[
+	<change-notes><![CDATA[
       Initial release
     ]]>
-  </change-notes>
+	</change-notes>
 
-  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="203.5981.155" />
+	<!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+	<idea-version since-build="203.5981.155" />
 
-  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
-  <depends>com.intellij.modules.platform</depends>
+	<!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+		 on how to target different products -->
+	<depends>com.intellij.modules.platform</depends>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <programRunner implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramDebugger" />
-    <programRunner implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramRunner" />
-    <runConfigurationProducer implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer" />
-    <configurationType implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType" />
-    <fileType
-        name="Service Fabric Configuration"
-        language="XML"
-        extensions="sfproj"
-        implementationClass="dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType"
-    />
-    <toolWindow
-	    factoryClass="dev.pitlor.rider_service_fabric_support.tool_windows.ClusterManagerToolWindowFactory"
-	    id="Service Fabric"
-	    icon="PluginIcons.GreyServiceFabricLogo"
-	    anchor="bottom"
-    />
-    <projectService
-	    serviceInterface="dev.pitlor.rider_service_fabric_support.utils.ClusterRefreshTimer"
-	    serviceImplementation="dev.pitlor.rider_service_fabric_support.utils.ClusterRefreshTimerImpl"
-    />
-  </extensions>
+	<extensions defaultExtensionNs="com.intellij">
+		<programRunner
+			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramDebugger"
+		/>
+		<programRunner
+			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramRunner"
+		/>
+		<runConfigurationProducer
+			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"
+		/>
+		<configurationType
+			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
+		/>
+		<fileType
+			name="Service Fabric Configuration"
+			language="XML"
+			extensions="sfproj"
+			implementationClass="dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType"
+		/>
+		<toolWindow
+			factoryClass="dev.pitlor.rider_service_fabric_support.tool_windows.ClusterManagerToolWindowFactory"
+			id="Service Fabric"
+			icon="PluginIcons.GreyServiceFabricLogo"
+			anchor="bottom"
+		/>
+		<projectService
+			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"
+			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"
+		/>
+		<applicationConfigurable
+			parentId="tools"
+			instance="dev.pitlor.rider_service_fabric_support.settings.ApplicationSettingsConfigurable"
+			id="dev.pitlor.rider_service_fabric_support.settings.ApplicationSettingsConfigurable"
+			displayName="Service Fabric"
+		/>
+	</extensions>
 
-  <actions>
-	  <group
-		  id="dev.pitlor.rider_service_fabric_support.ui_actions"
-		  text="Service Fabric"
-		  popup="true"
-		  icon="PluginIcons.ServiceFabricLogo"
-	  >
-		  <add-to-group group-id="ToolsMenu" />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
-			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
-			  text="Manage Cluster"
-			  description="See the various applications on your local cluster"
-		  />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
-			  class="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
-			  text="Set Cluster Node Count"
-			  description="Change the number of nodes in your local cluster"
-		  />
-		  <separator />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
-			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
-			  text="Reset Cluster"
-			  description="Reset the local Service Fabric cluster"
-		  />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
-			  class="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
-			  text="Remove Cluster"
-			  description="Completely remove your local Service Fabric cluster"
-		  />
-		  <separator />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
-			  class="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
-			  text="View Logs"
-			  description="View the logs for your local cluster"
-		  />
-	  </group>
-	  <group id="dev.pitlor.rider_service_fabric_support.toolbar_actions">
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
-			  class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
-			  icon="AllIcons.Actions.Pause"
-		  />
-		  <action
-			  id="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
-			  class="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
-			  icon="AllIcons.Actions.Refresh"
-		  />
-	  </group>
-  </actions>
+	<actions>
+		<group
+			id="dev.pitlor.rider_service_fabric_support.ui_actions"
+			text="Service Fabric"
+			popup="true"
+			icon="PluginIcons.ServiceFabricLogo"
+		>
+			<add-to-group group-id="ToolsMenu" />
+			<action
+				id="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
+				class="dev.pitlor.rider_service_fabric_support.ui_actions.ManageCluster"
+				text="Manage Cluster"
+				description="See the various applications on your local cluster"
+			/>
+			<action
+				id="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
+				class="dev.pitlor.rider_service_fabric_support.ui_actions.SetClusterNodes"
+				text="Set Cluster Node Count"
+				description="Change the number of nodes in your local cluster"
+			/>
+			<separator />
+			<action
+				id="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
+				class="dev.pitlor.rider_service_fabric_support.ui_actions.ResetCluster"
+				text="Reset Cluster"
+				description="Reset the local Service Fabric cluster"
+			/>
+			<action
+				id="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
+				class="dev.pitlor.rider_service_fabric_support.ui_actions.RemoveCluster"
+				text="Remove Cluster"
+				description="Completely remove your local Service Fabric cluster"
+			/>
+			<separator />
+			<action
+				id="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
+				class="dev.pitlor.rider_service_fabric_support.ui_actions.ViewLogs"
+				text="View Logs"
+				description="View the logs for your local cluster"
+			/>
+		</group>
+		<group id="dev.pitlor.rider_service_fabric_support.toolbar_actions">
+			<action
+				id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
+				class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
+				icon="AllIcons.Actions.Pause"
+			/>
+			<action
+				id="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
+				class="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
+				icon="AllIcons.Actions.Refresh"
+			/>
+		</group>
+	</actions>
 
 </idea-plugin>

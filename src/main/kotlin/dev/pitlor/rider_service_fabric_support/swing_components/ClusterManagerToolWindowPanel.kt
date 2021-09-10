@@ -7,7 +7,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.utils.ClusterRefreshTimer
+import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
 import org.jetbrains.annotations.NotNull
 import javax.swing.JTabbedPane
 

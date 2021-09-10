@@ -1,9 +1,11 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.services
 
 import com.intellij.openapi.project.Project
+import dev.pitlor.rider_service_fabric_support.interfaces.Action
+import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
-import kotlin.concurrent.scheduleAtFixedRate
 
 interface ClusterRefreshTimer {
     fun pause()

@@ -1,4 +1,4 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.models
 
 import com.intellij.execution.Executor
 import com.intellij.execution.executors.DefaultDebugExecutor

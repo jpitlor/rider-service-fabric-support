@@ -4,8 +4,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.JBSplitter
 import com.intellij.ui.components.JBList
 import com.intellij.util.messages.MessageBus
-import dev.pitlor.rider_service_fabric_support.utils.Cluster
-import dev.pitlor.rider_service_fabric_support.utils.ClusterAction
+import dev.pitlor.rider_service_fabric_support.models.Cluster
+import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import javax.swing.DefaultListModel
 import javax.swing.JPanel

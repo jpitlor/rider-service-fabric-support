@@ -13,7 +13,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.terminal.TerminalExecutionConsole
 import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.utils.ExecutionType
+import dev.pitlor.rider_service_fabric_support.models.ExecutionType
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil
 import dev.pitlor.rider_service_fabric_support.utils.toPsCli
 

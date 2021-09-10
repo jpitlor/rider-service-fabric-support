@@ -1,4 +1,4 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.models
 
 enum class NodeType { PrimaryReplica, SecondaryReplica, SingletonInstance }
 data class Node(

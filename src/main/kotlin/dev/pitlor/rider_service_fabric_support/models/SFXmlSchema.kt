@@ -1,4 +1,4 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.models
 
 import org.eclipse.persistence.oxm.NamespacePrefixMapper
 import org.eclipse.persistence.oxm.annotations.XmlValueExtension
