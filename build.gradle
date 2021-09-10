@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
     implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.2'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'

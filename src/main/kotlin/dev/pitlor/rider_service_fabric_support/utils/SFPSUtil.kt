@@ -5,11 +5,11 @@ import com.intellij.execution.util.ExecUtil
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.vfs.VirtualFile
 import dev.pitlor.rider_service_fabric_support.models.*
+import jakarta.xml.bind.Unmarshaller
 import org.eclipse.persistence.jaxb.JAXBContextFactory
 import org.eclipse.persistence.jaxb.MarshallerProperties.NAMESPACE_PREFIX_MAPPER
 import java.io.StringReader
 import java.util.*
-import javax.xml.bind.Unmarshaller
 
 data class PSApi(val command: String, val resultName: String) {
     override fun toString(): String {

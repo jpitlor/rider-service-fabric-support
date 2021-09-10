@@ -1,26 +1,30 @@
 package dev.pitlor.rider_service_fabric_support.models
 
-import com.intellij.util.xml.ConvertContext
-import com.intellij.util.xml.Converter
+import com.google.gson.Gson
+import com.intellij.util.xmlb.Converter
 
 data class ClusterConnectionProfile(
-    val nickname: String,
-    val host: String,
-    val port: Int,
-    val serverCertThumbprint: String,
-    val clientCertThumbprint: String
+    var nickname: String,
+    var host: String,
+    var port: Int,
+    var serverCertThumbprint: String,
+    var clientCertThumbprint: String
 ) {
     constructor(nickname: String, host: String, certThumbprint: String)
             : this(nickname, host, 19000, certThumbprint, certThumbprint)
+    constructor() : this("", "", 19000, "", "")
 }
 
 class ClusterConnectionProfileSerializationConverter() : Converter<List<ClusterConnectionProfile>>() {
-    override fun toString(profiles: List<ClusterConnectionProfile>?, context: ConvertContext?): String? {
-        if (profiles == null) return null
+    private val gson = Gson()
+    private val profileList = listOf<ClusterConnectionProfile>()
+
+    override fun toString(profiles: List<ClusterConnectionProfile>): String? {
+        return gson.toJson(profiles)
     }
 
-    override fun fromString(string: String?, context: ConvertContext?): List<ClusterConnectionProfile>? {
-        if (string == null) return null
+    override fun fromString(string: String): List<ClusterConnectionProfile>? {
+        return gson.fromJson(string, profileList::class.java)
     }
 
 }
