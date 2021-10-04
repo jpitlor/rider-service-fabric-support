@@ -15,7 +15,7 @@ import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfileSe
 )
 class SettingsState : PersistentStateComponent<SettingsState> {
     @OptionTag(converter = ClusterConnectionProfileSerializationConverter::class)
-    lateinit var connectionProfiles: List<ClusterConnectionProfile>
+    var connectionProfiles = listOf<ClusterConnectionProfile>()
 
     override fun getState(): SettingsState {
         return this

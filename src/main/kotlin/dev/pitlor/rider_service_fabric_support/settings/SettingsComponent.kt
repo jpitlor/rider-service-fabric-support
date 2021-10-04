@@ -1,20 +1,32 @@
 package dev.pitlor.rider_service_fabric_support.settings
 
-import com.intellij.ui.table.JBTable
+import com.intellij.ui.ToolbarDecorator
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfileTableModel
+import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
+import dev.pitlor.rider_service_fabric_support.swing_components.ClusterConnectionListTable
 import javax.swing.JPanel
 
 class SettingsComponent {
-    private val tableModel = ClusterConnectionProfileTableModel()
-    val clusterConnectionProfiles get() = tableModel.getConnectionProfiles()
-
-    private val table = JBTable(tableModel)
+    private val listTable = ClusterConnectionListTable()
     val container: JPanel = FormBuilder.createFormBuilder()
-        .addLabeledComponent(Bundle.string("settings.table.label"), table, true)
-        .addComponentFillVertically(JPanel(), 0)
+        .addLabeledComponentFillVertically(
+            Bundle.string("settings.table.label"),
+            ToolbarDecorator
+                .createDecorator(listTable.component)
+                .setAddAction(listTable::addRow)
+                .setEditAction(listTable::editRow)
+                .setRemoveAction(listTable::deleteRow)
+                .disableUpDownActions()
+                .createPanel()
+        )
         .panel
-    val preferredFocusedComponent get() = container
 
+    fun getClusterConnectionProfiles(): List<ClusterConnectionProfile> {
+        return listTable.getClusterConnectionProfiles()
+    }
+
+    fun setClusterConnectionProfiles(profiles: List<ClusterConnectionProfile>) {
+        listTable.setClusterConnectionProfiles(profiles)
+    }
 }

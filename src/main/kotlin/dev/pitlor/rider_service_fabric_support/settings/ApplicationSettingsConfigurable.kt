@@ -5,7 +5,7 @@ import dev.pitlor.rider_service_fabric_support.Bundle
 import javax.swing.JComponent
 
 class ApplicationSettingsConfigurable : Configurable {
-    lateinit var settingsComponent: SettingsComponent
+    private var settingsComponent = SettingsComponent()
 
     override fun createComponent(): JComponent {
         settingsComponent = SettingsComponent()
@@ -13,22 +13,23 @@ class ApplicationSettingsConfigurable : Configurable {
     }
 
     override fun getPreferredFocusedComponent(): JComponent {
-        return settingsComponent.preferredFocusedComponent
+        return settingsComponent.container
     }
 
     override fun isModified(): Boolean {
-        val state = SettingsState.getInstance()
-        TODO("Not yet implemented")
+        val settings = SettingsState.getInstance()
+        val dirtyProfiles = settingsComponent.getClusterConnectionProfiles()
+        return settings.connectionProfiles == dirtyProfiles
     }
 
     override fun apply() {
-        val state = SettingsState.getInstance()
-        TODO("Not yet implemented")
+        val settings = SettingsState.getInstance()
+        settings.connectionProfiles = settingsComponent.getClusterConnectionProfiles()
     }
 
     override fun reset() {
-        val state = SettingsState.getInstance()
-        TODO("Not yet implemented")
+        val settings = SettingsState.getInstance()
+        settingsComponent.setClusterConnectionProfiles(settings.connectionProfiles)
     }
 
     override fun getDisplayName(): String {

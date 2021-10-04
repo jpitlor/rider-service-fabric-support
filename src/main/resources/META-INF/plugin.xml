@@ -55,6 +55,9 @@
 			id="dev.pitlor.rider_service_fabric_support.settings.ApplicationSettingsConfigurable"
 			displayName="Service Fabric"
 		/>
+		<applicationService
+			serviceImplementation="dev.pitlor.rider_service_fabric_support.settings.SettingsState"
+		/>
 	</extensions>
 
 	<actions>
