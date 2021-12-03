@@ -1,5 +1,6 @@
 package dev.pitlor.rider_service_fabric_support.swing_components
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.ui.JBSplitter
 import com.intellij.ui.components.JBList
@@ -22,10 +23,14 @@ class ClusterManagerSplitDetails : JBSplitter {
     private var data = listOf<TreeNode>()
     private val leftList = JBList<String>()
 
-    constructor(messageBus: MessageBus, selector: (cluster: Cluster) -> List<TreeNode>) {
-        messageBus
+    constructor(nodeAddress: String, selector: (cluster: Cluster) -> List<TreeNode>) {
+        ApplicationManager
+            .getApplication()
+            .messageBus
             .connect()
             .subscribe(ClusterAction.REFRESH, ClusterAction {
+                if (it.name.lowercase() != nodeAddress.lowercase()) return@ClusterAction
+
                 data = selector(it)
                 refreshUi()
             })
@@ -57,16 +62,16 @@ class ClusterManagerSplitDetails : JBSplitter {
 
     @Suppress("FunctionName")
     companion object {
-        fun Cluster(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(project.messageBus, SFUtil::getInfrastructure)
+        fun Cluster(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getInfrastructure)
         }
 
-        fun Global(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(project.messageBus, SFUtil::getApplications)
+        fun Global(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getApplications)
         }
 
-        fun Local(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(project.messageBus, SFUtil.getServices(project))
+        fun Local(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getServices)
         }
     }
 }

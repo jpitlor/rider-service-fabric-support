@@ -13,6 +13,8 @@ data class ClusterConnectionProfile(
     constructor(nickname: String, host: String, certThumbprint: String)
             : this(nickname, host, 19000, certThumbprint, certThumbprint)
     constructor() : this("", "", 19000, "", "")
+
+    val nodeAddress get() = "$host:$port"
 }
 
 class ClusterConnectionProfileSerializationConverter() : Converter<List<ClusterConnectionProfile>>() {

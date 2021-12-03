@@ -12,7 +12,7 @@ import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerTo
 
 class ClusterManagerToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        refreshTabsListImpl(project, toolWindow)
+        refreshTabsListImpl(toolWindow)
     }
 
     companion object {
@@ -24,20 +24,20 @@ class ClusterManagerToolWindowFactory : ToolWindowFactory {
                 return
             }
 
-            refreshTabsListImpl(project, toolWindow)
+            refreshTabsListImpl(toolWindow)
         }
 
-        private fun refreshTabsListImpl(project: Project, toolWindow: ToolWindow) {
+        private fun refreshTabsListImpl(toolWindow: ToolWindow) {
             toolWindow.contentManager.removeAllContents(false)
             SettingsState.getInstance().state.connectionProfiles.forEach {
                 ContentFactory.SERVICE
                     .getInstance()
                     .createContent(
-                        ClusterManagerToolWindowPanel(project, it),
+                        ClusterManagerToolWindowPanel(it),
                         it.nickname,
                         false
                     )
-                    .let(toolWindow.contentManager::addContent)
+                    .also(toolWindow.contentManager::addContent)
             }
         }
     }

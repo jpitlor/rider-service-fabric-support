@@ -1,6 +1,6 @@
 package dev.pitlor.rider_service_fabric_support.services
 
-import com.intellij.openapi.project.Project
+import com.intellij.openapi.application.ApplicationManager
 import dev.pitlor.rider_service_fabric_support.interfaces.Action
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
@@ -13,12 +13,13 @@ interface ClusterRefreshTimer {
     fun doNow()
 }
 
-class ClusterRefreshTimerImpl(project: Project) : ClusterRefreshTimer {
+class ClusterRefreshTimerImpl : ClusterRefreshTimer {
+    private val application = ApplicationManager.getApplication()
     private var timer: Timer? = null
-    private val publisher = project.messageBus.syncPublisher(ClusterAction.REFRESH)
+    private val publisher = application.messageBus.syncPublisher(ClusterAction.REFRESH)
 
     init {
-        project.messageBus.connect().apply {
+        application.messageBus.connect().apply {
             subscribe(Action.MANUAL_REFRESH, Action { doNow() })
             subscribe(Action.TURN_OFF_AUTO_REFRESH, Action { pause() })
             subscribe(Action.TURN_ON_AUTO_REFRESH, Action { start() })

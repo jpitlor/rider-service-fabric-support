@@ -12,10 +12,10 @@ import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
 import org.jetbrains.annotations.NotNull
 import javax.swing.JTabbedPane
 
-class ClusterManagerToolWindowPanel(private val project: Project, private val cluster: ClusterConnectionProfile)
+class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfile)
     : SimpleToolWindowPanel(false)
 {
-    private val timer = project.service<ClusterRefreshTimer>()
+    private val timer = service<ClusterRefreshTimer>()
 
     init {
         val actionManager = ActionManager.getInstance()
@@ -28,18 +28,18 @@ class ClusterManagerToolWindowPanel(private val project: Project, private val cl
             .component
         add(JTabbedPane().apply {
             addTab(
-                project.name,
-                ClusterManagerSplitDetails.Local(project, cluster)
+                cluster.nodeAddress,
+                ClusterManagerSplitDetails.Local(cluster)
             )
             addTab(
                 Bundle.string("tool_window.tabs.all_apps.name"),
                 AllIcons.Toolwindows.WebToolWindow,
-                ClusterManagerSplitDetails.Global(project, cluster)
+                ClusterManagerSplitDetails.Global(cluster)
             )
             addTab(
                 Bundle.string("tool_window.tabs.cluster.name"),
                 AllIcons.Toolwindows.ToolWindowStructure,
-                ClusterManagerSplitDetails.Cluster(project, cluster)
+                ClusterManagerSplitDetails.Cluster(cluster)
             )
         })
 

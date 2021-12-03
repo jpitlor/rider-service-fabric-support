@@ -1,6 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.utils
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
@@ -54,23 +55,22 @@ object SFUtil {
         }
     }
 
-    fun getServices(project: Project): (Cluster) -> List<TreeNode> {
-        return {
-            val services = it
-                .applicationsTypes
-                .firstOrNull { at -> at.name.contains(project.name) }
-                ?.applications
-                ?.firstOrNull()
-                ?.services
-            services?.map { s ->
-                val partitions = s.partitions.map { p ->
-                    val nodes = p.nodes.map { n ->
-                        ClusterTreeLeaf("${n.name} (${n.type})")
-                    }
-                    ClusterTreeNode(p.name, nodes)
+    fun getServices(cluster: Cluster): List<TreeNode> {
+        val project = ProjectManager.getInstance().openProjects[0]
+        val services = cluster
+            .applicationsTypes
+            .firstOrNull { type -> type.name.contains(project.name) }
+            ?.applications
+            ?.firstOrNull()
+            ?.services
+        return services?.map { s ->
+            val partitions = s.partitions.map { p ->
+                val nodes = p.nodes.map { n ->
+                    ClusterTreeLeaf("${n.name} (${n.type})")
                 }
-                ClusterTreeNode(s.name, partitions)
-            } ?: listOf()
-        }
+                ClusterTreeNode(p.name, nodes)
+            }
+            ClusterTreeNode(s.name, partitions)
+        } ?: listOf()
     }
 }

@@ -43,20 +43,16 @@
 			extensions="sfproj"
 			implementationClass="dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType"
 		/>
-<!--		<toolWindow-->
-<!--			factoryClass="dev.pitlor.rider_service_fabric_support.tool_window.ClusterManagerToolWindowFactory"-->
-<!--			id="Service Fabric"-->
-<!--			icon="PluginIcons.GreyServiceFabricLogo"-->
-<!--			anchor="bottom"-->
-<!--		/>-->
-<!--		<projectService-->
-<!--			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"-->
-<!--			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"-->
-<!--		/>-->
-<!--		<applicationService-->
-<!--			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"-->
-<!--			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"-->
-<!--		/>-->
+		<toolWindow
+			factoryClass="dev.pitlor.rider_service_fabric_support.tool_window.ClusterManagerToolWindowFactory"
+			id="Service Fabric"
+			icon="PluginIcons.GreyServiceFabricLogo"
+			anchor="bottom"
+		/>
+		<applicationService
+			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"
+			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"
+		/>
 		<applicationConfigurable
 			parentId="tools"
 			instance="dev.pitlor.rider_service_fabric_support.settings.SettingsConfigurable"

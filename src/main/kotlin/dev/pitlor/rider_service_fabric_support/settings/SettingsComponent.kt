@@ -1,7 +1,6 @@
 package dev.pitlor.rider_service_fabric_support.settings
 
 import com.intellij.ui.ToolbarDecorator
-import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
