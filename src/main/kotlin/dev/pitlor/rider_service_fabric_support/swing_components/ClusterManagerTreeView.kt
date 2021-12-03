@@ -6,6 +6,7 @@ import com.intellij.ui.components.JBList
 import com.intellij.util.messages.MessageBus
 import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
+import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import javax.swing.DefaultListModel
 import javax.swing.JPanel
@@ -56,15 +57,15 @@ class ClusterManagerSplitDetails : JBSplitter {
 
     @Suppress("FunctionName")
     companion object {
-        fun Cluster(project: Project): ClusterManagerSplitDetails {
+        fun Cluster(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
             return ClusterManagerSplitDetails(project.messageBus, SFUtil::getInfrastructure)
         }
 
-        fun Global(project: Project): ClusterManagerSplitDetails {
+        fun Global(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
             return ClusterManagerSplitDetails(project.messageBus, SFUtil::getApplications)
         }
 
-        fun Local(project: Project): ClusterManagerSplitDetails {
+        fun Local(project: Project, cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
             return ClusterManagerSplitDetails(project.messageBus, SFUtil.getServices(project))
         }
     }

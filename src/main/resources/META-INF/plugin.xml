@@ -21,38 +21,46 @@
 	<depends>com.intellij.modules.platform</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<programRunner
-			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramDebugger"
+		<notificationGroup
+			displayType="BALLOON"
+			id="pitlor.dev.rider_service_fabric_support"
 		/>
-		<programRunner
-			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramRunner"
-		/>
-		<runConfigurationProducer
-			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"
-		/>
-		<configurationType
-			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
-		/>
+<!--		<programRunner-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramDebugger"-->
+<!--		/>-->
+<!--		<programRunner-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramRunner"-->
+<!--		/>-->
+<!--		<runConfigurationProducer-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"-->
+<!--		/>-->
+<!--		<configurationType-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"-->
+<!--		/>-->
 		<fileType
 			name="Service Fabric Configuration"
 			language="XML"
 			extensions="sfproj"
 			implementationClass="dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType"
 		/>
-		<toolWindow
-			factoryClass="dev.pitlor.rider_service_fabric_support.tool_windows.ClusterManagerToolWindowFactory"
-			id="Service Fabric"
-			icon="PluginIcons.GreyServiceFabricLogo"
-			anchor="bottom"
-		/>
-		<projectService
-			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"
-			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"
-		/>
+<!--		<toolWindow-->
+<!--			factoryClass="dev.pitlor.rider_service_fabric_support.tool_window.ClusterManagerToolWindowFactory"-->
+<!--			id="Service Fabric"-->
+<!--			icon="PluginIcons.GreyServiceFabricLogo"-->
+<!--			anchor="bottom"-->
+<!--		/>-->
+<!--		<projectService-->
+<!--			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"-->
+<!--			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"-->
+<!--		/>-->
+<!--		<applicationService-->
+<!--			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"-->
+<!--			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"-->
+<!--		/>-->
 		<applicationConfigurable
 			parentId="tools"
-			instance="dev.pitlor.rider_service_fabric_support.settings.ApplicationSettingsConfigurable"
-			id="dev.pitlor.rider_service_fabric_support.settings.ApplicationSettingsConfigurable"
+			instance="dev.pitlor.rider_service_fabric_support.settings.SettingsConfigurable"
+			id="dev.pitlor.rider_service_fabric_support.settings.SettingsConfigurable"
 			displayName="Service Fabric"
 		/>
 		<applicationService

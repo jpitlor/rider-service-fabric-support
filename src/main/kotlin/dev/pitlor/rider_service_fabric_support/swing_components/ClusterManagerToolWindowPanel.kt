@@ -7,11 +7,14 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
 import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
 import org.jetbrains.annotations.NotNull
 import javax.swing.JTabbedPane
 
-class ClusterManagerToolWindowPanel(private val project: Project) : SimpleToolWindowPanel(false) {
+class ClusterManagerToolWindowPanel(private val project: Project, private val cluster: ClusterConnectionProfile)
+    : SimpleToolWindowPanel(false)
+{
     private val timer = project.service<ClusterRefreshTimer>()
 
     init {
@@ -26,17 +29,17 @@ class ClusterManagerToolWindowPanel(private val project: Project) : SimpleToolWi
         add(JTabbedPane().apply {
             addTab(
                 project.name,
-                ClusterManagerSplitDetails.Local(project)
+                ClusterManagerSplitDetails.Local(project, cluster)
             )
             addTab(
                 Bundle.string("tool_window.tabs.all_apps.name"),
                 AllIcons.Toolwindows.WebToolWindow,
-                ClusterManagerSplitDetails.Global(project)
+                ClusterManagerSplitDetails.Global(project, cluster)
             )
             addTab(
                 Bundle.string("tool_window.tabs.cluster.name"),
                 AllIcons.Toolwindows.ToolWindowStructure,
-                ClusterManagerSplitDetails.Cluster(project)
+                ClusterManagerSplitDetails.Cluster(project, cluster)
             )
         })
 

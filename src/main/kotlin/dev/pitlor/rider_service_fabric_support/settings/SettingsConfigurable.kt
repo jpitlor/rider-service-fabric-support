@@ -4,7 +4,7 @@ import com.intellij.openapi.options.Configurable
 import dev.pitlor.rider_service_fabric_support.Bundle
 import javax.swing.JComponent
 
-class ApplicationSettingsConfigurable : Configurable {
+class SettingsConfigurable : Configurable {
     private var settingsComponent = SettingsComponent()
 
     override fun createComponent(): JComponent {
@@ -17,19 +17,22 @@ class ApplicationSettingsConfigurable : Configurable {
     }
 
     override fun isModified(): Boolean {
-        val settings = SettingsState.getInstance()
+        val settings = SettingsState.getInstance().state
         val dirtyProfiles = settingsComponent.getClusterConnectionProfiles()
-        return settings.connectionProfiles == dirtyProfiles
+        return settings.connectionProfiles != dirtyProfiles
     }
 
     override fun apply() {
-        val settings = SettingsState.getInstance()
-        settings.connectionProfiles = settingsComponent.getClusterConnectionProfiles()
+        SettingsState.getInstance().state.apply {
+            connectionProfiles = settingsComponent.getClusterConnectionProfiles()
+        }
+//        ClusterManagerToolWindowFactory.refreshTabsList()
     }
 
     override fun reset() {
-        val settings = SettingsState.getInstance()
-        settingsComponent.setClusterConnectionProfiles(settings.connectionProfiles)
+        SettingsState.getInstance().state.also {
+            settingsComponent.setClusterConnectionProfiles(it.connectionProfiles)
+        }
     }
 
     override fun getDisplayName(): String {

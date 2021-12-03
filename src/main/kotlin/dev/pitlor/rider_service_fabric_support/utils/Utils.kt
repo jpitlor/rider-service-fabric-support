@@ -1,5 +1,6 @@
 package dev.pitlor.rider_service_fabric_support.utils
 
+import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileManager

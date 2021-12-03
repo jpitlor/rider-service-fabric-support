@@ -1,7 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.settings
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -13,21 +13,25 @@ import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfileSe
     name = "dev.pitlor.rider_service_fabric_support.SettingsState",
     storages = [Storage("RiderServiceFabricSupport.xml")]
 )
-class SettingsState : PersistentStateComponent<SettingsState> {
-    @OptionTag(converter = ClusterConnectionProfileSerializationConverter::class)
-    var connectionProfiles = listOf<ClusterConnectionProfile>()
+class SettingsState : PersistentStateComponent<SettingsState.Companion.StateModel> {
+    private var state = StateModel()
 
-    override fun getState(): SettingsState {
-        return this
+    override fun getState(): StateModel {
+        return state
     }
 
-    override fun loadState(state: SettingsState) {
-        XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: StateModel) {
+        this.state = state
     }
 
     companion object {
+        data class StateModel(
+            @OptionTag(converter = ClusterConnectionProfileSerializationConverter::class)
+            var connectionProfiles: List<ClusterConnectionProfile> = listOf()
+        )
+
         fun getInstance(): SettingsState {
-            return ServiceManager.getService(SettingsState::class.java)
+            return ApplicationManager.getApplication().getService(SettingsState::class.java)
         }
     }
 }
