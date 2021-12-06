@@ -5,26 +5,28 @@ import com.intellij.execution.util.ExecUtil
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.vfs.VirtualFile
 import dev.pitlor.rider_service_fabric_support.models.*
+import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.execute
 import jakarta.xml.bind.Unmarshaller
 import org.eclipse.persistence.jaxb.JAXBContextFactory
 import org.eclipse.persistence.jaxb.MarshallerProperties.NAMESPACE_PREFIX_MAPPER
 import java.io.StringReader
 import java.util.*
 
-data class PSApi(val command: String, val resultName: String) {
+private data class PSApi(val command: String, val resultName: String) {
     override fun toString(): String {
         return command
     }
 }
 
-fun StringJoiner.add(strings: List<String>) {
+private fun StringJoiner.add(strings: List<String>) {
     strings.forEach { add(it) }
 }
 
-fun List<PSApi>.toPsCli(): GeneralCommandLine {
+private fun PSApi.toPsCli() = listOf(this).toPsCli()
+private fun List<PSApi>.toPsCli(): GeneralCommandLine {
     val command = StringJoiner("; ")
-        .add(SFPSUtil.connectToCluster().command)
-        .add(SFPSUtil.importStdLib())
+        .add(SFPSUtil.connectToCluster().toString())
+        .add("Import-Module 'C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\PSModule\\ServiceFabricSDK\\ServiceFabricSDK.psm1'")
         .add(map { it.command })
         .toString()
     return GeneralCommandLine(
@@ -38,13 +40,13 @@ fun List<PSApi>.toPsCli(): GeneralCommandLine {
     )
 }
 
-fun PSObjects.getResult(command: PSApi): PSObject? {
+private fun PSObjects.getResult(command: PSApi): PSObject? {
     return objects
         .filterIsInstance<PSObject>()
         .find { it.asString == command.resultName }
 }
 
-fun PSObjects.getResults(command: PSApi): List<PSObject> {
+private fun PSObjects.getResults(command: PSApi): List<PSObject> {
     return objects
         .filterIsInstance<PSObject>()
         .filter { it.asString == command.resultName }
@@ -70,7 +72,7 @@ object SFPSUtil {
         unmarshaller.setProperty(NAMESPACE_PREFIX_MAPPER, SFNamespacePrefixMapper())
     }
 
-    fun GeneralCommandLine.execute(): PSObjects {
+    private fun GeneralCommandLine.execute(): PSObjects {
         return try {
             var output = ""
             ProgressManager.getInstance().runProcessWithProgressSynchronously({
@@ -91,8 +93,8 @@ object SFPSUtil {
         deployScript: VirtualFile,
         publishProfile: VirtualFile,
         applicationPackage: VirtualFile
-    ): PSApi {
-        return PSApi(
+    ): PSObject? {
+        val api = PSApi(
             StringJoiner(" ")
                 .add(String.format("'%s'", deployScript.path))
                 .add(String.format("-PublishProfileFile '%s'", publishProfile.path))
@@ -106,10 +108,12 @@ object SFPSUtil {
                 .toString(),
             ""
         )
+        val result = api.toPsCli().execute()
+        return result.getResult(api)
     }
 
-    fun connectToCluster(): PSApi {
-        return PSApi(
+    fun connectToCluster(): PSObject? {
+        val api = PSApi(
             StringJoiner(" ")
                 .add("Connect-ServiceFabricCluster")
                 .add("-TimeoutSec 5")
@@ -117,21 +121,21 @@ object SFPSUtil {
                 .toString(),
             "Microsoft.ServiceFabric.Powershell.ClusterConnection"
         )
+        val result = api.toPsCli().execute()
+        return result.getResult(api)
     }
 
-    fun importStdLib(): String {
-        return "Import-Module 'C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\PSModule\\ServiceFabricSDK\\ServiceFabricSDK.psm1'"
-    }
-
-    fun getApplicationTypes(): PSApi {
-        return PSApi(
+    fun getApplicationTypes(): List<PSObject> {
+        val api = PSApi(
             "Get-ServiceFabricApplicationType",
             "System.Fabric.Query.ApplicationType"
         )
+        val result = api.toPsCli().execute()
+        return result.getResults(api)
     }
 
-    fun getApplicationStatus(applicationType: String): PSApi {
-        return PSApi(
+    fun getApplicationStatus(applicationType: String): PSObject? {
+        val api = PSApi(
             StringJoiner(" ")
                 .add("Get-ServiceFabricApplicationStatus")
                 .add("-ApplicationName 'fabric:/$applicationType'")
@@ -139,5 +143,7 @@ object SFPSUtil {
                 .toString(),
             ""
         )
+        val result = api.toPsCli().execute()
+        return result.getResult(api)
     }
 }

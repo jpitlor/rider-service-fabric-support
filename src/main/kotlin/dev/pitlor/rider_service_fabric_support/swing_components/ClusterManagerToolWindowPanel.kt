@@ -28,7 +28,7 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
             .component
         add(JTabbedPane().apply {
             addTab(
-                cluster.nodeAddress,
+                cluster.nodeAddress, // TODO replace with project name
                 ClusterManagerSplitDetails.Local(cluster)
             )
             addTab(

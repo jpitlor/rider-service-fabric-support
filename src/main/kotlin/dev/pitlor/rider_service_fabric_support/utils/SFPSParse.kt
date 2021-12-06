@@ -15,15 +15,14 @@ object SFPSParse {
     }
 
     fun cluster(input: PSObjects): Cluster {
-        val clusterName = input.getResult(SFPSUtil.connectToCluster())
+        val clusterName = SFPSUtil.connectToCluster()
             ?.properties
             ?.filterIsInstance<PSObject>()
             ?.find { it.name == "GatewayInformation" }
             ?.properties
             ?.get<String>("NodeAddress")
             ?: "Unknown Cluster"
-        val applicationTypes = input
-            .getResults(SFPSUtil.getApplicationTypes())
+        val applicationTypes = SFPSUtil.getApplicationTypes()
             .map {
                 val name = it.properties.get<String>("ApplicationTypeName")
                 val version = it.properties.get<String>("ApplicationTypeVersion")

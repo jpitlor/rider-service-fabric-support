@@ -11,7 +11,6 @@ import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeLeaf
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeNode
 import dev.pitlor.rider_service_fabric_support.swing_components.TreeNode
-import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil.execute
 
 object SFUtil {
     fun Project.getSFFolders(): List<VirtualFile> {
@@ -29,8 +28,7 @@ object SFUtil {
     }
 
     fun getCluster(): Cluster {
-        val cluster = listOf(SFPSUtil.getApplicationTypes()).toPsCli().execute()
-        return SFPSParse.cluster(cluster)
+        return SFPSParse.cluster(SFPSUtil.getApplicationTypes())
     }
 
     fun getInfrastructure(cluster: Cluster): List<TreeNode> {
