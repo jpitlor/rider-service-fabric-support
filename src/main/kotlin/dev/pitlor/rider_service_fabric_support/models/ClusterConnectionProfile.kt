@@ -1,6 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.models
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.intellij.util.xmlb.Converter
 
 data class ClusterConnectionProfile(
@@ -19,14 +20,13 @@ data class ClusterConnectionProfile(
 
 class ClusterConnectionProfileSerializationConverter() : Converter<List<ClusterConnectionProfile>>() {
     private val gson = Gson()
-    private val profileList = listOf<ClusterConnectionProfile>()
 
     override fun toString(profiles: List<ClusterConnectionProfile>): String? {
         return gson.toJson(profiles)
     }
 
     override fun fromString(string: String): List<ClusterConnectionProfile>? {
-        return gson.fromJson(string, profileList::class.java)
+        return gson.fromJson(string, TypeToken.getParameterized(List::class.java, ClusterConnectionProfile::class.java).type)
     }
 
 }

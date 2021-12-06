@@ -2,6 +2,7 @@ package dev.pitlor.rider_service_fabric_support.settings
 
 import com.intellij.openapi.options.Configurable
 import dev.pitlor.rider_service_fabric_support.Bundle
+import dev.pitlor.rider_service_fabric_support.tool_window.ClusterManagerToolWindowFactory
 import javax.swing.JComponent
 
 class SettingsConfigurable : Configurable {
@@ -26,7 +27,7 @@ class SettingsConfigurable : Configurable {
         SettingsState.getInstance().state.apply {
             connectionProfiles = settingsComponent.getClusterConnectionProfiles()
         }
-//        ClusterManagerToolWindowFactory.refreshTabsList()
+        ClusterManagerToolWindowFactory.refreshTabsList()
     }
 
     override fun reset() {
