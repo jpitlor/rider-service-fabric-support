@@ -15,7 +15,6 @@ import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ExecutionType
 import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil
-import dev.pitlor.rider_service_fabric_support.utils.toPsCli
 
 class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunConfiguration) : RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
@@ -70,10 +69,7 @@ class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunCo
                 ?.firstOrNull()
                 ?: ""
             
-            val commandLine = listOf(
-                SFPSUtil.publishApplication(deployScript, publishProfile, applicationPackage),
-                SFPSUtil.getApplicationStatus(applicationType)
-            ).toPsCli()
+            val commandLine = SFPSUtil.publishApplication(applicationType, deployScript, publishProfile, applicationPackage)
             val processHandler = KillableColoredProcessHandler.Silent(commandLine)
             ProcessTerminatedListener.attach(processHandler)
             return processHandler

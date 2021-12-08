@@ -18,16 +18,11 @@ private data class PSApi(val command: String, val resultName: String) {
     }
 }
 
-private fun StringJoiner.add(strings: List<String>) {
-    strings.forEach { add(it) }
-}
-
 private fun PSApi.toPsCli() = listOf(this).toPsCli()
 private fun List<PSApi>.toPsCli(): GeneralCommandLine {
     val command = StringJoiner("; ")
-        .add(SFPSUtil.connectToCluster().toString())
         .add("Import-Module 'C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\PSModule\\ServiceFabricSDK\\ServiceFabricSDK.psm1'")
-        .add(map { it.command })
+        .also { j -> this.forEach { j.add(it.toString()) } }
         .toString()
     return GeneralCommandLine(
         "powershell",
@@ -63,6 +58,17 @@ inline fun <reified T> List<PowershellElement>.get(property: String): T? {
     return null
 }
 
+private object SFPSCommands {
+    val connectToCluster = PSApi(
+        StringJoiner(" ")
+            .add("Connect-ServiceFabricCluster")
+            .add("-TimeoutSec 5")
+            .add("-WarningAction:'SilentlyContinue'")
+            .toString(),
+        "Microsoft.ServiceFabric.Powershell.ClusterConnection"
+    )
+}
+
 object SFPSUtil {
     private val unmarshaller: Unmarshaller = JAXBContextFactory
         .createContext(arrayOf(PSObjects::class.java), mapOf<Any, Any>())
@@ -90,11 +96,12 @@ object SFPSUtil {
     }
 
     fun publishApplication(
+        applicationType: String,
         deployScript: VirtualFile,
         publishProfile: VirtualFile,
         applicationPackage: VirtualFile
-    ): PSObject? {
-        val api = PSApi(
+    ): GeneralCommandLine {
+        val publishApplication = PSApi(
             StringJoiner(" ")
                 .add(String.format("'%s'", deployScript.path))
                 .add(String.format("-PublishProfileFile '%s'", publishProfile.path))
@@ -108,19 +115,19 @@ object SFPSUtil {
                 .toString(),
             ""
         )
-        val result = api.toPsCli().execute()
-        return result.getResult(api)
+        val getApplicationStatus = PSApi(
+            StringJoiner(" ")
+                .add("Get-ServiceFabricApplicationStatus")
+                .add("-ApplicationName 'fabric:/$applicationType'")
+                .add("-ErrorAction Stop")
+                .toString(),
+            ""
+        )
+        return listOf(publishApplication, getApplicationStatus).toPsCli()
     }
 
-    fun connectToCluster(): PSObject? {
-        val api = PSApi(
-            StringJoiner(" ")
-                .add("Connect-ServiceFabricCluster")
-                .add("-TimeoutSec 5")
-                .add("-WarningAction:'SilentlyContinue'")
-                .toString(),
-            "Microsoft.ServiceFabric.Powershell.ClusterConnection"
-        )
+    fun connectToCluster(profile: ClusterConnectionProfile): PSObject? {
+        val api = SFPSCommands.connectToCluster
         val result = api.toPsCli().execute()
         return result.getResult(api)
     }
@@ -132,18 +139,5 @@ object SFPSUtil {
         )
         val result = api.toPsCli().execute()
         return result.getResults(api)
-    }
-
-    fun getApplicationStatus(applicationType: String): PSObject? {
-        val api = PSApi(
-            StringJoiner(" ")
-                .add("Get-ServiceFabricApplicationStatus")
-                .add("-ApplicationName 'fabric:/$applicationType'")
-                .add("-ErrorAction Stop")
-                .toString(),
-            ""
-        )
-        val result = api.toPsCli().execute()
-        return result.getResult(api)
     }
 }

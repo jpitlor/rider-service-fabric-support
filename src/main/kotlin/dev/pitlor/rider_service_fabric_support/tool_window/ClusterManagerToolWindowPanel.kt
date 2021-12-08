@@ -1,14 +1,14 @@
-package dev.pitlor.rider_service_fabric_support.swing_components
+package dev.pitlor.rider_service_fabric_support.tool_window
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.components.service
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
 import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
+import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerSplitDetails
 import org.jetbrains.annotations.NotNull
 import javax.swing.JTabbedPane
 
@@ -43,8 +43,7 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
             )
         })
 
-        // TODO: At some point, figure out how to get a timer running
-//        timer.start()
+        timer.start()
         timer.doNow()
     }
 }

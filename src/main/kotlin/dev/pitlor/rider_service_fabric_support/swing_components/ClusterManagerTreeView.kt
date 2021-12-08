@@ -8,6 +8,7 @@ import com.intellij.util.messages.MessageBus
 import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
 import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
+import dev.pitlor.rider_service_fabric_support.utils.Notification
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import javax.swing.DefaultListModel
 import javax.swing.JPanel
@@ -23,15 +24,15 @@ class ClusterManagerSplitDetails : JBSplitter {
     private var data = listOf<TreeNode>()
     private val leftList = JBList<String>()
 
-    constructor(nodeAddress: String, selector: (cluster: Cluster) -> List<TreeNode>) {
+    constructor(profile: ClusterConnectionProfile, selector: (cluster: Cluster) -> List<TreeNode>) {
         ApplicationManager
             .getApplication()
             .messageBus
             .connect()
             .subscribe(ClusterAction.REFRESH, ClusterAction {
-                if (it.name.lowercase() != nodeAddress.lowercase()) return@ClusterAction
-
-                data = selector(it)
+                val cluster = it[profile] ?: return@ClusterAction
+                Notification.info("refresh! $it")
+                data = selector(cluster)
                 refreshUi()
             })
         initUi()
@@ -63,15 +64,15 @@ class ClusterManagerSplitDetails : JBSplitter {
     @Suppress("FunctionName")
     companion object {
         fun Cluster(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getInfrastructure)
+            return ClusterManagerSplitDetails(cluster, SFUtil::getInfrastructure)
         }
 
         fun Global(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getApplications)
+            return ClusterManagerSplitDetails(cluster, SFUtil::getApplications)
         }
 
         fun Local(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster.nodeAddress, SFUtil::getServices)
+            return ClusterManagerSplitDetails(cluster, SFUtil::getServices)
         }
     }
 }
