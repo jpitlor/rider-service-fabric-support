@@ -21,9 +21,8 @@ object SFUtil {
             .getContentScope(this)
             .intersectWith(GlobalSearchScope.notScope(ProjectScope.getLibrariesScope(this)))
         return FileTypeIndex.getFiles(ServiceFabricFileType(), scope)
-            .toList()
-            .filter { file: VirtualFile? -> file != null && file.isValid }
-            .map { obj: VirtualFile -> obj.parent }
+            .filter { it != null && it.isValid }
+            .map { it.parent }
     }
 
     fun getPublishProfiles(sfFolder: VirtualFile): Array<VirtualFile> {

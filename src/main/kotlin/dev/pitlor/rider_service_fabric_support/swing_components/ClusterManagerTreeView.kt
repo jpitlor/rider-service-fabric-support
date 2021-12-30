@@ -31,7 +31,6 @@ class ClusterManagerSplitDetails : JBSplitter {
             .connect()
             .subscribe(ClusterAction.REFRESH, ClusterAction {
                 val cluster = it[profile] ?: return@ClusterAction
-                Notification.info("refresh! $it")
                 data = selector(cluster)
                 refreshUi()
             })

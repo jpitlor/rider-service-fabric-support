@@ -4,6 +4,7 @@ import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.components.service
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
@@ -12,11 +13,9 @@ import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerSp
 import org.jetbrains.annotations.NotNull
 import javax.swing.JTabbedPane
 
-class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfile)
+class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfile, private val project: Project)
     : SimpleToolWindowPanel(false)
 {
-    private val timer = service<ClusterRefreshTimer>()
-
     init {
         val actionManager = ActionManager.getInstance()
         toolbar = actionManager
@@ -28,7 +27,7 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
             .component
         add(JTabbedPane().apply {
             addTab(
-                cluster.nodeAddress, // TODO replace with project name
+                project.name,
                 ClusterManagerSplitDetails.Local(cluster)
             )
             addTab(
@@ -42,8 +41,5 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
                 ClusterManagerSplitDetails.Cluster(cluster)
             )
         })
-
-        timer.start()
-        timer.doNow()
     }
 }
