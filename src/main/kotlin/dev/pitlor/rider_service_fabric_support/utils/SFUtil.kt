@@ -7,10 +7,7 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.ProjectScope
 import dev.pitlor.rider_service_fabric_support.file_types.ServiceFabricFileType
-import dev.pitlor.rider_service_fabric_support.models.ApplicationType
 import dev.pitlor.rider_service_fabric_support.models.Cluster
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
-import dev.pitlor.rider_service_fabric_support.models.PSObject
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeLeaf
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterTreeNode
 import dev.pitlor.rider_service_fabric_support.swing_components.TreeNode
@@ -27,23 +24,6 @@ object SFUtil {
 
     fun getPublishProfiles(sfFolder: VirtualFile): Array<VirtualFile> {
         return sfFolder.findChild("PublishProfiles")?.children ?: arrayOf()
-    }
-
-    fun getCluster(profile: ClusterConnectionProfile): Cluster {
-        val clusterName = SFPSUtil.connectToCluster(profile)
-            ?.properties
-            ?.filterIsInstance<PSObject>()
-            ?.find { it.name == "GatewayInformation" }
-            ?.properties
-            ?.get<String>("NodeAddress")
-            ?: "Unknown Cluster"
-        val applicationTypes = SFPSUtil.getApplicationTypes()
-            .map {
-                val name = it.properties.get<String>("ApplicationTypeName")
-                val version = it.properties.get<String>("ApplicationTypeVersion")
-                ApplicationType("$name@$version", listOf())
-            }
-        return Cluster(clusterName, applicationTypes, listOf(), listOf())
     }
 
     fun getInfrastructure(cluster: Cluster): List<TreeNode> {

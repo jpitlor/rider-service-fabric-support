@@ -30,7 +30,7 @@ class ClusterManagerSplitDetails : JBSplitter {
             .messageBus
             .connect()
             .subscribe(ClusterAction.REFRESH, ClusterAction {
-                val cluster = it[profile] ?: return@ClusterAction
+                val cluster = it.find { c -> c.profile == profile } ?: return@ClusterAction
                 data = selector(cluster)
                 refreshUi()
             })

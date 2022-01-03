@@ -3,7 +3,9 @@ package dev.pitlor.rider_service_fabric_support.models
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.intellij.util.xmlb.Converter
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ClusterConnectionProfile(
     var nickname: String,
     var host: String,

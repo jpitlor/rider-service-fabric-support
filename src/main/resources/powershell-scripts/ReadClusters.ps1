@@ -1,18 +1,20 @@
 param
 (
     [Hashtable[]]
-    $Clusters
+    $Profiles
 )
 
 Import-Module $([IO.Path]::Combine($PSScriptRoot, "..", "service-fabric-sdk", "ServiceFabricSDK.psm1"))
 Import-Module $(Join-Path $PSScriptRoot "Utils.psm1")
 
-$result = New-List
-foreach ($cluster in $clusters)
+$clusters = New-List
+foreach ($profile in $profiles)
 {
-    $c = @{}
-    $c["connection"] = Connect-ServiceFabricCluster "$($cluster["host"])`:$($cluster["port"])"
-    $c["applications"] = New-List
+    $c = @{
+        "profile" = $profile
+        "connection" = Connect-ServiceFabricCluster "$($profile["host"])`:$($profile["port"])"
+        "applications" = New-List
+    }
     foreach ($application in Get-ServiceFabricApplication)
     {
         $a = @{
@@ -44,4 +46,4 @@ foreach ($cluster in $clusters)
     $result.Add($c)
 }
 
-$result
+$clusters | ConvertTo-Json -Depth 100

@@ -19,7 +19,7 @@ fun interface Action {
 }
 
 fun interface ClusterAction {
-    fun doAction(arg: Map<ClusterConnectionProfile, Cluster>)
+    fun doAction(arg: List<Cluster>)
 
     companion object {
         val REFRESH = Topic.create(Bundle.string("topics.refresh.name"), ClusterAction::class.java)

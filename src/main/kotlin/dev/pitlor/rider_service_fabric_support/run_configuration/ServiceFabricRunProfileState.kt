@@ -3,6 +3,7 @@ package dev.pitlor.rider_service_fabric_support.run_configuration
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
+import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.process.KillableColoredProcessHandler
 import com.intellij.execution.process.OSProcessHandler
@@ -14,7 +15,6 @@ import com.intellij.terminal.TerminalExecutionConsole
 import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ExecutionType
-import dev.pitlor.rider_service_fabric_support.utils.SFPSUtil
 
 class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunConfiguration) : RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
@@ -69,7 +69,7 @@ class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunCo
                 ?.firstOrNull()
                 ?: ""
             
-            val commandLine = SFPSUtil.publishApplication(applicationType, deployScript, publishProfile, applicationPackage)
+            val commandLine = GeneralCommandLine() //SFPSUtil.publishApplication(applicationType, deployScript, publishProfile, applicationPackage)
             val processHandler = KillableColoredProcessHandler.Silent(commandLine)
             ProcessTerminatedListener.attach(processHandler)
             return processHandler
