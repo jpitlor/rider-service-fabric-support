@@ -1,32 +1,11 @@
 param
 (
     [Hashtable[]]
-    $Clusters,
-
-    [String]
-    $LibPath
+    $Clusters
 )
 
-#Join-Path $LibPath "ServiceFabricSDK.psm1" | Import-Module -Name "$_"
-#Join-Path $LibPath "Utils.psm1" | Import-Module -Name "$_"
-
-function Get-ServiceFabricSdkModulesPath
-{
-    if ([string]::IsNullOrEmpty($SdkModulesPath) -eq $False -and $(Test-Path $SdkModulesPath -PathType Container)) {
-        return $SdkModulesPath
-    }
-
-    $RegKey = "HKLM:\SOFTWARE\Microsoft\Service Fabric SDK"
-    return (Get-ItemProperty -Path $RegKey -Name FabricSDKPSModulePath).FabricSDKPSModulePath
-}
-
-$ModuleFolderPath = Get-ServiceFabricSdkModulesPath
-Import-Module "$ModuleFolderPath\ServiceFabricSDK.psm1"
-
-function New-List
-{
-    New-Object System.Collections.Generic.List[Hashtable]
-}
+Import-Module $([IO.Path]::Combine($PSScriptRoot, "..", "service-fabric-sdk", "ServiceFabricSDK.psm1"))
+Import-Module $(Join-Path $PSScriptRoot "Utils.psm1")
 
 $result = New-List
 foreach ($cluster in $clusters)
@@ -54,7 +33,7 @@ foreach ($cluster in $clusters)
                 }
                 foreach ($instance in Get-ServiceFabricReplica -PartitionId $partition.PartitionId.ToString())
                 {
-#                    $p["instances"].Add($instance)
+                    $p["instances"].Add($instance)
                 }
                 $s["partitions"].Add($p)
             }
