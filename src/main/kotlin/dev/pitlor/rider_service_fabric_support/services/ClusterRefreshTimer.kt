@@ -37,12 +37,16 @@ class ClusterRefreshTimerImpl : ClusterRefreshTimer {
 
     override fun start() {
         pause()
-        timer = fixedRateTimer(null, false, 0, 60_000) { doNow() }
+        timer = fixedRateTimer(null, false, 0, 5_000) { doNow() }
     }
 
     override fun doNow() {
         val profiles = SettingsState.getInstance().state.connectionProfiles
-        val clusters = Scripts.readClusters(profiles)
-        publisher.doAction(clusters)
+        try {
+            val clusters = Scripts.readClusters(profiles)
+            publisher.doAction(clusters)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

@@ -31,41 +31,34 @@ object SFUtil {
     }
 
     fun getApplications(cluster: Cluster): List<TreeNode> {
-//        return cluster.applicationsTypes.map { t ->
-//            val applications = t.applications.map { a ->
-//                val services = a.services.map { s ->
-//                    val partitions = s.partitions.map { p ->
-//                        val nodes = p.nodes.map { n ->
-//                            ClusterTreeLeaf("${n.name} (${n.type})")
-//                        }
-//                        ClusterTreeNode(p.name, nodes)
-//                    }
-//                    ClusterTreeNode(s.name, partitions)
-//                }
-//                ClusterTreeNode(a.name, services)
-//            }
-//            ClusterTreeNode(t.name, applications)
-//        }
-        return listOf()
+        return cluster.applicationTypes.map { a ->
+            val services = a.serviceTypes.map { s ->
+                val partitions = s.partitionTypes.map { p ->
+                    val nodes = p.instances.map { i ->
+                        ClusterTreeLeaf(i.nodeName)
+                    }
+                    ClusterTreeNode(p.partition.partitionId, nodes)
+                }
+                ClusterTreeNode(s.service.serviceName, partitions)
+            }
+            ClusterTreeNode(a.application.applicationName, services)
+        }
     }
 
     fun getServices(cluster: Cluster): List<TreeNode> {
-//        val project = ProjectManager.getInstance().openProjects[0]
-//        val services = cluster
-//            .applicationsTypes
-//            .firstOrNull { type -> type.name.contains(project.name) }
-//            ?.applications
-//            ?.firstOrNull()
-//            ?.services
-//        return services?.map { s ->
-//            val partitions = s.partitions.map { p ->
-//                val nodes = p.nodes.map { n ->
-//                    ClusterTreeLeaf("${n.name} (${n.type})")
-//                }
-//                ClusterTreeNode(p.name, nodes)
-//            }
-//            ClusterTreeNode(s.name, partitions)
-//        } ?: listOf()
-        return listOf()
+        val project = ProjectManager.getInstance().openProjects[0]
+        val services = cluster
+            .applicationTypes
+            .firstOrNull { type -> type.application.applicationTypeName.contains(project.name) }
+            ?.serviceTypes
+        return services?.map { s ->
+            val partitions = s.partitionTypes.map { p ->
+                val nodes = p.instances.map { i ->
+                    ClusterTreeLeaf(i.nodeName)
+                }
+                ClusterTreeNode(p.partition.partitionId, nodes)
+            }
+            ClusterTreeNode(s.service.serviceName, partitions)
+        } ?: listOf()
     }
 }

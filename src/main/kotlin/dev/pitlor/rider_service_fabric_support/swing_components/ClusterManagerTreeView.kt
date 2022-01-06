@@ -14,9 +14,9 @@ import javax.swing.DefaultListModel
 import javax.swing.JPanel
 import javax.swing.JTextField
 
-sealed class TreeNode(val name: String)
-class ClusterTreeLeaf(name: String) : TreeNode(name)
-class ClusterTreeNode(name: String, val children: List<TreeNode>) : TreeNode(name)
+sealed class TreeNode(open val name: String)
+data class ClusterTreeLeaf(override val name: String) : TreeNode(name)
+data class ClusterTreeNode(override val name: String, val children: List<TreeNode>) : TreeNode(name)
 
 class NodeDetailPane(node: ClusterTreeLeaf) : JTextField(node.name)
 
@@ -31,6 +31,9 @@ class ClusterManagerSplitDetails : JBSplitter {
             .connect()
             .subscribe(ClusterAction.REFRESH, ClusterAction {
                 val cluster = it.find { c -> c.profile == profile } ?: return@ClusterAction
+                val newData = selector(cluster)
+                if (data == newData) return@ClusterAction
+
                 data = selector(cluster)
                 refreshUi()
             })

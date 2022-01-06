@@ -46,7 +46,7 @@ object Scripts {
         }
     }
 
-    private fun executeScript(scriptName: String, argsJson: String): String? {
+    private fun executeScript(scriptName: String, argsJson: String): String {
         ensureScriptsInFs()
         val cli = GeneralCommandLine(
             "powershell",
@@ -63,16 +63,7 @@ object Scripts {
             ).joinToString("; ", "& { ", " }")
         )
 
-        return try {
-            var output = ""
-            ProgressManager.getInstance().runProcessWithProgressSynchronously({
-                output = ExecUtil.execAndGetOutput(cli).stdout
-            }, "Refreshing clusters", false, null)
-            output
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
+        return ExecUtil.execAndGetOutput(cli).stdout
     }
 
     data class ReadClustersArgs(val profiles: List<ClusterConnectionProfile>)
