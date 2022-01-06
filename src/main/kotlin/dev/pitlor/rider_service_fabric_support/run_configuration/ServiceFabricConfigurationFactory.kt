@@ -16,7 +16,7 @@ class ServiceFabricConfigurationFactory(type: ConfigurationType) : Configuration
         return Bundle.string("run_config_factory.display_name")
     }
 
-    override fun getId(): @NonNls String {
+    override fun getId(): String {
         return Bundle.string("run_config_factory.id")
     }
 }

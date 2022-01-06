@@ -14,7 +14,7 @@ import dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRu
 import org.jetbrains.annotations.NonNls
 
 class ServiceFabricProgramRunner : GenericProgramRunner<RunnerSettings>() {
-    override fun getRunnerId(): @NonNls String {
+    override fun getRunnerId(): String {
         return Bundle.string("program_runner.run.id")
     }
 

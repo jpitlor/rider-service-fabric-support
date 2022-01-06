@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.7.3'
     id 'org.jetbrains.kotlin.jvm' version '1.6.0'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.0'
 }
 
 group 'dev.pitlor'
@@ -17,11 +16,12 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
     implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.2'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+    implementation 'net.harawata:appdirs:1.2.1'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2021.2.2'
+    version '2021.3.2'
     type 'RD'
 }
 patchPluginXml {
@@ -32,9 +32,3 @@ test {
     useJUnitPlatform()
 }
 runIde.autoReloadPlugins = true
-
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs += "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
-    }
-}

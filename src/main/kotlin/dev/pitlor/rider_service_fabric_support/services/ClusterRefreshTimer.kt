@@ -4,7 +4,9 @@ import com.intellij.openapi.application.ApplicationManager
 import dev.pitlor.rider_service_fabric_support.interfaces.Action
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
 import dev.pitlor.rider_service_fabric_support.models.Cluster
+import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
 import dev.pitlor.rider_service_fabric_support.settings.SettingsState
+import dev.pitlor.rider_service_fabric_support.utils.Scripts
 import dev.pitlor.rider_service_fabric_support.utils.Utils
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
@@ -40,7 +42,7 @@ class ClusterRefreshTimerImpl : ClusterRefreshTimer {
 
     override fun doNow() {
         val profiles = SettingsState.getInstance().state.connectionProfiles
-        val clusters = Utils.executeScript<List<Cluster>>("ReadClusters.ps1", profiles) ?: listOf()
+        val clusters = Scripts.readClusters(profiles)
         publisher.doAction(clusters)
     }
 }

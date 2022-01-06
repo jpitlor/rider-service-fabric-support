@@ -1,49 +1,51 @@
 param
 (
-    [Hashtable[]]
+    [PSCustomObject[]]
     $Profiles
 )
 
-Import-Module $([IO.Path]::Combine($PSScriptRoot, "..", "service-fabric-sdk", "ServiceFabricSDK.psm1"))
+Import-Module $([IO.Path]::Combine($PSScriptRoot, "service-fabric-sdk", "ServiceFabricSDK.psm1"))
 Import-Module $(Join-Path $PSScriptRoot "Utils.psm1")
 
 $clusters = New-List
 foreach ($profile in $profiles)
 {
+    # TODO: Add a timeout here
+    $connection = Connect-ServiceFabricCluster "$($profile.host)`:$($profile.port)"
     $c = @{
-        "profile" = $profile
-        "connection" = Connect-ServiceFabricCluster "$($profile["host"])`:$($profile["port"])"
-        "applications" = New-List
+        "Profile" = $profile
+        "Connection" = $connection[1]
+        "ApplicationTypes" = New-List
     }
     foreach ($application in Get-ServiceFabricApplication)
     {
         $a = @{
-            "application" = $application
-            "services" = New-List
+            "Application" = $application
+            "ServiceTypes" = New-List
         }
         foreach ($service in Get-ServiceFabricService -ApplicationName $application.ApplicationName.ToString())
         {
             $s = @{
-                "service" = $service
-                "partitions" = New-List
+                "Service" = $service
+                "PartitionTypes" = New-List
             }
             foreach ($partition in Get-ServiceFabricPartition -ServiceName $service.ServiceName.ToString())
             {
                 $p = @{
-                    "partition" = $partition
-                    "instances" = New-List
+                    "Partition" = $partition
+                    "Instances" = New-List
                 }
                 foreach ($instance in Get-ServiceFabricReplica -PartitionId $partition.PartitionId.ToString())
                 {
-                    $p["instances"].Add($instance)
+                    $p["Instances"].Add($instance)
                 }
-                $s["partitions"].Add($p)
+                $s["PartitionTypes"].Add($p)
             }
-            $a["services"].Add($s)
+            $a["ServiceTypes"].Add($s)
         }
-        $c["applications"].Add($a)
+        $c["ApplicationTypes"].Add($a)
     }
-    $result.Add($c)
+    $clusters.Add($c)
 }
 
-$clusters | ConvertTo-Json -Depth 100
+ConvertTo-Json -Depth 100 $clusters

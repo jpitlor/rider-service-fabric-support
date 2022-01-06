@@ -21,9 +21,10 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
         toolbar = actionManager
             .createActionToolbar(
                 Bundle.string("tool_window.action_toolbar.name"),
-                actionManager.getAction(Bundle.string("tool_window.action_group.name")) as @NotNull ActionGroup,
+                actionManager.getAction(Bundle.string("tool_window.action_group.name")) as ActionGroup,
                 false
             )
+            .apply { setTargetComponent(this@ClusterManagerToolWindowPanel) }
             .component
         add(JTabbedPane().apply {
             addTab(

@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import com.intellij.util.xmlb.Converter
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class ClusterConnectionProfile(
     var nickname: String,
     var host: String,
@@ -30,5 +29,4 @@ class ClusterConnectionProfileSerializationConverter() : Converter<List<ClusterC
     override fun fromString(string: String): List<ClusterConnectionProfile>? {
         return gson.fromJson(string, TypeToken.getParameterized(List::class.java, ClusterConnectionProfile::class.java).type)
     }
-
 }

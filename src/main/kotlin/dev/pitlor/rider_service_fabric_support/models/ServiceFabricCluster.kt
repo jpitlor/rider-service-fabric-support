@@ -1,43 +1,55 @@
 package dev.pitlor.rider_service_fabric_support.models
 
-import kotlinx.serialization.Serializable
-
-enum class NodeType { PrimaryReplica, SecondaryReplica, SingletonInstance }
-@Serializable
-data class Node(
+data class Parameter(
     val name: String,
-    val type: NodeType
+    val value: String
 )
 
-@Serializable
+data class Instance(
+    val replicaAddress: String,
+    val nodeName: String
+)
+
 data class Partition(
-    val name: String,
-    val nodes: List<Node>
+    val partitionId: String,
+    val partitionKind: Int
 )
 
-@Serializable
+data class PartitionType(
+    val partition: Partition,
+    val instances: List<Instance>
+)
+
 data class Service(
-    val name: String,
-    val partitions: List<Partition>
+    val serviceKind: Int,
+    val serviceName: String,
+    val serviceTypeName: String,
+    val serviceManifestVersion: String
 )
 
-@Serializable
+data class ServiceType(
+    val service: Service,
+    val partitionTypes: List<PartitionType>
+)
+
 data class Application(
-    val name: String,
-    val services: List<Service>
+    val applicationName: String,
+    val applicationTypeName: String,
+    val applicationTypeVersion: String,
+    val applicationParameters: List<Parameter>,
 )
 
-@Serializable
 data class ApplicationType(
-    val name: String,
-    val applications: List<Application>
+    val application: Application,
+    val serviceTypes: List<ServiceType>
 )
 
-@Serializable
+data class ClusterConnection(
+    val connectionEndpoint: List<String>
+)
+
 data class Cluster(
     val profile: ClusterConnectionProfile,
-    val name: String,
-    val applicationsTypes: List<ApplicationType>,
-    val nodes: List<Node>,
-    val systemServices: List<Service>
+    val applicationTypes: List<ApplicationType>,
+    val connection: ClusterConnection
 )
