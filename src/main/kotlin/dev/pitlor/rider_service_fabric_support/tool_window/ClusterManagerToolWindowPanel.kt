@@ -1,20 +1,13 @@
 package dev.pitlor.rider_service_fabric_support.tool_window
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.ActionManager
-import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
-import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
-import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerSplitDetails
-import org.jetbrains.annotations.NotNull
-import javax.swing.JPanel
-import javax.swing.JTabbedPane
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 
-class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfile, private val project: Project)
+class ClusterManagerToolWindowPanel(private val cluster: ClusterProfile, private val project: Project)
     : SimpleToolWindowPanel(false)
 {
     init {

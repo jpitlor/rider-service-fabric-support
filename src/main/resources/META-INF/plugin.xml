@@ -34,9 +34,9 @@
 <!--		<runConfigurationProducer-->
 <!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"-->
 <!--		/>-->
-<!--		<configurationType-->
-<!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"-->
-<!--		/>-->
+		<configurationType
+			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
+		/>
 		<fileType
 			name="Service Fabric Configuration"
 			language="XML"
@@ -50,7 +50,7 @@
 			anchor="bottom"
 		/>
 		<applicationService
-			serviceInterface="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer"
+			serviceInterface="dev.pitlor.rider_service_fabric_support.interfaces.ClusterRefreshTimer"
 			serviceImplementation="dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimerImpl"
 		/>
 		<applicationConfigurable

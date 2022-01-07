@@ -5,10 +5,9 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.util.ExecUtil
-import com.intellij.openapi.progress.ProgressManager
 import com.intellij.util.io.isDirectory
 import dev.pitlor.rider_service_fabric_support.models.Cluster
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 import net.harawata.appdirs.AppDirsFactory
 import java.io.File
 import java.nio.file.FileSystems
@@ -66,8 +65,8 @@ object Scripts {
         return ExecUtil.execAndGetOutput(cli).stdout
     }
 
-    data class ReadClustersArgs(val profiles: List<ClusterConnectionProfile>)
-    fun readClusters(profiles: List<ClusterConnectionProfile>): List<Cluster> {
+    data class ReadClustersArgs(val profiles: List<ClusterProfile>)
+    fun readClusters(profiles: List<ClusterProfile>): List<Cluster> {
         val argsJson = gson.toJson(ReadClustersArgs(profiles))
         val rawOutput = executeScript("ReadClusters.ps1", argsJson)
         return gson.fromJson(rawOutput, object : TypeToken<List<Cluster>>() {}.type) ?: listOf()

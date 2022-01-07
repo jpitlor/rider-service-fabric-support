@@ -1,4 +1,4 @@
-package dev.pitlor.rider_service_fabric_support.utils
+package dev.pitlor.rider_service_fabric_support.serialization
 
 import com.intellij.openapi.util.JDOMExternalizerUtil
 import com.intellij.openapi.vfs.VirtualFile

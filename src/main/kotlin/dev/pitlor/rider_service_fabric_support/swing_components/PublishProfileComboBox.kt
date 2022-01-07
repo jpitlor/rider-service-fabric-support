@@ -4,32 +4,15 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
+import dev.pitlor.rider_service_fabric_support.swing_components.helpers.TextFieldChangeListener
+import dev.pitlor.rider_service_fabric_support.swing_components.helpers.PublishProfileComboBoxRenderer
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getSFFolders
 import dev.pitlor.rider_service_fabric_support.utils.Utils.findIndex
-import java.awt.Component
 import javax.swing.DefaultComboBoxModel
-import javax.swing.DefaultListCellRenderer
-import javax.swing.JList
 import javax.swing.event.DocumentEvent
-import javax.swing.event.DocumentListener
 
-@FunctionalInterface
-class TextFieldChangeListener(private val onChange: (DocumentEvent) -> Unit) : DocumentListener {
-    override fun insertUpdate(e: DocumentEvent) {
-        onChange(e)
-    }
-
-    override fun removeUpdate(e: DocumentEvent) {
-        onChange(e)
-    }
-
-    override fun changedUpdate(e: DocumentEvent) {
-        onChange(e)
-    }
-}
-
-class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, project: Project) : ComboBox<VirtualFile?>() {
+class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, project: Project) : ComboBox<VirtualFile>() {
     private val sfProjects: List<VirtualFile> = project.getSFFolders()
 
     private fun onServiceFabricProjectSelected(event: DocumentEvent) {
@@ -45,22 +28,6 @@ class PublishProfileComboBox(sfProjFolderTextField: SfProjFolderTextField, proje
             this.selectedIndex = publishProfiles.findIndex { it.name.contains("Local") }
         } catch (e: Exception) {
             this.model = DefaultComboBoxModel(arrayOf())
-        }
-    }
-
-    private class PublishProfileComboBoxRenderer : DefaultListCellRenderer() {
-        override fun getListCellRendererComponent(
-            list: JList<*>?,
-            value: Any,
-            index: Int,
-            isSelected: Boolean,
-            cellHasFocus: Boolean
-        ): Component {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus)
-            if (value is VirtualFile) {
-                text = value.nameWithoutExtension
-            }
-            return this
         }
     }
 

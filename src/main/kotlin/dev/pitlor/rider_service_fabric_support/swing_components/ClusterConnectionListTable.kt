@@ -3,22 +3,20 @@ package dev.pitlor.rider_service_fabric_support.swing_components
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.table.TableView
 import com.intellij.util.ui.ListTableModel
-import com.intellij.util.ui.table.*
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
-import dev.pitlor.rider_service_fabric_support.utils.NamedColumn
-import javax.swing.event.TableModelEvent
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
+import dev.pitlor.rider_service_fabric_support.swing_components.helpers.NamedColumn
 
 class ClusterConnectionListTable(
-    tableModel: ListTableModel<ClusterConnectionProfile> = ListTableModel<ClusterConnectionProfile>(
-        NamedColumn<ClusterConnectionProfile, String>("Nickname") { nickname },
-        NamedColumn<ClusterConnectionProfile, String>("Host") { host },
+    tableModel: ListTableModel<ClusterProfile> = ListTableModel<ClusterProfile>(
+        NamedColumn<ClusterProfile, String>("Nickname") { nickname },
+        NamedColumn<ClusterProfile, String>("Host") { host },
     ),
-) : TableView<ClusterConnectionProfile>(tableModel) {
-    fun getClusterConnectionProfiles(): List<ClusterConnectionProfile> {
+) : TableView<ClusterProfile>(tableModel) {
+    fun getClusterConnectionProfiles(): List<ClusterProfile> {
         return listTableModel.items
     }
 
-    fun setClusterConnectionProfiles(profiles: List<ClusterConnectionProfile>) {
+    fun setClusterConnectionProfiles(profiles: List<ClusterProfile>) {
         listTableModel.items = profiles
     }
 

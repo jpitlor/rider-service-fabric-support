@@ -1,31 +1,24 @@
 package dev.pitlor.rider_service_fabric_support.swing_components
 
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.project.Project
 import com.intellij.ui.JBSplitter
 import com.intellij.ui.components.JBList
-import com.intellij.ui.dsl.builder.panel
-import com.intellij.util.messages.MessageBus
+import com.intellij.ui.components.JBTextField
 import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
-import dev.pitlor.rider_service_fabric_support.utils.Notification
-import dev.pitlor.rider_service_fabric_support.utils.SFUtil
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 import javax.swing.DefaultListModel
 import javax.swing.JPanel
-import javax.swing.JTextField
 
 sealed class TreeNode(open val name: String)
 data class ClusterTreeLeaf(override val name: String) : TreeNode(name)
 data class ClusterTreeNode(override val name: String, val children: List<TreeNode>) : TreeNode(name)
 
-class NodeDetailPane(node: ClusterTreeLeaf) : JTextField(node.name)
-
 class ClusterManagerSplitDetails : JBSplitter {
     private var data = listOf<TreeNode>()
     private val leftList = JBList<String>()
 
-    constructor(profile: ClusterConnectionProfile, selector: (cluster: Cluster) -> List<TreeNode>) {
+    constructor(profile: ClusterProfile, selector: (cluster: Cluster) -> List<TreeNode>) {
         ApplicationManager
             .getApplication()
             .messageBus
@@ -53,7 +46,7 @@ class ClusterManagerSplitDetails : JBSplitter {
         leftList.addListSelectionListener {
             val selection = data[it.firstIndex]
             secondComponent = when (selection) {
-                is ClusterTreeLeaf -> NodeDetailPane(selection)
+                is ClusterTreeLeaf -> JBTextField(selection.name)
                 is ClusterTreeNode -> ClusterManagerSplitDetails(selection.children)
             }
         }

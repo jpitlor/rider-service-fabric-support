@@ -9,7 +9,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.jetbrains.rider.build.tasks.BuildSolutionBeforeRunTask
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.utils.Xml
+import dev.pitlor.rider_service_fabric_support.serialization.Xml
 import org.jdom.Element
 
 class ServiceFabricRunConfiguration(project: Project, factory: ConfigurationFactory) :

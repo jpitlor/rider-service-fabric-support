@@ -49,7 +49,7 @@ data class ClusterConnection(
 )
 
 data class Cluster(
-    val profile: ClusterConnectionProfile,
+    val profile: ClusterProfile,
     val applicationTypes: List<ApplicationType>,
     val connection: ClusterConnection
 )

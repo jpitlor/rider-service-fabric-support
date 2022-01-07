@@ -5,9 +5,8 @@ import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.openapi.project.Project
 import dev.pitlor.rider_service_fabric_support.Bundle
-import org.jetbrains.annotations.NonNls
 
-class ServiceFabricConfigurationFactory(type: ConfigurationType) : ConfigurationFactory(type) {
+class ServiceFabricRunConfigurationFactory(type: ConfigurationType) : ConfigurationFactory(type) {
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
         return ServiceFabricRunConfiguration(project, this)
     }

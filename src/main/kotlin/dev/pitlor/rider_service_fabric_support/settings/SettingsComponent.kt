@@ -1,10 +1,9 @@
 package dev.pitlor.rider_service_fabric_support.settings
 
 import com.intellij.ui.ToolbarDecorator
-import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterConnectionListTable
 import javax.swing.JPanel
 
@@ -23,11 +22,11 @@ class SettingsComponent {
         )
         .panel
 
-    fun getClusterConnectionProfiles(): List<ClusterConnectionProfile> {
+    fun getClusterConnectionProfiles(): List<ClusterProfile> {
         return listTable.getClusterConnectionProfiles()
     }
 
-    fun setClusterConnectionProfiles(profiles: List<ClusterConnectionProfile>) {
+    fun setClusterConnectionProfiles(profiles: List<ClusterProfile>) {
         listTable.setClusterConnectionProfiles(profiles)
     }
 }

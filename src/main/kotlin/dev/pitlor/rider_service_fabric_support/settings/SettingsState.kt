@@ -4,10 +4,9 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
-import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.OptionTag
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfileSerializationConverter
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
+import dev.pitlor.rider_service_fabric_support.serialization.ClusterProfileSerializationConverter
 
 @State(
     name = "dev.pitlor.rider_service_fabric_support.SettingsState",
@@ -26,8 +25,8 @@ class SettingsState : PersistentStateComponent<SettingsState.Companion.StateMode
 
     companion object {
         data class StateModel(
-            @OptionTag(converter = ClusterConnectionProfileSerializationConverter::class)
-            var connectionProfiles: List<ClusterConnectionProfile> = listOf()
+            @OptionTag(converter = ClusterProfileSerializationConverter::class)
+            var connectionProfiles: List<ClusterProfile> = listOf()
         )
 
         fun getInstance(): SettingsState {

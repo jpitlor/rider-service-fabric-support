@@ -5,7 +5,7 @@ import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
+import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 import javax.swing.JComponent
 
 class ClusterConnectionEditDialog() : DialogWrapper(null, false) {
@@ -36,7 +36,7 @@ class ClusterConnectionEditDialog() : DialogWrapper(null, false) {
             .panel
     }
 
-    fun setClusterConnection(clusterConnection: ClusterConnectionProfile) {
+    fun setClusterConnection(clusterConnection: ClusterProfile) {
         nicknameTextField.text = clusterConnection.nickname
         hostTextField.text = clusterConnection.host
         portTextField.number = clusterConnection.port
@@ -44,8 +44,8 @@ class ClusterConnectionEditDialog() : DialogWrapper(null, false) {
         clientCertThumbprintTextField.text = clusterConnection.clientCertThumbprint
     }
 
-    fun getClusterConnection(): ClusterConnectionProfile {
-        return ClusterConnectionProfile(
+    fun getClusterConnection(): ClusterProfile {
+        return ClusterProfile(
             nicknameTextField.text,
             hostTextField.text,
             portTextField.number,

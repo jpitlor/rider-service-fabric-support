@@ -24,6 +24,6 @@ class ServiceFabricRunConfigurationType : ConfigurationType {
     }
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(ServiceFabricConfigurationFactory(this))
+        return arrayOf(ServiceFabricRunConfigurationFactory(this))
     }
 }
