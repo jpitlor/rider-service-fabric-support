@@ -32,3 +32,8 @@ test {
     useJUnitPlatform()
 }
 runIde.autoReloadPlugins = true
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs += "-opt-in=com.intellij.ui.dsl.builder.Panel"
+    }
+}

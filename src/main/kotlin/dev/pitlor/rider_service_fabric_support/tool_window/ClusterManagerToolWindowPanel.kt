@@ -11,6 +11,7 @@ import dev.pitlor.rider_service_fabric_support.models.ClusterConnectionProfile
 import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
 import dev.pitlor.rider_service_fabric_support.swing_components.ClusterManagerSplitDetails
 import org.jetbrains.annotations.NotNull
+import javax.swing.JPanel
 import javax.swing.JTabbedPane
 
 class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfile, private val project: Project)
@@ -24,23 +25,24 @@ class ClusterManagerToolWindowPanel(private val cluster: ClusterConnectionProfil
                 actionManager.getAction(Bundle.string("tool_window.action_group.name")) as ActionGroup,
                 false
             )
-            .apply { setTargetComponent(this@ClusterManagerToolWindowPanel) }
+            .apply { targetComponent = this@ClusterManagerToolWindowPanel }
             .component
-        add(JTabbedPane().apply {
-            addTab(
-                project.name,
-                ClusterManagerSplitDetails.Local(cluster)
-            )
-            addTab(
-                Bundle.string("tool_window.tabs.all_apps.name"),
-                AllIcons.Toolwindows.WebToolWindow,
-                ClusterManagerSplitDetails.Global(cluster)
-            )
-            addTab(
-                Bundle.string("tool_window.tabs.cluster.name"),
-                AllIcons.Toolwindows.ToolWindowStructure,
-                ClusterManagerSplitDetails.Cluster(cluster)
-            )
-        })
+        // FIXME
+//        add(JTabbedPane().apply {
+//            addTab(
+//                project.name,
+//                ClusterManagerSplitDetails.Local(cluster)
+//            )
+//            addTab(
+//                Bundle.string("tool_window.tabs.all_apps.name"),
+//                AllIcons.Toolwindows.WebToolWindow,
+//                ClusterManagerSplitDetails.Global(cluster)
+//            )
+//            addTab(
+//                Bundle.string("tool_window.tabs.cluster.name"),
+//                AllIcons.Toolwindows.ToolWindowStructure,
+//                ClusterManagerSplitDetails.Cluster(cluster)
+//            )
+//        })
     }
 }

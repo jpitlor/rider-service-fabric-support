@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.ui.JBSplitter
 import com.intellij.ui.components.JBList
+import com.intellij.ui.dsl.builder.panel
 import com.intellij.util.messages.MessageBus
 import dev.pitlor.rider_service_fabric_support.models.Cluster
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
@@ -56,6 +57,7 @@ class ClusterManagerSplitDetails : JBSplitter {
                 is ClusterTreeNode -> ClusterManagerSplitDetails(selection.children)
             }
         }
+        refreshUi()
     }
 
     private fun refreshUi() {
@@ -63,18 +65,19 @@ class ClusterManagerSplitDetails : JBSplitter {
             .apply { addAll(data.map { it.name }) }
     }
 
-    @Suppress("FunctionName")
-    companion object {
-        fun Cluster(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster, SFUtil::getInfrastructure)
-        }
-
-        fun Global(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster, SFUtil::getApplications)
-        }
-
-        fun Local(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
-            return ClusterManagerSplitDetails(cluster, SFUtil::getServices)
-        }
-    }
+    // FIXME
+//    @Suppress("FunctionName")
+//    companion object {
+//        fun Cluster(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+//            return ClusterManagerSplitDetails(cluster, SFUtil::getInfrastructure)
+//        }
+//
+//        fun Global(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+//            return ClusterManagerSplitDetails(cluster, SFUtil::getApplications)
+//        }
+//
+//        fun Local(cluster: ClusterConnectionProfile): ClusterManagerSplitDetails {
+//            return ClusterManagerSplitDetails(cluster, SFUtil::getServices)
+//        }
+//    }
 }
