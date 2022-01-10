@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 
-class ServiceFabricRunConfigurationProducer : RunConfigurationProducer<ServiceFabricRunConfiguration>(false) {
+class RunConfigurationProducer : RunConfigurationProducer<RunConfiguration>(false) {
     override fun setupConfigurationFromContext(
-        runConfiguration: ServiceFabricRunConfiguration,
+        runConfiguration: RunConfiguration,
         configurationContext: ConfigurationContext,
         ref: Ref<PsiElement>
     ): Boolean {
@@ -32,7 +32,7 @@ class ServiceFabricRunConfigurationProducer : RunConfigurationProducer<ServiceFa
     }
 
     override fun isConfigurationFromContext(
-        runConfiguration: ServiceFabricRunConfiguration,
+        runConfiguration: RunConfiguration,
         configurationContext: ConfigurationContext
     ): Boolean {
         return false

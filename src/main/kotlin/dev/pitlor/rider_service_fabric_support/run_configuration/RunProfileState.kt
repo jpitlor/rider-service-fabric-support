@@ -16,7 +16,8 @@ import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ExecutionType
 
-class ServiceFabricRunProfileState(private val configuration: ServiceFabricRunConfiguration) : RunProfileState {
+class RunProfileState(private val configuration: RunConfiguration) :
+    RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
         if (!isSuperUser) {
             val shouldRestart = Messages.showYesNoDialog(

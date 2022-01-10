@@ -3,7 +3,7 @@ package dev.pitlor.rider_service_fabric_support.run_configuration
 import com.intellij.openapi.vfs.VirtualFile
 import dev.pitlor.rider_service_fabric_support.utils.Utils
 
-class ServiceFabricRunConfigurationSettings {
+class RunConfigurationSettings {
     var sfProjFolder: VirtualFile? = null
     var publishProfile: VirtualFile? = null
 
@@ -20,8 +20,8 @@ class ServiceFabricRunConfigurationSettings {
             return this
         }
 
-        fun build(): ServiceFabricRunConfigurationSettings {
-            val settings = ServiceFabricRunConfigurationSettings()
+        fun build(): RunConfigurationSettings {
+            val settings = RunConfigurationSettings()
             settings.publishProfile = publishProfile
             settings.sfProjFolder = sfProjFolder
             return settings

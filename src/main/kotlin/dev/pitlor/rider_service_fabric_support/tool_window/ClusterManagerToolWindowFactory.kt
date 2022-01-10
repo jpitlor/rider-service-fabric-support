@@ -8,7 +8,7 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.ui.content.ContentFactory
 import dev.pitlor.rider_service_fabric_support.Bundle
-import dev.pitlor.rider_service_fabric_support.services.ClusterRefreshTimer
+import dev.pitlor.rider_service_fabric_support.interfaces.ClusterRefreshTimer
 import dev.pitlor.rider_service_fabric_support.settings.SettingsState
 
 class ClusterManagerToolWindowFactory : ToolWindowFactory {

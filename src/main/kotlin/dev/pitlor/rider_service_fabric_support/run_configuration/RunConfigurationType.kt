@@ -6,7 +6,7 @@ import dev.pitlor.rider_service_fabric_support.Bundle
 import icons.PluginIcons
 import javax.swing.Icon
 
-class ServiceFabricRunConfigurationType : ConfigurationType {
+class RunConfigurationType : ConfigurationType {
     override fun getDisplayName(): String {
         return Bundle.string("run_config.display_name")
     }
@@ -24,6 +24,6 @@ class ServiceFabricRunConfigurationType : ConfigurationType {
     }
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(ServiceFabricRunConfigurationFactory(this))
+        return arrayOf(RunConfigurationFactory(this))
     }
 }

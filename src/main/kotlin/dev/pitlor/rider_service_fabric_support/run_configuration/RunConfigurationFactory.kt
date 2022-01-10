@@ -6,9 +6,9 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.openapi.project.Project
 import dev.pitlor.rider_service_fabric_support.Bundle
 
-class ServiceFabricRunConfigurationFactory(type: ConfigurationType) : ConfigurationFactory(type) {
+class RunConfigurationFactory(type: ConfigurationType) : ConfigurationFactory(type) {
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return ServiceFabricRunConfiguration(project, this)
+        return RunConfiguration(project, this)
     }
 
     override fun getName(): String {

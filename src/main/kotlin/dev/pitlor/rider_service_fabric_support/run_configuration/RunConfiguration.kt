@@ -12,17 +12,17 @@ import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.serialization.Xml
 import org.jdom.Element
 
-class ServiceFabricRunConfiguration(project: Project, factory: ConfigurationFactory) :
-    RunConfigurationBase<ServiceFabricRunProfileState>(project, factory, Bundle.string("run_config.display_name"))
+class RunConfiguration(project: Project, factory: ConfigurationFactory) :
+    RunConfigurationBase<RunProfileState>(project, factory, Bundle.string("run_config.display_name"))
 {
-    var settings: ServiceFabricRunConfigurationSettings = ServiceFabricRunConfigurationSettings()
+    var settings: RunConfigurationSettings = RunConfigurationSettings()
 
-    override fun getConfigurationEditor(): SettingsEditor<ServiceFabricRunConfiguration> {
-        return ServiceFabricRunConfigurationEditor(project)
+    override fun getConfigurationEditor(): SettingsEditor<RunConfiguration> {
+        return RunConfigurationEditor(project)
     }
 
-    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): ServiceFabricRunProfileState {
-        return ServiceFabricRunProfileState(this)
+    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): RunProfileState {
+        return RunProfileState(this)
     }
 
     override fun readExternal(element: Element) {

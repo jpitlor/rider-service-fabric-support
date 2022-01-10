@@ -35,7 +35,7 @@
 <!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationProducer"-->
 <!--		/>-->
 		<configurationType
-			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.ServiceFabricRunConfigurationType"
+			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.RunConfigurationType"
 		/>
 		<fileType
 			name="Service Fabric Configuration"
