@@ -15,9 +15,9 @@ import com.intellij.terminal.TerminalExecutionConsole
 import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ExecutionType
+import dev.pitlor.rider_service_fabric_support.utils.Scripts
 
-class RunProfileState(private val configuration: RunConfiguration) :
-    RunProfileState {
+class SFRunProfileState(private val configuration: RunConfiguration) : RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
         if (!isSuperUser) {
             val shouldRestart = Messages.showYesNoDialog(
@@ -51,27 +51,16 @@ class RunProfileState(private val configuration: RunConfiguration) :
 
     private val process: OSProcessHandler
         get() {
-            val publishProfile = configuration.settings.publishProfile
-            val sfProjFolder = configuration.settings.sfProjFolder
+            val publishProfile = configuration.publishProfile
+            val sfProjFolder = configuration.sfProjFolder
             require(sfProjFolder != null && publishProfile != null) { "Run settings can not be null" }
 
             val deployScript = sfProjFolder.findFileByRelativePath("Scripts/Deploy-FabricApplication.ps1")
             val applicationPackage = sfProjFolder.findFileByRelativePath("pkg/debug")
             require(deployScript != null && applicationPackage != null) { "Build scripts are missing"}
 
-            val manifestContents = sfProjFolder
-                .findFileByRelativePath("ApplicationPackageRoot/ApplicationManifest.xml")
-                ?.contentsToByteArray()
-                ?.decodeToString()
-                ?: ""
-            val applicationType = Regex("ApplicationTypeName=\"(.*)\"")
-                .find(manifestContents)
-                ?.groupValues
-                ?.firstOrNull()
-                ?: ""
-            
-            val commandLine = GeneralCommandLine() //SFPSUtil.publishApplication(applicationType, deployScript, publishProfile, applicationPackage)
-            val processHandler = KillableColoredProcessHandler.Silent(commandLine)
+            val commandLine = Scripts.deployApplication(deployScript.path, publishProfile.path, applicationPackage.path)
+            val processHandler = ProcessHandler(commandLine)
             ProcessTerminatedListener.attach(processHandler)
             return processHandler
         }

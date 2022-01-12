@@ -13,7 +13,7 @@ class PublishProfileComboBoxRenderer : DefaultListCellRenderer() {
         isSelected: Boolean,
         cellHasFocus: Boolean
     ): Component {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus)
+        super.getListCellRendererComponent(list, value ?: "", index, isSelected, cellHasFocus)
         if (value is VirtualFile) {
             text = value.nameWithoutExtension
         }

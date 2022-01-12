@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 
-class RunConfigurationProducer : RunConfigurationProducer<RunConfiguration>(false) {
+class SFRunConfigurationProducer : RunConfigurationProducer<RunConfiguration>(false) {
     override fun setupConfigurationFromContext(
         runConfiguration: RunConfiguration,
         configurationContext: ConfigurationContext,
@@ -22,10 +22,10 @@ class RunConfigurationProducer : RunConfigurationProducer<RunConfiguration>(fals
         }
 
         val folder = ref.get().containingFile.parent!!.virtualFile
-        runConfiguration.settings.sfProjFolder = folder
+        runConfiguration.sfProjFolder = folder
 
         val publishProfiles = SFUtil.getPublishProfiles(folder).toList()
-        runConfiguration.settings.publishProfile =
+        runConfiguration.publishProfile =
             publishProfiles.firstOrNull { s: VirtualFile -> s.name.contains("Local") }
             ?: publishProfiles[0]
         return true

@@ -10,6 +10,11 @@ import dev.pitlor.rider_service_fabric_support.utils.SFUtil.getSFFolders
 import dev.pitlor.rider_service_fabric_support.utils.Utils.getTildePath
 
 class SfProjFolderTextField(project: Project) : TextFieldWithHistoryWithBrowseButton() {
+    private val sfProjFolders = project
+        .getSFFolders()
+        .map { it.getTildePath() }
+        .sorted()
+
     init {
         childComponent.setHistorySize(-1)
         childComponent.setMinimumAndPreferredWidth(0)
@@ -17,10 +22,7 @@ class SfProjFolderTextField(project: Project) : TextFieldWithHistoryWithBrowseBu
         PathShortener.enablePathShortening(childComponent.textEditor, null)
         SwingHelper.addHistoryOnExpansion(childComponent) {
             childComponent.history = emptyList()
-            return@addHistoryOnExpansion project
-                .getSFFolders()
-                .map { it.getTildePath() }
-                .sorted()
+            return@addHistoryOnExpansion sfProjFolders
         }
         SwingHelper.installFileCompletionAndBrowseDialog(
             project,

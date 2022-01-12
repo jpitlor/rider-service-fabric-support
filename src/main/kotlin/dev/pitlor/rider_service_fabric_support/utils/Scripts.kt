@@ -45,9 +45,8 @@ object Scripts {
         }
     }
 
-    private fun executeScript(scriptName: String, argsJson: String): String {
-        ensureScriptsInFs()
-        val cli = GeneralCommandLine(
+    private fun getCli(scriptPath: String, argsJson: String): GeneralCommandLine {
+        return GeneralCommandLine(
             "powershell",
             "-NonInteractive",
             "-NoProfile",
@@ -58,17 +57,38 @@ object Scripts {
             listOf(
                 "\$xArgs = @{}",
                 "(ConvertFrom-Json '$argsJson').psobject.properties | Foreach { \$xArgs[\$_.Name] = \$_.Value }",
-                "& '${persistedScriptFolderPath + File.separator + scriptName}' @xArgs"
+                "& '$scriptPath' @xArgs"
             ).joinToString("; ", "& { ", " }")
         )
+    }
 
+    private fun executeScript(scriptPath: String, argsJson: String): String {
+        ensureScriptsInFs()
+
+        val cli = getCli(scriptPath, argsJson)
         return ExecUtil.execAndGetOutput(cli).stdout
     }
 
     data class ReadClustersArgs(val profiles: List<ClusterProfile>)
     fun readClusters(profiles: List<ClusterProfile>): List<Cluster> {
         val argsJson = gson.toJson(ReadClustersArgs(profiles))
-        val rawOutput = executeScript("ReadClusters.ps1", argsJson)
+        val scriptPath = persistedScriptFolderPath + File.separator + "ReadClusters.ps1"
+        val rawOutput = executeScript(scriptPath, argsJson)
         return gson.fromJson(rawOutput, object : TypeToken<List<Cluster>>() {}.type) ?: listOf()
+    }
+
+    data class DeployApplicationArgs(
+        val publishProfileFile: String,
+        val applicationPackagePath: String,
+        val overwriteBehavior: String = "SameAppTypeAndVersion",
+        val errorAction: String = "Stop"
+    )
+    fun deployApplication(
+        scriptPath: String,
+        publishProfileFile: String,
+        applicationPackagePath: String
+    ): GeneralCommandLine {
+        val argsJson = gson.toJson(DeployApplicationArgs(publishProfileFile, applicationPackagePath))
+        return getCli(scriptPath, argsJson)
     }
 }
