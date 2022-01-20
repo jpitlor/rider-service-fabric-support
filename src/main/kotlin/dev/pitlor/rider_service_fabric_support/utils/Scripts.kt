@@ -45,7 +45,8 @@ object Scripts {
         }
     }
 
-    private fun getCli(scriptPath: String, argsJson: String): GeneralCommandLine {
+    private fun getCli(scriptPath: String, argsMap: Map<String, String>): GeneralCommandLine {
+        val args = argsMap.entries.fold("") { acc, (k, v) -> "$acc -$k $v" }
         return GeneralCommandLine(
             "powershell",
             "-NonInteractive",
@@ -53,42 +54,35 @@ object Scripts {
             "-WindowStyle", "Hidden",
             "-ExecutionPolicy", "Bypass",
             "-OutputFormat", "Text",
-            "-Command",
-            listOf(
-                "\$xArgs = @{}",
-                "(ConvertFrom-Json '$argsJson').psobject.properties | Foreach { \$xArgs[\$_.Name] = \$_.Value }",
-                "& '$scriptPath' @xArgs"
-            ).joinToString("; ", "& { ", " }")
+            "-Command", ". '$scriptPath' $args"
         )
     }
 
-    private fun executeScript(scriptPath: String, argsJson: String): String {
+    private fun executeScript(scriptPath: String, argsMap: Map<String, String>): String {
         ensureScriptsInFs()
 
-        val cli = getCli(scriptPath, argsJson)
+        val cli = getCli(scriptPath, argsMap)
         return ExecUtil.execAndGetOutput(cli).stdout
     }
 
-    data class ReadClustersArgs(val profiles: List<ClusterProfile>)
     fun readClusters(profiles: List<ClusterProfile>): List<Cluster> {
-        val argsJson = gson.toJson(ReadClustersArgs(profiles))
+        val argsMap = mapOf("Profiles" to gson.toJson(profiles))
         val scriptPath = persistedScriptFolderPath + File.separator + "ReadClusters.ps1"
-        val rawOutput = executeScript(scriptPath, argsJson)
+        val rawOutput = executeScript(scriptPath, argsMap)
         return gson.fromJson(rawOutput, object : TypeToken<List<Cluster>>() {}.type) ?: listOf()
     }
 
-    data class DeployApplicationArgs(
-        val publishProfileFile: String,
-        val applicationPackagePath: String,
-        val overwriteBehavior: String = "SameAppTypeAndVersion",
-        val errorAction: String = "Stop"
-    )
     fun deployApplication(
         scriptPath: String,
         publishProfileFile: String,
         applicationPackagePath: String
     ): GeneralCommandLine {
-        val argsJson = gson.toJson(DeployApplicationArgs(publishProfileFile, applicationPackagePath))
-        return getCli(scriptPath, argsJson)
+        val argsMap = mapOf(
+            "PublishProfileFile" to publishProfileFile,
+            "ApplicationPackagePath" to applicationPackagePath,
+            "OverwriteBehavior" to "SameAppTypeAndVersion",
+            "ErrorAction" to "Stop"
+        )
+        return getCli(scriptPath, argsMap)
     }
 }
