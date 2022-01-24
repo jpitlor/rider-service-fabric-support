@@ -60,8 +60,6 @@ class SFRunProfileState(private val configuration: RunConfiguration) : RunProfil
             require(deployScript != null && applicationPackage != null) { "Build scripts are missing"}
 
             val commandLine = Scripts.deployApplication(deployScript.path, publishProfile.path, applicationPackage.path)
-            val processHandler = ProcessHandler(commandLine)
-            ProcessTerminatedListener.attach(processHandler)
-            return processHandler
+            return OSProcessHandler(commandLine).also(ProcessTerminatedListener::attach)
         }
 }

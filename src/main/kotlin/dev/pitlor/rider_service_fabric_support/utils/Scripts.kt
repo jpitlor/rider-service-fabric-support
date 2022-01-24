@@ -13,7 +13,6 @@ import java.io.File
 import java.nio.file.FileSystems
 import java.nio.file.Files
 
-
 object Scripts {
     private val gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
