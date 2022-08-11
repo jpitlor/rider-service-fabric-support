@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.7.3'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
 }
 
 group 'dev.pitlor'
@@ -12,16 +12,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
     implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.2'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
     implementation 'net.harawata:appdirs:1.2.1'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2021.3.2'
+    version '2022.2.1'
     type 'RD'
 }
 patchPluginXml {

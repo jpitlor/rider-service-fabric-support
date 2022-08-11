@@ -40,16 +40,13 @@ data class Application(
 )
 
 data class ApplicationType(
+    val name: String,
+    val registeredVersions: List<String>,
     val application: Application,
     val serviceTypes: List<ServiceType>
 )
 
-data class ClusterConnection(
-    val connectionEndpoint: List<String>
-)
-
 data class Cluster(
     val profile: ClusterProfile,
-    val applicationTypes: List<ApplicationType>,
-    val connection: ClusterConnection
+    val applicationTypes: List<ApplicationType>
 )

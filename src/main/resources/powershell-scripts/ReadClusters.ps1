@@ -10,16 +10,20 @@ Import-Module $(Join-Path $PSScriptRoot "Utils.psm1")
 $clusters = New-List
 foreach ($profile in $profiles)
 {
-    # TODO: Add a timeout here
-    $connection = Connect-ServiceFabricCluster "$($profile.host)`:$($profile.port)"
+    [void](Connect-ServiceFabricCluster `
+        -TimeoutSec 5 `
+        -ConnectionEndpoint "$($profile.host)`:$($profile.port)")
     $c = @{
         "Profile" = $profile
-        "Connection" = $connection[1]
         "ApplicationTypes" = New-List
     }
     foreach ($application in Get-ServiceFabricApplication)
     {
+        $applicationType = Get-ServiceFabricApplicationType -ApplicationTypeName $application.ApplicationTypeName
+
         $a = @{
+            "Name" = $applicationType.ApplicationTypeName
+            "RegisteredVersions" = @($applicationType.ApplicationTypeVersion)
             "Application" = $application
             "ServiceTypes" = New-List
         }
