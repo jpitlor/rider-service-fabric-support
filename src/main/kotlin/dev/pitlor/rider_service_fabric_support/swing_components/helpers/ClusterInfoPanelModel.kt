@@ -15,7 +15,6 @@ class ClusterInfoPanelModel(
         get() = cluster.applicationTypes
             .filter { applicationNamePredicate.apply(it.name) }
             .map { it.name }
-            .toTypedArray()
 
     var application = ""
     private val selectedApplication
@@ -24,7 +23,7 @@ class ClusterInfoPanelModel(
         else
             selectedApplicationType?.application
     val applications
-        get() = arrayOf(selectedApplicationType?.application?.applicationName ?: "")
+        get() = listOf(selectedApplicationType?.application?.applicationName ?: "")
 
     var service = ""
     private val selectedService
@@ -32,8 +31,7 @@ class ClusterInfoPanelModel(
     val services
         get() = selectedApplicationType?.serviceTypes
             ?.map { it.service.serviceName }
-            ?.toTypedArray()
-            ?: arrayOf()
+            ?: listOf()
 
     var partition = ""
     private val selectedPartition
@@ -41,8 +39,7 @@ class ClusterInfoPanelModel(
     val partitions
         get() = selectedService?.partitionTypes
             ?.map { it.partition.partitionId }
-            ?.toTypedArray()
-            ?: arrayOf()
+            ?: listOf()
 
     var replica = ""
     val selectedReplica
@@ -50,6 +47,5 @@ class ClusterInfoPanelModel(
     val replicas
         get() = selectedPartition?.instances
             ?.map { it.nodeName }
-            ?.toTypedArray()
-            ?: arrayOf()
+            ?: listOf()
 }

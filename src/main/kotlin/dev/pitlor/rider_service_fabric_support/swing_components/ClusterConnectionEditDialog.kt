@@ -8,7 +8,7 @@ import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 import javax.swing.JComponent
 
-class ClusterConnectionEditDialog() : DialogWrapper(null, false) {
+class ClusterConnectionEditDialog : DialogWrapper(null, false) {
     private val nicknameTextField = JBTextField()
     private val hostTextField = JBTextField()
     private val portTextField = JBIntSpinner(19000, 0, 25565)

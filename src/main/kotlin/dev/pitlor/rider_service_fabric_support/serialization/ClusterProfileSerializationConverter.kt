@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken
 import com.intellij.util.xmlb.Converter
 import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
 
-class ClusterProfileSerializationConverter() : Converter<List<ClusterProfile>>() {
+class ClusterProfileSerializationConverter : Converter<List<ClusterProfile>>() {
     private val gson = Gson()
 
     override fun toString(profiles: List<ClusterProfile>): String? {

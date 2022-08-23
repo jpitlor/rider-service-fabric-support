@@ -3,9 +3,7 @@ package dev.pitlor.rider_service_fabric_support.run_configuration
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
-import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.configurations.RunProfileState
-import com.intellij.execution.process.KillableColoredProcessHandler
 import com.intellij.execution.process.OSProcessHandler
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ProgramRunner

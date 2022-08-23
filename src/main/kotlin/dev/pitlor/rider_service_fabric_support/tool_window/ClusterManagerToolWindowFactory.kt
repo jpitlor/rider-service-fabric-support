@@ -31,7 +31,7 @@ class ClusterManagerToolWindowFactory : ToolWindowFactory {
         private fun refreshTabsListImpl(project: Project, toolWindow: ToolWindow) {
             toolWindow.contentManager.removeAllContents(false)
             SettingsState.getInstance().state.connectionProfiles.forEach {
-                ContentFactory.SERVICE
+                ContentFactory
                     .getInstance()
                     .createContent(
                         ClusterManagerToolWindowPanel(it, project),

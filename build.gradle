@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
-    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.2'
+    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.3'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
     implementation 'net.harawata:appdirs:1.2.1'
 }
@@ -34,6 +34,6 @@ test {
 runIde.autoReloadPlugins = true
 compileKotlin {
     kotlinOptions {
-        freeCompilerArgs += "-opt-in=com.intellij.ui.dsl.builder.Panel"
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 }
