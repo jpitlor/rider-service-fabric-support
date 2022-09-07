@@ -11,5 +11,5 @@ data class ClusterProfile(
             : this(nickname, host, 19000, certThumbprint, certThumbprint)
     constructor() : this("", "", 19000, "", "")
 
-    val nodeAddress get() = "$host:$port"
+    val clusterEndpoint get() = "$host:$port"
 }

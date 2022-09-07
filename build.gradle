@@ -17,6 +17,8 @@ dependencies {
     implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.3'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
     implementation 'net.harawata:appdirs:1.2.1'
+    implementation 'com.microsoft.rest:client-runtime:1.7.14'
+    implementation 'com.azure:azure-core:1.31.0'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/

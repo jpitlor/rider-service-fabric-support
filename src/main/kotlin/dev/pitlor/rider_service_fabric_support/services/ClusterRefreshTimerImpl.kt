@@ -1,13 +1,18 @@
 package dev.pitlor.rider_service_fabric_support.services
 
 import com.intellij.openapi.application.ApplicationManager
+import com.microsoft.fabric.ServiceFabricClientAPIs
+import com.microsoft.rest.RestClient
+import com.microsoft.rest.ServiceResponseBuilder
+import com.microsoft.rest.serializer.JacksonAdapter
 import dev.pitlor.rider_service_fabric_support.interfaces.Action
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterAction
 import dev.pitlor.rider_service_fabric_support.interfaces.ClusterRefreshTimer
 import dev.pitlor.rider_service_fabric_support.settings.SettingsState
-import dev.pitlor.rider_service_fabric_support.utils.Scripts
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
+
 
 class ClusterRefreshTimerImpl : ClusterRefreshTimer {
     private val application = ApplicationManager.getApplication()
@@ -35,7 +40,7 @@ class ClusterRefreshTimerImpl : ClusterRefreshTimer {
     override fun doNow() {
         val profiles = SettingsState.getInstance().state.connectionProfiles
         try {
-            val clusters = Scripts.readClusters(profiles)
+            val clusters = profiles.map(SFUtil::readCluster)
             publisher.doAction(clusters)
         } catch (e: Exception) {
             e.printStackTrace()

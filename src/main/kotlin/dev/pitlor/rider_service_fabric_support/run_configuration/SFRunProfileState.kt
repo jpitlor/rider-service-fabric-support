@@ -13,7 +13,7 @@ import com.intellij.terminal.TerminalExecutionConsole
 import com.intellij.util.io.SuperUserStatus.isSuperUser
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ExecutionType
-import dev.pitlor.rider_service_fabric_support.utils.Scripts
+import dev.pitlor.rider_service_fabric_support.utils.SFUtil
 
 class SFRunProfileState(private val configuration: RunConfiguration) : RunProfileState {
     override fun execute(executor: Executor, programRunner: ProgramRunner<*>): ExecutionResult? {
@@ -57,7 +57,7 @@ class SFRunProfileState(private val configuration: RunConfiguration) : RunProfil
             val applicationPackage = sfProjFolder.findFileByRelativePath("pkg/debug")
             require(deployScript != null && applicationPackage != null) { "Build scripts are missing"}
 
-            val commandLine = Scripts.deployApplication(deployScript.path, publishProfile.path, applicationPackage.path)
+            val commandLine = SFUtil.deployApplication(deployScript.path, publishProfile.path, applicationPackage.path)
             return OSProcessHandler(commandLine).also(ProcessTerminatedListener::attach)
         }
 }

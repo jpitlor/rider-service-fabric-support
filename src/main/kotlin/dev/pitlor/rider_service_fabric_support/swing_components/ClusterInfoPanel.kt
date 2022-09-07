@@ -25,72 +25,72 @@ class ClusterInfoPanel(
     private var model = ClusterInfoPanelModel(applicationNamePredicate = applicationNamePredicate)
     val component
         get() = panel {
-            row {
-                panel {
-                    if (showAppSelector) {
-                        // TODO: Add option to sort by top level node instead
-                        row("Application Types") {
-                            comboBox(model.applicationTypes).bindItem(model::applicationType.toNullableProperty())
-                        }
-                        row("Application") {
-                            comboBox(model.applications).bindItem(model::application.toNullableProperty())
-                        }
-                    }
-
-                    if (model.application != "") {
-                        row("Services") {
-                            comboBox(model.services).bindItem(model::service.toNullableProperty())
-                        }
-                    }
-
-                    if (model.service != "") {
-                        row("Partitions") {
-                            comboBox(model.partitions).bindItem(model::partition.toNullableProperty())
-                        }
-                    }
-
-                    if (model.partition != "") {
-                        row("Replicas") {
-                            comboBox(model.replicas).bindItem(model::replica.toNullableProperty())
-                        }
-                    }
-                }
-                panel {
-                    JBTabbedPane().let {
-//                        if (model.applicationType != "") {
-//                            it.addTab(model.applicationType, panel {
-//                                row("Application Types") {
-//
-//                                }
-//                            })
+//            row {
+//                panel {
+//                    if (showAppSelector) {
+//                        // TODO: Add option to sort by top level node instead
+//                        row("Application Types") {
+//                            comboBox(model.applicationTypes).bindItem(model::applicationType.toNullableProperty())
 //                        }
-
-                        if (model.application != "") {
-                            row("Application") {
-                                comboBox(model.applications).bindItem(model::application.toNullableProperty())
-                            }
-                        }
-
-                        if (model.service != "") {
-                            row("Services") {
-                                comboBox(model.services).bindItem(model::service.toNullableProperty())
-                            }
-                        }
-
-                        if (model.partition != "") {
-                            row("Partitions") {
-                                comboBox(model.partitions).bindItem(model::partition.toNullableProperty())
-                            }
-                        }
-
-                        if (model.replica != "") {
-                            row("Replicas") {
-                                comboBox(model.replicas).bindItem(model::replica.toNullableProperty())
-                            }
-                        }
-                    }
-                }
-            }
+//                        row("Application") {
+//                            comboBox(model.applications).bindItem(model::application.toNullableProperty())
+//                        }
+//                    }
+//
+//                    if (model.application != "") {
+//                        row("Services") {
+//                            comboBox(model.services).bindItem(model::service.toNullableProperty())
+//                        }
+//                    }
+//
+//                    if (model.service != "") {
+//                        row("Partitions") {
+//                            comboBox(model.partitions).bindItem(model::partition.toNullableProperty())
+//                        }
+//                    }
+//
+//                    if (model.partition != "") {
+//                        row("Replicas") {
+//                            comboBox(model.replicas).bindItem(model::replica.toNullableProperty())
+//                        }
+//                    }
+//                }
+//                panel {
+//                    JBTabbedPane().let {
+////                        if (model.applicationType != "") {
+////                            it.addTab(model.applicationType, panel {
+////                                row("Application Types") {
+////
+////                                }
+////                            })
+////                        }
+//
+//                        if (model.application != "") {
+//                            row("Application") {
+//                                comboBox(model.applications).bindItem(model::application.toNullableProperty())
+//                            }
+//                        }
+//
+//                        if (model.service != "") {
+//                            row("Services") {
+//                                comboBox(model.services).bindItem(model::service.toNullableProperty())
+//                            }
+//                        }
+//
+//                        if (model.partition != "") {
+//                            row("Partitions") {
+//                                comboBox(model.partitions).bindItem(model::partition.toNullableProperty())
+//                            }
+//                        }
+//
+//                        if (model.replica != "") {
+//                            row("Replicas") {
+//                                comboBox(model.replicas).bindItem(model::replica.toNullableProperty())
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
 
     init {

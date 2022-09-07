@@ -1,5 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.models
 
+import com.microsoft.fabric.models.ApplicationInfo
+
 data class Parameter(
     val name: String,
     val value: String
@@ -48,5 +50,5 @@ data class ApplicationType(
 
 data class Cluster(
     val profile: ClusterProfile,
-    val applicationTypes: List<ApplicationType>
+    val applicationTypes: List<ApplicationInfo>
 )
