@@ -1,19 +1,26 @@
 package dev.pitlor.rider_service_fabric_support.swing_components
 
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.JBIntSpinner
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import dev.pitlor.rider_service_fabric_support.Bundle
 import dev.pitlor.rider_service_fabric_support.models.ClusterProfile
+import dev.pitlor.rider_service_fabric_support.swing_components.helpers.ComboBoxItemRenderer
+import dev.pitlor.rider_service_fabric_support.utils.Certificate
+import dev.pitlor.rider_service_fabric_support.utils.Utils
 import javax.swing.JComponent
 
 class ClusterConnectionEditDialog : DialogWrapper(null, false) {
+    private val certificates = Utils.getCertificates()
+    private val cbRenderer = ComboBoxItemRenderer.basic { c: Certificate -> c.name }
+
     private val nicknameTextField = JBTextField()
     private val hostTextField = JBTextField()
     private val portTextField = JBIntSpinner(19000, 0, 25565)
-    private val serverCertThumbprintTextField = JBTextField()
-    private val clientCertThumbprintTextField = JBTextField()
+    private val serverCertificateComboBox = ComboBox(certificates).also { it.renderer = cbRenderer }
+    private val clientCertificateComboBox = ComboBox(certificates).also { it.renderer = cbRenderer }
 
     init {
         title = "Edit Cluster Connection"
@@ -27,11 +34,11 @@ class ClusterConnectionEditDialog : DialogWrapper(null, false) {
             .addLabeledComponent(Bundle.string("settings.connections.edit.port.label"), portTextField)
             .addLabeledComponent(
                 Bundle.string("settings.connections.edit.serverCertThumbprint.label"),
-                serverCertThumbprintTextField
+                serverCertificateComboBox
             )
             .addLabeledComponent(
                 Bundle.string("settings.connections.edit.clientCertThumbprint.label"),
-                clientCertThumbprintTextField
+                clientCertificateComboBox
             )
             .panel
     }
@@ -40,8 +47,8 @@ class ClusterConnectionEditDialog : DialogWrapper(null, false) {
         nicknameTextField.text = clusterConnection.nickname
         hostTextField.text = clusterConnection.host
         portTextField.number = clusterConnection.port
-        serverCertThumbprintTextField.text = clusterConnection.serverCertThumbprint
-        clientCertThumbprintTextField.text = clusterConnection.clientCertThumbprint
+        serverCertificateComboBox.selectedItem = clusterConnection.serverCertificate
+        clientCertificateComboBox.selectedItem = clusterConnection.clientCertificate
     }
 
     fun getClusterConnection(): ClusterProfile {
@@ -49,8 +56,8 @@ class ClusterConnectionEditDialog : DialogWrapper(null, false) {
             nicknameTextField.text,
             hostTextField.text,
             portTextField.number,
-            serverCertThumbprintTextField.text,
-            clientCertThumbprintTextField.text,
+            serverCertificateComboBox.selectedItem as Certificate,
+            clientCertificateComboBox.selectedItem as Certificate,
         )
     }
 }

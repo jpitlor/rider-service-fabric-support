@@ -31,12 +31,12 @@
 <!--		<programRunner-->
 <!--			implementation="dev.pitlor.rider_service_fabric_support.program_runners.ServiceFabricProgramRunner"-->
 <!--		/>-->
-		<runConfigurationProducer
-			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.SFRunConfigurationProducer"
-		/>
-		<configurationType
-			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.RunConfigurationType"
-		/>
+<!--		<runConfigurationProducer-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.SFRunConfigurationProducer"-->
+<!--		/>-->
+<!--		<configurationType-->
+<!--			implementation="dev.pitlor.rider_service_fabric_support.run_configuration.RunConfigurationType"-->
+<!--		/>-->
 		<fileType
 			name="Service Fabric Configuration"
 			language="XML"

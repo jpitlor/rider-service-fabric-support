@@ -1,7 +1,7 @@
 package dev.pitlor.rider_service_fabric_support.swing_components.helpers
 
 import com.intellij.ide.util.treeView.smartTree.*
-import dev.pitlor.rider_service_fabric_support.models.Cluster
+import dev.pitlor.rider_service_fabric_support.utils.Cluster
 
 class FabricTreeModel(private val cluster: Cluster) : TreeModel {
     override fun getRoot(): TreeElement {
