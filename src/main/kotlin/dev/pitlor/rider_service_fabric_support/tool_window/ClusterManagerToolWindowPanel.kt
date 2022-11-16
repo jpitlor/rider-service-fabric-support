@@ -30,21 +30,21 @@ class ClusterManagerToolWindowPanel(private val profile: ClusterProfile, private
                 ClusterInfoPanel(
                     cluster,
                     project.name
-                ).component
+                )
             )
             addTab(
                 Bundle.string("tool_window.tabs.all_apps.name"),
                 AllIcons.Toolwindows.WebToolWindow,
                 ClusterInfoPanel(cluster, {
                     !it.substringAfter("fabric:/").startsWith("System")
-                }).component
+                })
             )
             addTab(
                 Bundle.string("tool_window.tabs.cluster.name"),
                 AllIcons.Toolwindows.ToolWindowStructure,
                 ClusterInfoPanel(cluster, {
                     it.substringAfter("fabric:/").startsWith("System")
-                }).component
+                })
             )
         })
     }

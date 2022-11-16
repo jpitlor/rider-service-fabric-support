@@ -47,8 +47,8 @@ class ClusterConnectionEditDialog : DialogWrapper(null, false) {
         nicknameTextField.text = clusterConnection.nickname
         hostTextField.text = clusterConnection.host
         portTextField.number = clusterConnection.port
-        serverCertificateComboBox.selectedItem = clusterConnection.serverCertificate
-        clientCertificateComboBox.selectedItem = clusterConnection.clientCertificate
+        serverCertificateComboBox.selectedItem = certificates.first { it.thumbprint == clusterConnection.serverCertificateThumbprint }
+        clientCertificateComboBox.selectedItem = certificates.first { it.thumbprint == clusterConnection.clientCertificateThumbprint }
     }
 
     fun getClusterConnection(): ClusterProfile {
@@ -56,8 +56,8 @@ class ClusterConnectionEditDialog : DialogWrapper(null, false) {
             nicknameTextField.text,
             hostTextField.text,
             portTextField.number,
-            serverCertificateComboBox.selectedItem as Certificate,
-            clientCertificateComboBox.selectedItem as Certificate,
+            (serverCertificateComboBox.selectedItem as Certificate).thumbprint,
+            (clientCertificateComboBox.selectedItem as Certificate).thumbprint
         )
     }
 }
