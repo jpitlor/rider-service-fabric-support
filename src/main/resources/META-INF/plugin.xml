@@ -106,11 +106,12 @@
 			/>
 		</group>
 		<group id="dev.pitlor.rider_service_fabric_support.toolbar_actions">
-			<action
-				id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
-				class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"
-				icon="AllIcons.Actions.Pause"
-			/>
+<!--			TODO: We will add this back in when there is a better algorithm for preserving the cluster model -->
+<!--			<action-->
+<!--				id="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"-->
+<!--				class="dev.pitlor.rider_service_fabric_support.toolbar_actions.ToggleAutoRefresh"-->
+<!--				icon="AllIcons.Actions.Pause"-->
+<!--			/>-->
 			<action
 				id="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"
 				class="dev.pitlor.rider_service_fabric_support.toolbar_actions.Refresh"

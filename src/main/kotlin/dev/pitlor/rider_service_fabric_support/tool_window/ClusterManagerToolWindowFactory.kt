@@ -57,7 +57,8 @@ class ClusterManagerToolWindowFactory : ToolWindowFactory {
                         .also(toolWindow.contentManager::addContent)
                 }
 
-            service<ClusterRefreshTimer>().start()
+            // TODO: Put this back in when we better support auto refresh
+            // service<ClusterRefreshTimer>().start()
         }
     }
 }

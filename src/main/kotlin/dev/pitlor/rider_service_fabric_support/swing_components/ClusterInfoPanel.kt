@@ -48,7 +48,10 @@ class ClusterInfoPanel(
             })
     }
 
-    // TODO: dont replace tree if data is same
+    // TODO: dont replace tree if data is same, which will probably involve JSON comparisons since the SF API is in
+    //       Java and doesn't support the concept of data classes. Additionally, we want to preserve the expand state
+    //       of the tree which involves knowing the exact nodes that changed. I don't value auto-refresh enough
+    //       at this stage to implement that.
     private fun render() {
         val newTree = Tree(viewModel.asTreeNode).apply {
             alignmentX = LEFT_ALIGNMENT
